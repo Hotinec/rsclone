@@ -1,0 +1,36 @@
+{
+  "name": "rsclone",
+  "version": "1.0.0",
+  "description": "RS School clone wars",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --config webpack/prod.js ",
+    "start": "webpack-dev-server --config webpack/base.js --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hotinec/rsclone.git"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "raw-loader": "^3.1.0",
+    "terser-webpack-plugin": "^2.2.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.12.10",
+    "babel-preset-react": "^6.24.1",
+    "path": "^0.12.7",
+    "phaser": "^3.50.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
