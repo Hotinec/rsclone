@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import Phaser from 'phaser'
-import { IonPhaser } from '@ion-phaser/react'
+import React, { Component } from 'react';
+import Phaser from 'phaser';
+import { IonPhaser } from '@ion-phaser/react';
+import GameScene from './modules/game/scenes';
 import './App.css';
 
 class App extends Component {
@@ -8,28 +9,10 @@ class App extends Component {
   state = {
     initialize: true,
     game: {
-      width: "100%",
-      height: "100%",
-      type: Phaser.AUTO,
-      scene: {
-        init: function() {
-          this.cameras.main.setBackgroundColor('#24252A')
-        },
-        create: function() {
-          this.helloWorld = this.add.text(
-            this.cameras.main.centerX, 
-            this.cameras.main.centerY, 
-            "Hello World", { 
-              font: "40px Arial", 
-              fill: "#ffffff" 
-            }
-          );
-          this.helloWorld.setOrigin(0.5);
-        },
-        update: function() {
-          this.helloWorld.angle += 1;
-        }
-      }
+      width: window.innerWidth,
+      height: window.innerHeight,
+      type: Phaser.CANVAS,
+      scene: [GameScene]
     }
   }
  
@@ -37,7 +20,10 @@ class App extends Component {
     const { initialize, game } = this.state
 
     return (
-      <IonPhaser game={game} initialize={initialize} />
+      <div id="game"></div>
+      // <IonPhaser 
+      //   game={game} 
+      //   initialize={initialize} />
     )
   }
 }
