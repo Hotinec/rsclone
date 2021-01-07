@@ -12,9 +12,6 @@ export class Hero {
     this.feet = scene.add.sprite(x, y, 'player-feet');
     this.body = scene.add.sprite(x, y, 'player-body-handgun');
 
-    // console.log(this.feet);
-    console.log(scene);
-
     this.feet.scale = 0.2;
     this.body.scale = 0.2;
 
