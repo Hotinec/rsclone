@@ -1,3 +1,4 @@
 import { Hero } from './Hero';
+import { Player } from './Player';
 
-export default Hero;
+export { Hero, Player };

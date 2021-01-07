@@ -4,7 +4,7 @@ import townMale from '../../../assets/town_male/town_male.png';
 import maleAnim from '../../../assets/town_male/town_male_anim.json';
 import { BlobUtils } from '../utils/BlobUtils';
 
-export default class Player extends Phaser.Physics.Matter.Sprite {
+export class Player extends Phaser.Physics.Matter.Sprite {
   constructor(data) {
     let {scene, x, y, texture, frame} = data;
     super(scene.matter.world, x, y, texture, frame);

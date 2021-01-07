@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
 /* eslint-disable no-useless-constructor */
 import Phaser from 'phaser';
 import earth from '../../../assets/scorched_earth.png';
-import Player from '../models/Player';
+import { Player } from '../models';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
