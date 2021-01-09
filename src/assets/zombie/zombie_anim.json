@@ -1,0 +1,200 @@
+{
+    "anims": [
+        {
+            "key": "zombie_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_0"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_1"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_2"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_3"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_4"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_5"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_6"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_7"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_8"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_9"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_10"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_11"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_12"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_13"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_14"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_15"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-idle_16"
+                }
+            ]
+        },
+        {
+            "key": "zombie_move",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_0"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_1"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_2"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_3"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_4"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_5"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_6"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_7"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_8"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_9"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_10"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_11"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_12"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_13"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_14"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_15"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-move_16"
+                }
+            ]
+        },
+        {
+            "key": "zombie_attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_0"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_1"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_2"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_3"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_4"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_5"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_6"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_7"
+                },
+                {
+                    "key": "zombie",
+                    "frame": "skeleton-attack_8"
+                }
+            ]
+        }
+    ]
+}
