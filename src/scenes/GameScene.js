@@ -28,9 +28,17 @@ export class GameScene extends Phaser.Scene {
       left: Phaser.Input.Keyboard.KeyCodes.A,
       right: Phaser.Input.Keyboard.KeyCodes.D,
     });
+
+    this.pointer = {x: 0, y: 0};
+
+    this.input.on('pointermove', (pointer) => {
+      console.log('rotate: ', this.pointer);
+      this.pointer.x = pointer.x;
+      this.pointer.y = pointer.y;
+    });
   }
 
   update() {
-    this.player.update();
+    this.player.update(this.pointer);
   }
 }

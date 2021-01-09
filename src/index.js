@@ -10,13 +10,14 @@ const config = {
   parent: 'game',
   scene: [ GameScene ],
   scale: {
-    // zoom: -2
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
   },
   physics: {
     default: 'matter',
     matter: {
       debug: true,
-      gravity: {y:0}
+      gravity: { y: 0 }
     }
   },
   plugins: {

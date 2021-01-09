@@ -44,8 +44,8 @@ export class Zombie extends Phaser.Physics.Matter.Sprite {
     return this.body.velocity;
   }
 
-  update() {
-    const speed = 2.5;
+  update(pointer) {
+    const speed = 4;
     let playerVelocity = new Phaser.Math.Vector2();
     
     if (this.inputKeys.left.isDown) {
@@ -68,5 +68,9 @@ export class Zombie extends Phaser.Physics.Matter.Sprite {
     } else {
       this.anims.play('zombie_idle', true);
     }
+
+    this.setRotation(
+      Phaser.Math.Angle.Between(
+        this.x, this.y, pointer.x + this.scene.cameras.main.scrollX, pointer.y + this.scene.cameras.main.scrollY));
   }
 }
