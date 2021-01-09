@@ -10,7 +10,7 @@ const config = {
   parent: 'game',
   scene: [ GameScene ],
   scale: {
-    zoom: 2
+    // zoom: -2
   },
   physics: {
     default: 'matter',

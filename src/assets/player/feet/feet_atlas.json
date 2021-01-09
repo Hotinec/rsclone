@@ -1,0 +1,281 @@
+{
+    "frames": [
+        {
+            "filename": "survivor-run_0",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_1",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 0,
+                "y": 124
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_2",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 204,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_3",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 204,
+                "y": 124
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_4",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 0,
+                "y": 248
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_5",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 204,
+                "y": 248
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_6",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 0,
+                "y": 372
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_7",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 204,
+                "y": 372
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_8",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 408,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_9",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 408,
+                "y": 124
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_10",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 408,
+                "y": 248
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_11",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 408,
+                "y": 372
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_12",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 0,
+                "y": 496
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_13",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 204,
+                "y": 496
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_14",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 408,
+                "y": 496
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_15",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 612,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_16",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 612,
+                "y": 124
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_17",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 612,
+                "y": 248
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_18",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 612,
+                "y": 372
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-run_19",
+            "frame": {
+                "w": 204,
+                "h": 124,
+                "x": 612,
+                "y": 496
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_0",
+            "frame": {
+                "w": 132,
+                "h": 155,
+                "x": 0,
+                "y": 620
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
