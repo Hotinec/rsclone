@@ -2,7 +2,8 @@
 /* eslint-disable default-case */
 /* eslint-disable no-useless-constructor */
 import Phaser from 'phaser';
-import earth from '../assets/scorched_earth.png';
+import terrain from '../assets/map/terrain.png';
+import map from '../assets/map/map.json'
 import { Player, Zombie, Hero } from '../models';
 
 export class GameScene extends Phaser.Scene {
@@ -11,16 +12,23 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('earth', earth);
+    this.load.image('tilesets', terrain);
+    this.load.tilemapTiledJSON('map', map);
     Player.preload(this);
     Zombie.preload(this);
     Hero.preload(this);
   }
 
   create () {
-    // TODO Fix *2
-    this.add.tileSprite(0, 0, window.innerWidth * 2, window.innerHeight * 2, 'earth');
-    
+    const map = this.make.tilemap({ key: 'map' });
+    const tileset = map.addTilesetImage('terrain', 'tilesets', 32, 32, 0, 0);
+    const layer1 = map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
+    const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
+    layer2.setCollisionByProperty({ collides: true });
+   
+    this.matter.world.convertTilemapLayer(layer2);
+
+   
     // this.player = new Zombie({
     //   scene: this, 
     //   x: this.game.config.width / 2, 
@@ -31,8 +39,8 @@ export class GameScene extends Phaser.Scene {
 
     this.player = new Hero({
       scene: this, 
-      x: this.game.config.width / 2, 
-      y: this.game.config.height / 2, 
+      x: 3000, 
+      y: 3000, 
       texture: 'knife', 
       frame: 'survivor-idle_knife_0'
     });
