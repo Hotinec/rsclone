@@ -4,7 +4,7 @@
             "key": "run",
             "type": "frames",
             "repeat": -1,
-            "frameRate": 12,
+            "frameRate": 22,
             "frames": [
                 {
                     "key": "feet",

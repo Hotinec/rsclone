@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
-import townMaleAtlas from '../assets/zombie/zombie_atlas.json';
-import townMale from '../assets/zombie/zombie.png';
-import maleAnim from '../assets/zombie/zombie_anim.json';
+import  knife from '../assets/player/body/knife/knife.png';
+import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';
+import knifeAnim from '../assets/player/body/knife/knife_anim.json';
 
-export class Zombie extends Phaser.Physics.Matter.Sprite {
+
+export class Hero extends Phaser.Physics.Matter.Sprite {
   constructor(data) {
     let {scene, x, y, texture, frame} = data;
     super(scene.matter.world, x, y, texture, frame);
@@ -33,12 +34,8 @@ export class Zombie extends Phaser.Physics.Matter.Sprite {
   }
 
   static preload(scene) {
-    scene.load.atlas(
-      'zombie',
-      townMale,
-      townMaleAtlas
-    );
-    scene.load.animation('zombie_anim', maleAnim);
+    scene.load.atlas('knife', knife, knifeAtlas);
+    scene.load.animation('knife_anim', knifeAnim);
   }
 
   get velocity() {
@@ -65,9 +62,9 @@ export class Zombie extends Phaser.Physics.Matter.Sprite {
     this.setVelocity(playerVelocity.x, playerVelocity.y);
   
     if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-      this.anims.play('zombie_move', true);
+      this.anims.play('knife_move', true);
     } else {
-      this.anims.play('zombie_idle', true);
+      this.anims.play('knife_idle', true);
     }
 
     this.setRotation(

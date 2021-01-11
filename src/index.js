@@ -19,6 +19,10 @@ const config = {
       debug: true,
       gravity: { y: 0 }
     }
+    // default: "arcade",
+    //   arcade: {
+    //     debug: true
+    //   }
   },
   plugins: {
     scene: [
