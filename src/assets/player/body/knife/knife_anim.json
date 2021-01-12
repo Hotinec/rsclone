@@ -181,6 +181,7 @@
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
+            "duration": 50,
             "frames": [
                 {
                     "key": "knife",

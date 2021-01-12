@@ -14,25 +14,25 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   physics: {
-    default: 'matter',
-    matter: {
-      debug: true,
-      gravity: { y: 0 }
-    }
-    // default: "arcade",
-    //   arcade: {
-    //     debug: true
-    //   }
-  },
-  plugins: {
-    scene: [
-      {
-        plugin: PhaserMatterCollisionPlugin,
-        key: 'matterCollision',
-        mapping: 'matterCollision'
+    // default: 'matter',
+    // matter: {
+    //   debug: true,
+    //   gravity: { y: 0 }
+    // }
+    default: "arcade",
+      arcade: {
+        debug: true
       }
-    ]
-  }
+  },
+  // plugins: {
+  //   scene: [
+  //     {
+  //       plugin: PhaserMatterCollisionPlugin,
+  //       key: 'matterCollision',
+  //       mapping: 'matterCollision'
+  //     }
+  //   ]
+  // }
 };
 
 const Game = new Phaser.Game(config);

@@ -4,7 +4,9 @@
 import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
+import earth from '../assets/scorched_earth.png';
 import { Player, Zombie, Hero } from '../models';
+import cursor from '../assets/PngItem_2912951.cur';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -14,6 +16,7 @@ export class GameScene extends Phaser.Scene {
   preload() {
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
+    this.load.image('earth', earth);
     Player.preload(this);
     Zombie.preload(this);
     Hero.preload(this);
@@ -26,16 +29,8 @@ export class GameScene extends Phaser.Scene {
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
     layer2.setCollisionByProperty({ collides: true });
    
-    this.matter.world.convertTilemapLayer(layer2);
-
-   
-    // this.player = new Zombie({
-    //   scene: this, 
-    //   x: this.game.config.width / 2, 
-    //   y: this.game.config.height / 2, 
-    //   texture: 'zombie', 
-    //   frame: 'skeleton-idle_0'
-    // });
+    // this.matter.world.convertTilemapLayer(layer2)
+    this.add.tilemap('map');
 
     this.player = new Hero({
       scene: this, 
@@ -59,12 +54,11 @@ export class GameScene extends Phaser.Scene {
       this.pointer.y = pointer.y;
     });
 
-    this.input.on('pointerdown', function (pointer) {
-      isDown = true;
-      mouseX = pointer.x;
-      mouseY = pointer.y;
-  });
-    this.cameras.main.setBounds(0, 0, map.displayWidth, map.displayHeight);
+    this.input.on('pointerdown', (pointer) => {
+      console.log(this.player)
+      this.player.isAttack = true;
+    });
+
     this.cameras.main.startFollow(this.player);
   }
 
