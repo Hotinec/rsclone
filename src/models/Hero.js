@@ -71,14 +71,23 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
   
     if (this.isAttack) {
       this.anims.play('knife_attack', true);
-    } else {
+    
+      if(this.anims.currentFrame.textureFrame ==='survivor-meleeattack_knife_14'){
+        this.isAttack = false;
+
+        if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
+          this.anims.play('knife_move', true);
+        } else {
+          this.anims.play('knife_idle', true);
+        }
+      }
+    }else{
       if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
         this.anims.play('knife_move', true);
       } else {
         this.anims.play('knife_idle', true);
       }
     }
-    
 
     this.setRotation(
       Phaser.Math.Angle.Between(

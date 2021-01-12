@@ -5,7 +5,7 @@ import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
 
-import { Player, Zombie, Hero } from '../models';
+import { Zombie, Hero } from '../models';
 import cursor from '../assets/PngItem_2912951.cur';
 
 export class GameScene extends Phaser.Scene {
@@ -16,7 +16,7 @@ export class GameScene extends Phaser.Scene {
   preload() {
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
-    Player.preload(this);
+
     Zombie.preload(this);
     Hero.preload(this);
   }
@@ -35,7 +35,7 @@ export class GameScene extends Phaser.Scene {
       texture: 'knife', 
       frame: 'survivor-idle_knife_0'
     });
-    
+
     this.player.inputKeys = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       down: Phaser.Input.Keyboard.KeyCodes.S,
