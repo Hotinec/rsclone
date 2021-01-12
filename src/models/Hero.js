@@ -4,33 +4,41 @@ import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';
 import knifeAnim from '../assets/player/body/knife/knife_anim.json';
 
 
-export class Hero extends Phaser.Physics.Matter.Sprite {
+export class Hero extends Phaser.Physics.Arcade.Sprite {
   constructor(data) {
     let {scene, x, y, texture, frame} = data;
-    super(scene.matter.world, x, y, texture, frame);
+    super(scene, x, y, texture, frame);
     this.scene.add.existing(this);
 
-    this.scale = 0.5;
+    // this.scale = 0.5;
 
-    const {Body, Bodies} = Phaser.Physics.Matter.Matter;
-    let playerCollider = Bodies.circle(
-      this.x, 
-      this.y, 
-      52, 
-      {isSensor: false, label: 'playerCollider'}
-    );
-    let playerSensor = Bodies.circle(
-      this.x,
-      this.y,
-      74,
-      {isSensor: true, label: 'playerSensor'}
-    );
-    const compoundBody = Body.create({
-      parts: [playerCollider, playerSensor],
-      frictionAir: 0.35
-    });
-    this.setExistingBody(compoundBody);
-    this.setFixedRotation();
+    scene.sys.updateList.add(this);
+    scene.sys.displayList.add(this);
+    this.setScale(0.5);
+    scene.physics.world.enableBody(this);
+    this.setImmovable(true);
+    this.hp = 10;
+
+    this.isAttack = false;
+
+    // const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+    // let playerCollider = Bodies.circle(
+    //   this.x, 
+    //   this.y, 
+    //   52, 
+    //   {isSensor: false, label: 'playerCollider'}
+    // );
+    // let playerSensor = Bodies.circle(
+    //   this.x,
+    //   this.y,
+    //   74,
+    //   {isSensor: true, label: 'playerSensor'}
+    // );
+    // const compoundBody = Body.create({
+    //   parts: [playerCollider, playerSensor],
+    //   frictionAir: 0.35
+    // });
+    // this.setExistingBody(compoundBody);
   }
 
   static preload(scene) {
@@ -43,7 +51,7 @@ export class Hero extends Phaser.Physics.Matter.Sprite {
   }
 
   update(pointer) {
-    const speed = 4;
+    const speed = 100;
     let playerVelocity = new Phaser.Math.Vector2();
     
     if (this.inputKeys.left.isDown) {
@@ -61,11 +69,16 @@ export class Hero extends Phaser.Physics.Matter.Sprite {
     playerVelocity.scale(speed);
     this.setVelocity(playerVelocity.x, playerVelocity.y);
   
-    if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-      this.anims.play('knife_move', true);
+    if (this.isAttack) {
+      this.anims.play('knife_attack', true);
     } else {
-      this.anims.play('knife_idle', true);
+      if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
+        this.anims.play('knife_move', true);
+      } else {
+        this.anims.play('knife_idle', true);
+      }
     }
+    
 
     this.setRotation(
       Phaser.Math.Angle.Between(
