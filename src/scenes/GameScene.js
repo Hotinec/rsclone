@@ -64,7 +64,7 @@ export class GameScene extends Phaser.Scene {
       mouseX = pointer.x;
       mouseY = pointer.y;
   });
-
+    this.cameras.main.setBounds(0, 0, map.displayWidth, map.displayHeight);
     this.cameras.main.startFollow(this.player);
   }
 
