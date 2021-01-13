@@ -9,11 +9,9 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, frame);
     this.scene.add.existing(this);
 
-    // this.scale = 0.5;
-
     scene.sys.updateList.add(this);
     scene.sys.displayList.add(this);
-    this.setScale(0.5);
+    this.setScale(0.4);
     scene.physics.world.enableBody(this);
     this.setImmovable(false);
     this.hp = 10;
@@ -35,25 +33,9 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(pointer) {
-    //const speed = 100;
     let playerVelocity = new Phaser.Math.Vector2();
-    
-    // if (this.inputKeys.left.isDown) {
-    //   playerVelocity.x = -1;
-    // } else if (this.inputKeys.right.isDown) {
-    //   playerVelocity.x = 1;
-    // } 
-    // if (this.inputKeys.up.isDown) {
-    //   playerVelocity.y = -1;
-    // } else if (this.inputKeys.down.isDown) {
-    //   playerVelocity.y = 1;
-    // }
-
     playerVelocity.normalize();
-    //playerVelocity.scale(speed);
-    //this.setVelocity(playerVelocity.x, playerVelocity.y);
-  
-  //  if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
+
     if(this.isAttack){
        this.anims.play('zombie_idle', true);      
     } else {
