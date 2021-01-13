@@ -51,7 +51,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(pointer) {
-    const speed = 100;
+    const speed = 300;
     let playerVelocity = new Phaser.Math.Vector2();
     
     if (this.inputKeys.left.isDown) {

@@ -74,7 +74,7 @@ export class GameScene extends Phaser.Scene {
     });
     this.physics.add.collider(this.player, layer2, null, null, this);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.physicsEvent = new Physics(this);
+    this.physicsEvent = new Physics(this, map);
     this.physicsEvent.setCollide(this.zombies);
     this.cameras.main.startFollow(this.player);  
   }
