@@ -13,31 +13,13 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
 
     scene.sys.updateList.add(this);
     scene.sys.displayList.add(this);
-    this.setScale(0.5);
+    this.setScale(0.4);
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
     this.hp = 10;
     this.setCircle(70, 80, 65);
     this.state = PLAYER_STATE.IDLE;
 
-    // const {Body, Bodies} = Phaser.Physics.Matter.Matter;
-    // let playerCollider = Bodies.circle(
-    //   this.x, 
-    //   this.y, 
-    //   52, 
-    //   {isSensor: false, label: 'playerCollider'}
-    // );
-    // let playerSensor = Bodies.circle(
-    //   this.x,
-    //   this.y,
-    //   74,
-    //   {isSensor: true, label: 'playerSensor'}
-    // );
-    // const compoundBody = Body.create({
-    //   parts: [playerCollider, playerSensor],
-    //   frictionAir: 0.35
-    // });
-    // this.setExistingBody(compoundBody);
   }
 
   static preload(scene) {
