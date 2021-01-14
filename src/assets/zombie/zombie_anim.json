@@ -156,7 +156,7 @@
             "key": "zombie_attack",
             "type": "frames",
             "repeat": -1,
-            "frameRate": 8,
+            "frameRate": 16,
             "frames": [
                 {
                     "key": "zombie",
