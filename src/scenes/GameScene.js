@@ -5,9 +5,11 @@ import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
 import earth from '../assets/scorched_earth.png';
+import bullet from '../assets/weapon/laser.png';
 import { Player, Zombie, Hero, Weapon, Laser, LaserGroup } from '../models';
 import cursor from '../assets/PngItem_2912951.cur';
 import { Physics } from './Physics';
+//import { EvalDevToolModulePlugin } from 'webpack';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -15,6 +17,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('spark', bullet);
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
     this.load.image('earth', earth);
@@ -68,22 +71,36 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.input.on('pointerdown', (pointer) => {
+      this.fireDelta = 0;
       console.log(this.player)
       this.player.isAttack = true;
-      this.shootLaser(pointer);
+      //this.shootLaser(pointer);
+      this.shoot = true;
+      this.pointMouse = pointer;
+    });
+    this.input.on('pointerup', (pointer) => {
+      console.log(this.player)
+      this.player.isAttack = false;
+      this.shoot = false;
     });
     this.physics.add.collider(this.player, layer2, null, null, this);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.physicsEvent = new Physics(this, map);
     this.physicsEvent.setCollide(this.zombies);
-    this.cameras.main.startFollow(this.player);  
+    this.cameras.main.startFollow(this.player);
   }
 
-  shootLaser(pointer) {
+  shootLaser(pointer, delta) {
     this.laserGroup.fireLaser(this.player.x, this.player.y - 20, pointer.x, pointer.y);
+    this.fireDelta = 0;
   }
 
   update() {
+    if(this.shoot){
+      this.fireDelta++;
+      if(this.fireDelta % 10 === 0){
+      this.shootLaser(this.pointMouse);}
+    }
     if(this.player.active === true) this.player.update(this.pointer);
     if(this.weapon.active === true) this.weapon.update();
 
