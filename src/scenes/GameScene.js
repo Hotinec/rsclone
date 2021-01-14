@@ -7,6 +7,7 @@ import map from '../assets/map/map.json'
 
 import { Zombie, Hero } from '../models';
 import cursor from '../assets/PngItem_2912951.cur';
+import { PLAYER_STATE } from '../constants'
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -43,6 +44,13 @@ export class GameScene extends Phaser.Scene {
       right: Phaser.Input.Keyboard.KeyCodes.D,
     });
 
+    this.knifeBounds = this.physics.add.image();
+    this.knifeBounds.body.setCircle(28)
+    this.knifeBounds.setDebugBodyColor(0xffff00);
+    const v = this.player.body.velocity;
+    this.knifeBounds.body.velocity.copy(v);
+
+
     this.pointer = {x: -230, y: -30};
 
     this.input.on('pointermove', (pointer) => {
@@ -51,8 +59,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.input.on('pointerdown', (pointer) => {
-      console.log(this.player)
-      this.player.isAttack = true;
+      this.player.state = PLAYER_STATE.ATTACK;
     });
     this.physics.add.collider(this.player, layer2, null, null, this);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -61,5 +68,25 @@ export class GameScene extends Phaser.Scene {
 
   update() {
     this.player.update(this.pointer);
+
+    const centerBodyOnXY = (a, x, y) => {
+      a.position.set(
+        x - a.halfWidth,
+        y - a.halfHeight
+      );
+    }
+    const centerBodyOnPoint = (a, p) => {
+      centerBodyOnXY(a, p.x, p.y);
+    }
+    centerBodyOnXY(this.knifeBounds.body, this.player.body.x + 90, this.player.body.y + 20);
+
+    this.player.body.updateCenter();
+    this.knifeBounds.body.updateCenter();
+
+    const RotateAround = Phaser.Math.RotateAround;
+    RotateAround(this.knifeBounds.body.center, this.player.body.center.x, this.player.body.center.y, this.player.rotation);
+
+    centerBodyOnPoint(this.knifeBounds.body, this.knifeBounds.body.center);
+    this.knifeBounds.body.velocity.copy(this.player.body.velocity);
   }
 }
