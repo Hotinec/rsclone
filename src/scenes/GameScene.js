@@ -6,7 +6,7 @@ import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
 import earth from '../assets/scorched_earth.png';
 import bullet from '../assets/weapon/laser.png';
-import { Player, Zombie, Hero, Weapon, Laser, LaserGroup } from '../models';
+import { Player, Zombie, Hero, Weapon, Laser, LaserGroup, FireGroup, Fire } from '../models';
 import cursor from '../assets/PngItem_2912951.cur';
 import { Physics } from './Physics';
 //import { EvalDevToolModulePlugin } from 'webpack';
@@ -26,6 +26,7 @@ export class GameScene extends Phaser.Scene {
     Hero.preload(this);
     Weapon.preload(this);
     Laser.preload(this);
+    Fire.preload(this);
   }
 
   newZombie(x, y) {
@@ -55,6 +56,7 @@ export class GameScene extends Phaser.Scene {
     this.zombies = this.physics.add.group();
     this.zombies.add(this.zombie);
     this.laserGroup = new LaserGroup(this);
+    this.fireGroup = new FireGroup(this);
 
     this.player.inputKeys = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -93,6 +95,7 @@ export class GameScene extends Phaser.Scene {
   shootLaser(pointer, delta) {
     this.laserGroup.fireLaser(this.player.x, this.player.y - 20, pointer.x, pointer.y);
     this.fireDelta = 0;
+    this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x , pointer.y);
   }
 
   update() {
