@@ -25,10 +25,15 @@ export class LoadScene extends Phaser.Scene {
         this.load.image('logo', logo)
         this.load.image('scull', scull)
 
-        const width = this.cameras.main.width
-        const height = this.cameras.main.height
+        this.showLoading(this)
+    }
 
-        const loadingText = this.make.text({
+    showLoading(scene) {
+        console.log(scene)
+        const width = scene.cameras.main.width
+        const height = scene.cameras.main.height
+
+        const loadingText = scene.make.text({
             x: width / 2,
             y: height / 2 - 30,
             text: 'Loading',
@@ -39,32 +44,20 @@ export class LoadScene extends Phaser.Scene {
         })
         loadingText.setOrigin(0.5, 0.5)
 
-        const loadingBox = this.add.graphics()
+        const loadingBox = scene.add.graphics()
         loadingBox.fillStyle(0X222222, 0.8) 
         loadingBox.fillRect(width / 3, height / 2, width / 3 + 40, 50)
 
-        const loadingBar = this.add.graphics()
-        // loadingBox.fillRect(240, this.game.renderer.height / 2, 320, 50)
+        const loadingBar = scene.add.graphics()
 
-        // // for (let i = 0; i < 100; i++){
-        //     this.load.spritesheet('cat' + i, cat, {
-        //         frameWidth: 32,
-        //         frameHeight: 32
-        //     })    
-        // }
-
-        this.load.on('progress', (percent) => {
+        scene.load.on('progress', (percent) => {
             loadingBar.clear()
             loadingBar.fillStyle(0XFFFFFF)
             loadingBar.fillRect(width / 3 + 20, height / 2 + 10, width / 3 * percent, 30).setDepth(1)
         })
-
-
     }
 
     create() {
         this.scene.start('MenuScene')
     }
-
-
 }
