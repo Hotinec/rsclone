@@ -21,34 +21,43 @@ export class Physics {
       zombie.body.stop();
       zombie.destroy();
       this.scene.laserGroup.getChildren().forEach((item) => {
-          item.setActive(false);
-          item.setVisible(false);
+        item.setActive(false);
+        item.setVisible(false);
       });
-       let x;
-       if(this.player.x < this.map.widthInPixels / 2){
-          x = Phaser.Math.Between(this.player.x + this.scene.game.config.width , this.map.widthInPixels);
-       }
-       else {
-          x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2 ));
-       }
+      let x;
+      if (this.player.x < this.map.widthInPixels / 2) {
+        x = Phaser.Math.Between(this.player.x + this.scene.game.config.width, this.map.widthInPixels);
+      } else {
+        x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2));
+      }
       //const x = Phaser.Math.Between(0, this.scene.game.config.width);
       const y = Phaser.Math.Between(0, this.scene.game.config.height);
       if (zombies.getChildren().length < 30) {
-          for (let i = 0; i < 2; i++) {
-              zombies.add(this.scene.newZombie(x, y));
-          }
+        for (let i = 0; i < 2; i++) {
+          zombies.add(this.scene.newZombie(x, y));
+        }
       }
-  });
+    });
   }
 
   destroyZombie(zombies) {
+    let x = true;
     this.scene.physics.add.collider(this.player, zombies, (player, zombie) => {
-			if (!zombie.isAttack) {
-				zombie.isAttack = true;
-				player.hp--;
-				zombie.body.stop();
+
+      if (!zombie.isAttack && x) {
+        zombie.isAttack = true;
+        player.hp--;
+        zombie.body.stop();
+        x = false;
+        delay(700).then(() => {
+          x = true;
+        });
       }
     });
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
   }
 
   takeWeapon() {

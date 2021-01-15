@@ -52,8 +52,8 @@ export class GameScene extends Phaser.Scene {
         frame: 'skeleton-idle_0'
       },
       this.player
-    );
-
+    );  
+    console.log(this.zombie);
     return this.zombie;
   }
 
@@ -116,13 +116,13 @@ export class GameScene extends Phaser.Scene {
       this.player.isAttack = false;
       this.shoot = false;
       this.player.isAttack = true;
-      this.shootLaser(pointer);
+      //this.shootLaser(pointer);
       //shoot.play();
     });
     this.input.on('pointerdown', (pointer) => {
-      this.fireDelta = 0;
+      this.fireDelta = 10;
       this.player.isAttack = true;
-      //this.shootLaser(pointer);
+      this.shootLaser(pointer);
       this.shoot = true;
       this.pointMouse = pointer;
     });
@@ -134,17 +134,17 @@ export class GameScene extends Phaser.Scene {
   }
 
   shootLaser(pointer, delta) {
+    this.soundShoot.play();
     this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
-    this.fireDelta = 0;
     this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+    this.fireDelta = 0;    
   }
 
   update() {
     if (this.shoot) {
       this.fireDelta++;
       if (this.fireDelta % 10 === 0) {
-        this.shootLaser(this.pointMouse);
-        this.soundShoot.play();
+       this.shootLaser(this.pointMouse);  
       }
     }
     if (this.player.active === true) this.player.update(this.pointer);
