@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import GameScene from './scenes';
 
 const config = {
@@ -14,25 +13,14 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   physics: {
-    // default: 'matter',
-    // matter: {
-    //   debug: true,
-    //   gravity: { y: 0 }
-    // }
     default: "arcade",
       arcade: {
         debug: true
       }
   },
-  // plugins: {
-  //   scene: [
-  //     {
-  //       plugin: PhaserMatterCollisionPlugin,
-  //       key: 'matterCollision',
-  //       mapping: 'matterCollision'
-  //     }
-  //   ]
-  // }
+  audio: {
+    disableWebAudio: true
+  }
 };
 
 const Game = new Phaser.Game(config);

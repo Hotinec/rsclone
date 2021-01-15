@@ -2,6 +2,9 @@ import Phaser from 'phaser';
 import  knife from '../assets/player/body/knife/knife.png';
 import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';
 import knifeAnim from '../assets/player/body/knife/knife_anim.json';
+import handgun from '../assets/player/body/handgun/handgun.png';
+import handgunAtlas from '../assets/player/body/handgun/handgun_atlas.json';
+import handgunAnim from '../assets/player/body/handgun/handgun_anim.json';
 
 
 export class Hero extends Phaser.Physics.Arcade.Sprite {
@@ -15,14 +18,18 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     this.setScale(0.4);
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
-    this.hp = 10;
 
+    this.hp = 10;
     this.isAttack = false;
   }
 
   static preload(scene) {
+    // knife
     scene.load.atlas('knife', knife, knifeAtlas);
     scene.load.animation('knife_anim', knifeAnim);
+    //handgun
+    scene.load.atlas('handgun', handgun, handgunAtlas);
+    scene.load.animation('handgun_anim', handgunAnim);
   }
 
   get velocity() {
@@ -30,7 +37,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(pointer) {
-    const speed = 100;
+    const speed = 300;
     let playerVelocity = new Phaser.Math.Vector2();
     
     if (this.inputKeys.left.isDown) {
@@ -49,20 +56,19 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     this.setVelocity(playerVelocity.x, playerVelocity.y);
   
     if (this.isAttack) {
-      this.anims.play('knife_attack', true);
+      this.anims.play('handgun_shoot', true);
     
-      if(this.anims.currentFrame.textureFrame ==='survivor-meleeattack_knife_14'){
+      if (this.anims.currentFrame.textureFrame === 'survivor-shoot_handgun_2'){
         this.isAttack = false;
       }
-    }else{
+    } else {
       if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-        this.anims.play('knife_move', true);
+        this.anims.play('handgun_move', true);
       } else {
-        this.anims.play('knife_idle', true);
+        this.anims.play('handgun_idle', true);
       }
     }
     
-
     this.setRotation(
       Phaser.Math.Angle.Between(
         this.x, this.y, pointer.x + this.scene.cameras.main.scrollX, pointer.y + this.scene.cameras.main.scrollY));
