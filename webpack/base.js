@@ -6,10 +6,13 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   devtool: "eval-source-map",
+  output: {
+    path: path.resolve(process.cwd(), 'dist'),
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(tsx?)|(js)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -20,8 +23,17 @@ module.exports = {
         use: "raw-loader"
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml|cur)$/i,
+        test: /\.(gif|png|jpe?g|svg|xml|cur|wav)$/i,
         use: "file-loader"
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.txt$/,
+        use: 'raw-loader'
       }
     ]
   },

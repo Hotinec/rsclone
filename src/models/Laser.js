@@ -2,24 +2,23 @@ import Phaser from 'phaser';
 import laser from '../assets/weapon/laser.png';
 import fire from '../assets/weapon/flash-1.png';
 export class LaserGroup extends Phaser.Physics.Arcade.Group {
-    constructor(scene) {
-        super(scene.physics.world, scene);
+  constructor(scene) {
+    super(scene.physics.world, scene);
 
-        this.createMultiple({
-            classType: Laser,
-            frameQuantity: 30,
-            active: false,
-            key: 'laser',
-        })
-    }
+    this.createMultiple({
+      classType: Laser,
+      frameQuantity: 30,
+      active: false,
+      key: 'laser',
+    })
+  }
 
-    fireLaser(x, y, mouseX, mouseY) {
-        const laser = this.getFirstDead(false);
-        console.log(laser);
-        if(laser){
-            laser.fire(x, y, mouseX, mouseY);
-        }
+	fireLaser(x, y, mouseX, mouseY) {
+    const laser = this.getFirstDead(false);
+    if(laser){
+      laser.fire(x, y, mouseX, mouseY);
     }
+  }
 }
 
 export class Laser extends Phaser.Physics.Arcade.Sprite {
@@ -34,9 +33,9 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    static preload(scene) {
-        scene.load.image('laser', laser);
-      }
+  static preload(scene) {
+    scene.load.image('laser', laser);
+  }
 
     fire(x, y, mouseX, mouseY) {
         this.body.reset(x, y);
