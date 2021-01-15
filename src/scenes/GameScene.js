@@ -17,7 +17,7 @@ import {
 } from '../models';
 import {
   Physics
-} from './Physics';
+} from '../Physics';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -123,6 +123,7 @@ export class GameScene extends Phaser.Scene {
       this.shoot = true;
       this.pointMouse = pointer;
     });
+
     this.physics.add.collider(this.player, layer2, null, null, this);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.physicsEvent = new Physics(this, map);
@@ -131,9 +132,10 @@ export class GameScene extends Phaser.Scene {
   }
 
   shootLaser(pointer, delta) {
+    this.soundShoot.play();
     this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
-    this.fireDelta = 0;
     this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+    this.fireDelta = 0;
   }
 
   update() {
@@ -141,7 +143,6 @@ export class GameScene extends Phaser.Scene {
       this.fireDelta++;
       if (this.fireDelta % 10 === 0) {
         this.shootLaser(this.pointMouse);
-        this.soundShoot.play();
       }
     }
     if (this.player.active === true) this.player.update(this.pointer);

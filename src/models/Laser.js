@@ -27,6 +27,7 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
     }
     preUpdate(time, delta){
         super.preUpdate(time, delta);
+        
         if(this.y <= 0){
             this.setActive(false);
             this.setVisible(false);
@@ -38,12 +39,17 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
   }
 
     fire(x, y, mouseX, mouseY) {
+      
         this.body.reset(x, y);
         this.setActive(true);
+        this.setOrigin(1);
         this.setVisible(true);
         let angle = Phaser.Math.Angle.Between(mouseX + this.scene.cameras.main.scrollX, mouseY + this.scene.cameras.main.scrollY, x, y);
         this.incX = Math.cos(angle);
         this.incY = Math.sin(angle);
+        console.log("this.incX  - "+ this.incX);
+        console.log("this.incY  - "+ this.incX);
+        this.setOrigin(4 * this.incX,4 * this.incY);
         this.setVelocity(this.incX * -2900, this.incY * -2900);
     }
 }
@@ -74,10 +80,10 @@ export class Fire extends Phaser.Physics.Arcade.Sprite {
     }
     preUpdate(time, delta){
         super.preUpdate(time, delta);
-        //if(this.y <= 0){
-            this.setActive(false);
-            this.setVisible(false);
-        //}
+        setTimeout(() => {
+          this.setActive(false);
+          this.setVisible(false);
+        }, 10);
     }
 
     static preload(scene) {

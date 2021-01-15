@@ -9,6 +9,7 @@ export class Physics {
   }
 
   setCollide(zombies, bullets) {
+    this.scene.physics.add.collider(zombies);
     this.zombie.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
     this.player.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
     this.destroyZombie(zombies);
@@ -17,13 +18,20 @@ export class Physics {
   }
 
   shootZombie(zombies, bullets) {
-    this.scene.physics.add.collider(this.scene.laserGroup, zombies, (player, zombie) => {
-      zombie.body.stop();
-      zombie.destroy();
+    this.scene.physics.add.collider(bullets, zombies, (bullet, zombie) => {
+      // zombie.body.stop();
+      zombie.hp--;
+      bullet.destroy();
+
+      if (zombie.hp === 0) {
+        zombie.destroy();
+      }
+
       this.scene.laserGroup.getChildren().forEach((item) => {
           item.setActive(false);
           item.setVisible(false);
       });
+
        let x;
        if(this.player.x < this.map.widthInPixels / 2){
           x = Phaser.Math.Between(this.player.x + this.scene.game.config.width , this.map.widthInPixels);
@@ -42,13 +50,23 @@ export class Physics {
   }
 
   destroyZombie(zombies) {
+    let x = true;
     this.scene.physics.add.collider(this.player, zombies, (player, zombie) => {
 			if (!zombie.isAttack) {
 				zombie.isAttack = true;
-				player.hp--;
-				zombie.body.stop();
+        player.hp--;
+        zombie.body.stop();
+        x = false;
+        
+        delay(700).then(() => {
+          x = true;
+        });
       }
     });
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
   }
 
   takeWeapon() {
