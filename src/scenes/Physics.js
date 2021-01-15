@@ -38,7 +38,7 @@ export class Physics {
               zombies.add(this.scene.newZombie(x, y));
           }
       }
-  });
+    });
   }
 
   destroyZombie(zombies) {

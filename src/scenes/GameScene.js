@@ -4,8 +4,6 @@
 import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
-import earth from '../assets/scorched_earth.png';
-import bullet from '../assets/weapon/laser.png';
 import cursor from '../assets/PngItem_2912951.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import {
@@ -27,7 +25,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('spark', bullet);
     // map
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
