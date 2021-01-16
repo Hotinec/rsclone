@@ -24,7 +24,11 @@ export class Physics {
       bullet.destroy();
 
       if (zombie.hp === 0) {
+        const x = zombie.x;
+        const y = zombie.y;
         zombie.destroy();
+        const blod = this.scene.add.image(zombie.x, zombie.y, 'blod').setScale(0.2);
+        blod.depth = -1;
       }
 
       this.scene.laserGroup.getChildren().forEach((item) => {
@@ -57,7 +61,7 @@ export class Physics {
         player.hp--;
         zombie.body.stop();
         x = false;
-        
+
         delay(700).then(() => {
           x = true;
         });

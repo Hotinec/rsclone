@@ -5,8 +5,8 @@ import shotgun from '../assets/weapon/shotgun.png';
 
 export class Weapon extends Phaser.Physics.Arcade.Sprite {
   constructor(data) {
-    let {scene, x, y, texture, frame} = data;
-    super(scene, x, y, texture, frame);
+    let {scene, x, y, texture} = data;
+    super(scene, x, y, texture);
     this.scene.add.existing(this);
     scene.sys.updateList.add(this);
     scene.sys.displayList.add(this);

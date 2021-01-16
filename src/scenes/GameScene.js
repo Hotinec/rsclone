@@ -4,6 +4,7 @@
 import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
+import blod from '../assets/blod/blood.png';
 import cursor from '../assets/PngItem_2912951.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import {
@@ -25,6 +26,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('blod', blod);
+
     // map
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
@@ -58,22 +61,17 @@ export class GameScene extends Phaser.Scene {
     this.soundShoot = this.sound.add('shoot');
 
     // map creation
-    const map = this.make.tilemap({
-      key: 'map'
-    });
+    const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('terrain', 'tilesets', 32, 32, 0, 0);
     const layer1 = map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
-    layer2.setCollisionByProperty({
-      collides: true
-    });
+    layer2.setCollisionByProperty({ collides: true });
 
     this.weapon = new Weapon({
       scene: this,
       x: (this.game.config.width / 2),
       y: this.game.config.height / 2 + 200,
-      texture: 'pistol',
-      frame: 'weapon-idle_0'
+      texture: 'shotgun',
     });
 
     this.player = new Hero({
@@ -103,6 +101,7 @@ export class GameScene extends Phaser.Scene {
       y: -30
     };
 
+    // Events
     this.input.on('pointermove', (pointer) => {
       this.pointer.x = pointer.x;
       this.pointer.y = pointer.y;
@@ -116,6 +115,7 @@ export class GameScene extends Phaser.Scene {
       this.shootLaser(pointer);
       //shoot.play();
     });
+
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
       this.player.isAttack = true;
