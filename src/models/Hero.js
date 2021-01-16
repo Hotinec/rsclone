@@ -17,14 +17,16 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
     this.hp = 10;
-    this.setCircle(70, 80, 65);
+    console.log(this);
+   
+    this.setCircle(70, this.width / 4, this.height / 4);
     this.state = PLAYER_STATE.IDLE;
-
   }
 
   static preload(scene) {
     scene.load.atlas('knife', knife, knifeAtlas);
     scene.load.animation('knife_anim', knifeAnim);
+    console.log(scene);
   }
 
   get velocity() {
@@ -32,7 +34,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(pointer) {
-    const speed = 300;
+    const speed = 100;
     let playerVelocity = new Phaser.Math.Vector2();
     
     if (this.inputKeys.left.isDown) {
@@ -53,7 +55,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
   
     if (this.state === PLAYER_STATE.ATTACK) {
       this.anims.play('knife_attack', true);
-    
+
       if(this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14'){
         this.state = PLAYER_STATE.IDLE
       }

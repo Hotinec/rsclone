@@ -393,8 +393,8 @@
         {
             "filename": "survivor-meleeattack_knife_0",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 578,
                 "y": 1558
             },
@@ -406,8 +406,8 @@
         {
             "filename": "survivor-meleeattack_knife_1",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 907,
                 "y": 1558
             },
@@ -419,8 +419,8 @@
         {
             "filename": "survivor-meleeattack_knife_2",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 0,
                 "y": 1858
             },
@@ -432,8 +432,8 @@
         {
             "filename": "survivor-meleeattack_knife_3",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 329,
                 "y": 1858
             },
@@ -445,8 +445,8 @@
         {
             "filename": "survivor-meleeattack_knife_4",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 658,
                 "y": 1858
             },
@@ -458,8 +458,8 @@
         {
             "filename": "survivor-meleeattack_knife_5",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 987,
                 "y": 1858
             },
@@ -471,8 +471,8 @@
         {
             "filename": "survivor-meleeattack_knife_6",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 0,
                 "y": 2158
             },
@@ -484,8 +484,8 @@
         {
             "filename": "survivor-meleeattack_knife_7",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 329,
                 "y": 2158
             },
@@ -497,8 +497,8 @@
         {
             "filename": "survivor-meleeattack_knife_8",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 658,
                 "y": 2158
             },
@@ -510,8 +510,8 @@
         {
             "filename": "survivor-meleeattack_knife_9",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 987,
                 "y": 2158
             },
@@ -523,8 +523,8 @@
         {
             "filename": "survivor-meleeattack_knife_10",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 0,
                 "y": 2458
             },
@@ -536,8 +536,8 @@
         {
             "filename": "survivor-meleeattack_knife_11",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 329,
                 "y": 2458
             },
@@ -549,8 +549,8 @@
         {
             "filename": "survivor-meleeattack_knife_12",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 658,
                 "y": 2458
             },
@@ -562,8 +562,8 @@
         {
             "filename": "survivor-meleeattack_knife_13",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 987,
                 "y": 2458
             },
@@ -575,8 +575,8 @@
         {
             "filename": "survivor-meleeattack_knife_14",
             "frame": {
-                "w": 329,
-                "h": 300,
+                "w": 289,
+                "h": 224,
                 "x": 0,
                 "y": 2758
             },

@@ -6,7 +6,7 @@ import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
 import cursor from '../assets/PngItem_2912951.cur';
 import { PLAYER_STATE } from '../constants'
-import { Player, Zombie, Hero, Weapon, Laser, LaserGroup } from '../models';
+import {  Zombie, Hero, Weapon, Laser, LaserGroup } from '../models';
 import { Physics } from './Physics';
 
 export class GameScene extends Phaser.Scene {
@@ -60,11 +60,19 @@ export class GameScene extends Phaser.Scene {
       right: Phaser.Input.Keyboard.KeyCodes.D,
     });
 
+    // if(this.player.state === PLAYER_STATE.ATTACK){
+    //   this.knifeBounds = this.physics.add.image();
+    //   this.knifeBounds.body.setCircle(28)
+    //   this.knifeBounds.setDebugBodyColor(0xffff00);
+    //   const v = this.player.body.velocity;
+    //   this.knifeBounds.body.velocity.copy(v);
+    // }
+
     this.knifeBounds = this.physics.add.image();
-    this.knifeBounds.body.setCircle(28)
-    this.knifeBounds.setDebugBodyColor(0xffff00);
-    const v = this.player.body.velocity;
-    this.knifeBounds.body.velocity.copy(v);
+    // this.knifeBounds.body.setCircle(28)
+    // this.knifeBounds.setDebugBodyColor(0xffff00);
+    // const v = this.player.body.velocity;
+    // this.knifeBounds.body.velocity.copy(v);
 
 
     this.pointer = {x: -230, y: -30};
@@ -94,25 +102,44 @@ export class GameScene extends Phaser.Scene {
   update() {
     this.player.update(this.pointer);
 
-    const centerBodyOnXY = (a, x, y) => {
-      a.position.set(
-        x - a.halfWidth,
-        y - a.halfHeight
-      );
-    }
-    const centerBodyOnPoint = (a, p) => {
-      centerBodyOnXY(a, p.x, p.y);
-    }
-    centerBodyOnXY(this.knifeBounds.body, this.player.body.x + 90, this.player.body.y + 20);
+    if(this.player.state === PLAYER_STATE.ATTACK ){
+      if(!this.knifeBounds.body){
+        this.knifeBounds = this.physics.add.image();
+      }
+      this.knifeBounds.body.setCircle(45)
+      this.knifeBounds.setDebugBodyColor(0xffff00);
+      const v = this.player.body.velocity;
+      this.knifeBounds.body.velocity.copy(v);
 
-    this.player.body.updateCenter();
-    this.knifeBounds.body.updateCenter();
+      const centerBodyOnXY = (a, x, y) => {
+        a.position.set(
+          x - a.halfWidth,
+          y - a.halfHeight
+        );
+      }
+      const centerBodyOnPoint = (a, p) => {
+        centerBodyOnXY(a, p.x, p.y);
+      }
+      centerBodyOnXY(this.knifeBounds.body, this.player.body.x + 60, this.player.body.y + 35);
+  
+      this.player.body.updateCenter();
+      this.knifeBounds.body.updateCenter();
+  
+      const RotateAround = Phaser.Math.RotateAround;
+      RotateAround(this.knifeBounds.body.center, this.player.body.center.x, this.player.body.center.y, this.player.rotation);
+  
+      centerBodyOnPoint(this.knifeBounds.body, this.knifeBounds.body.center);
+      this.knifeBounds.body.velocity.copy(this.player.body.velocity);
 
-    const RotateAround = Phaser.Math.RotateAround;
-    RotateAround(this.knifeBounds.body.center, this.player.body.center.x, this.player.body.center.y, this.player.rotation);
+      if(this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13'){
+        this.knifeBounds.destroy();
+      }
 
-    centerBodyOnPoint(this.knifeBounds.body, this.knifeBounds.body.center);
-    this.knifeBounds.body.velocity.copy(this.player.body.velocity);
+
+    } 
+
+
+
     if(this.player.active === true) this.player.update(this.pointer);
     if(this.weapon.active === true) this.weapon.update();
 
