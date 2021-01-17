@@ -23,6 +23,9 @@ import {
 export class GameScene extends Phaser.Scene {
   constructor() {
     super('GameScene');
+
+    this.weapon = null;
+    this.score = 0;
   }
 
   preload() {
@@ -67,13 +70,6 @@ export class GameScene extends Phaser.Scene {
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
     layer2.setCollisionByProperty({ collides: true });
 
-    this.weapon = new Weapon({
-      scene: this,
-      x: (this.game.config.width / 2),
-      y: this.game.config.height / 2 + 200,
-      texture: 'shotgun',
-    });
-
     this.player = new Hero({
       scene: this,
       x: map.widthInPixels / 2,
@@ -94,6 +90,10 @@ export class GameScene extends Phaser.Scene {
       down: Phaser.Input.Keyboard.KeyCodes.S,
       left: Phaser.Input.Keyboard.KeyCodes.A,
       right: Phaser.Input.Keyboard.KeyCodes.D,
+      knife: Phaser.Input.Keyboard.KeyCodes.ONE,
+      pistol: Phaser.Input.Keyboard.KeyCodes.TWO,
+      shotgun: Phaser.Input.Keyboard.KeyCodes.THREE,
+      rifle: Phaser.Input.Keyboard.KeyCodes.FOUR,
     });
 
     this.pointer = {
@@ -126,8 +126,10 @@ export class GameScene extends Phaser.Scene {
 
     this.physics.add.collider(this.player, layer2, null, null, this);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
     this.physicsEvent = new Physics(this, map);
     this.physicsEvent.setCollide(this.zombies, this.laserGroup);
+
     this.cameras.main.startFollow(this.player);
   }
 
@@ -138,6 +140,15 @@ export class GameScene extends Phaser.Scene {
     this.fireDelta = 0;
   }
 
+  createWeapon(posX, posY, texture) {
+    this.weapon = new Weapon({
+      scene: this,
+      x: posX,
+      y: posY,
+      texture: texture,
+    });
+  }
+
   update() {
     if (this.shoot) {
       this.fireDelta++;
@@ -146,7 +157,7 @@ export class GameScene extends Phaser.Scene {
       }
     }
     if (this.player.active === true) this.player.update(this.pointer);
-    if (this.weapon.active === true) this.weapon.update();
+    if (this.weapon && this.weapon.active === true) this.weapon.update();
 
     if (this.zombies.getChildren().length !== 0) {
       for (let i = 0; i < this.zombies.getChildren().length; i++) {

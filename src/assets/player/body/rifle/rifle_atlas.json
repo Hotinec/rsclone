@@ -1,0 +1,827 @@
+{
+    "frames": [
+        {
+            "filename": "survivor-idle_rifle_0",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-shoot_rifle_1",
+            "frame": {
+                "w": 312,
+                "h": 206,
+                "x": 313,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_1",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 625,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_2",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 938,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_3",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 1251,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_4",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 0,
+                "y": 207
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_5",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 313,
+                "y": 207
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_6",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 626,
+                "y": 207
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_7",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 939,
+                "y": 207
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_8",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 1252,
+                "y": 207
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_9",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 0,
+                "y": 414
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_10",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 313,
+                "y": 414
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_11",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 626,
+                "y": 414
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_12",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 939,
+                "y": 414
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_13",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 1252,
+                "y": 414
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_14",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 0,
+                "y": 621
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_15",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 313,
+                "y": 621
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_16",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 626,
+                "y": 621
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_17",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 939,
+                "y": 621
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_18",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 1252,
+                "y": 621
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-idle_rifle_19",
+            "frame": {
+                "w": 313,
+                "h": 207,
+                "x": 0,
+                "y": 828
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_0",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 313,
+                "y": 828
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_1",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 626,
+                "y": 828
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_2",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 939,
+                "y": 828
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_3",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 1252,
+                "y": 828
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_4",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 0,
+                "y": 1035
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_5",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 313,
+                "y": 1035
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_6",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 626,
+                "y": 1035
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_7",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 939,
+                "y": 1035
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_8",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 1252,
+                "y": 1035
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_9",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 0,
+                "y": 1241
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_10",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 313,
+                "y": 1241
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_11",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 626,
+                "y": 1241
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_12",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 939,
+                "y": 1241
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_13",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 1252,
+                "y": 1241
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_14",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 0,
+                "y": 1447
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_15",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 313,
+                "y": 1447
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_16",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 626,
+                "y": 1447
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_17",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 939,
+                "y": 1447
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_18",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 1252,
+                "y": 1447
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-move_rifle_19",
+            "frame": {
+                "w": 313,
+                "h": 206,
+                "x": 0,
+                "y": 1653
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_0",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 313,
+                "y": 1653
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_1",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 635,
+                "y": 1653
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_2",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 957,
+                "y": 1653
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_3",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 1279,
+                "y": 1653
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_4",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 0,
+                "y": 1870
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_5",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 322,
+                "y": 1870
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_6",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 644,
+                "y": 1870
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_7",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 966,
+                "y": 1870
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_8",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 1288,
+                "y": 1870
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_9",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 0,
+                "y": 2087
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_10",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 322,
+                "y": 2087
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_11",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 644,
+                "y": 2087
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_12",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 966,
+                "y": 2087
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_13",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 1288,
+                "y": 2087
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_14",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 0,
+                "y": 2304
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_15",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 322,
+                "y": 2304
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_16",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 644,
+                "y": 2304
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_17",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 966,
+                "y": 2304
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_18",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 1288,
+                "y": 2304
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-reload_rifle_19",
+            "frame": {
+                "w": 322,
+                "h": 217,
+                "x": 0,
+                "y": 2521
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-shoot_rifle_0",
+            "frame": {
+                "w": 312,
+                "h": 206,
+                "x": 322,
+                "y": 2521
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "survivor-shoot_rifle_2",
+            "frame": {
+                "w": 312,
+                "h": 206,
+                "x": 634,
+                "y": 2521
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
