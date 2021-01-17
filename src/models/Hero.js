@@ -20,7 +20,6 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
     this.hp = 10;
-    console.log(this);
    
     this.setCircle(70, this.width / 4, this.height / 4);
     this.state = PLAYER_STATE.IDLE;
@@ -58,7 +57,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     playerVelocity.scale(speed);
     this.setVelocity(playerVelocity.x, playerVelocity.y);
     
-  
+    // with knife
     if (this.state === PLAYER_STATE.ATTACK) {
       this.anims.play('knife_attack', true);
 
@@ -74,12 +73,14 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('knife_idle', true);
       }
     }
+    
+    // with handgun
 
-    // if (this.isAttack) {
+    // if (this.state === PLAYER_STATE.ATTACK) {
     //   this.anims.play('handgun_shoot', true);
     
     //   if (this.anims.currentFrame.textureFrame === 'survivor-shoot_handgun_2'){
-    //     this.isAttack = false;
+    //     this.state = PLAYER_STATE.IDLE;
     //   }
     // } else {
     //   if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {

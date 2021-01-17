@@ -28,7 +28,6 @@ export class LoadScene extends Phaser.Scene {
     }
 
     showLoading(scene) {
-        console.log(scene)
         const width = scene.cameras.main.width
         const height = scene.cameras.main.height
 

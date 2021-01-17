@@ -79,4 +79,47 @@ export class Physics {
     this.scene.physics.accelerateToObject(object1, object2, 40, 40, 40);
     object1.update(this.scene.pointer);
   }
+
+  killZombieWithKnife(){
+    const zombies = this.scene.zombies;
+    const knife = this.scene.knifeBounds;
+    const zombiesArr = zombies.getChildren()
+
+    knife.body.setCircle(45)
+    knife.setDebugBodyColor(0xffff00);
+
+    for(let i = 0; i < zombiesArr.length; i++){
+      const zombieBounds = zombiesArr[i].getBounds()
+      const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
+
+      if((intersection(knife.getBounds(), zombieBounds))){
+        zombiesArr[i].destroy();
+      }
+    }
+
+    const v = this.player.body.velocity;
+      knife.body.velocity.copy(v);
+
+      const centerBodyOnXY = (a, x, y) => {
+        a.position.set(
+          x - a.halfWidth,
+          y - a.halfHeight
+        );
+      }
+      const centerBodyOnPoint = (a, p) => {
+        centerBodyOnXY(a, p.x, p.y);
+      }
+      centerBodyOnXY(knife.body, this.player.body.x + 60, this.player.body.y + 35);
+  
+      this.player.body.updateCenter();
+      knife.body.updateCenter();
+  
+      const RotateAround = Phaser.Math.RotateAround;
+      RotateAround(knife.body.center, this.player.body.center.x, this.player.body.center.y, this.player.rotation);
+  
+      centerBodyOnPoint(knife.body, knife.body.center);
+      knife.body.velocity.copy(this.player.body.velocity);
+      // need to add zombies generation
+
+  }
 }
