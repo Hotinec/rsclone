@@ -14,18 +14,21 @@ export class Physics {
     this.player.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
     this.destroyZombie(zombies);
     this.shootZombie(zombies, bullets);
-    this.takeWeapon();
   }
 
   shootZombie(zombies, bullets) {
     this.scene.physics.add.collider(bullets, zombies, (bullet, zombie) => {
-      // zombie.body.stop();
       zombie.hp--;
       bullet.destroy();
 
       if (zombie.hp === 0) {
         zombie.destroy();
+        const blod = this.scene.add.image(zombie.x, zombie.y, 'blod').setScale(0.2);
+        blod.depth = -1;
+        this.scene.score++;
       }
+
+      this.showWeapon(zombie);
 
       this.scene.laserGroup.getChildren().forEach((item) => {
           item.setActive(false);
@@ -49,6 +52,30 @@ export class Physics {
     });
   }
 
+  showWeapon(zombie) {
+    switch (this.scene.score) {
+      case 1:
+        if (!this.player.weapon.includes('shotgun')) {
+          this.scene.createWeapon(zombie.x, zombie.y, 'shotgun');
+          this.scene.physics.add.collider(this.player, this.scene.weapon, (player, weapon) => {
+            weapon.destroy();
+            this.player.changeWeapon('shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
+          });
+          this.player.weapon.push('shotgun');
+        }
+        break;
+      case 10:
+        if (!this.player.weapon.includes('rifle')) {
+          this.scene.createWeapon(zombie.x, zombie.y, 'rifle');
+          this.scene.physics.add.collider(this.player, this.scene.weapon, (player, weapon) => {
+            weapon.destroy();
+            this.player.changeWeapon('rifle-body', 'survivor-idle_rifle_0', 'rifle');
+          });
+          this.player.weapon.push('rifle');
+        }
+    }
+  }
+
   destroyZombie(zombies) {
     let x = true;
     this.scene.physics.add.collider(this.player, zombies, (player, zombie) => {
@@ -57,7 +84,7 @@ export class Physics {
         player.hp--;
         zombie.body.stop();
         x = false;
-        
+
         delay(700).then(() => {
           x = true;
         });
@@ -67,12 +94,6 @@ export class Physics {
     function delay(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
-  }
-
-  takeWeapon() {
-    this.scene.physics.add.collider(this.player, this.weapon, (player, weapon) => {
-      weapon.destroy();
-    });
   }
 
   accellerateTo(object1, object2) {
