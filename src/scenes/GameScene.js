@@ -4,8 +4,7 @@
 import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
-import earth from '../assets/scorched_earth.png';
-import bullet from '../assets/weapon/laser.png';
+import blod from '../assets/blod/blood.png';
 import cursor from '../assets/PngItem_2912951.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import {
@@ -19,15 +18,19 @@ import {
 } from '../models';
 import {
   Physics
-} from './Physics';
+} from '../Physics';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
     super('GameScene');
+
+    this.weapon = null;
+    this.score = 0;
   }
 
   preload() {
-    this.load.image('spark', bullet);
+    this.load.image('blod', blod);
+
     // map
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
@@ -61,23 +64,11 @@ export class GameScene extends Phaser.Scene {
     this.soundShoot = this.sound.add('shoot');
 
     // map creation
-    const map = this.make.tilemap({
-      key: 'map'
-    });
+    const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('terrain', 'tilesets', 32, 32, 0, 0);
     const layer1 = map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
-    layer2.setCollisionByProperty({
-      collides: true
-    });
-
-    this.weapon = new Weapon({
-      scene: this,
-      x: (this.game.config.width / 2),
-      y: this.game.config.height / 2 + 200,
-      texture: 'pistol',
-      frame: 'weapon-idle_0'
-    });
+    layer2.setCollisionByProperty({ collides: true });
 
     this.player = new Hero({
       scene: this,
@@ -99,6 +90,10 @@ export class GameScene extends Phaser.Scene {
       down: Phaser.Input.Keyboard.KeyCodes.S,
       left: Phaser.Input.Keyboard.KeyCodes.A,
       right: Phaser.Input.Keyboard.KeyCodes.D,
+      knife: Phaser.Input.Keyboard.KeyCodes.ONE,
+      pistol: Phaser.Input.Keyboard.KeyCodes.TWO,
+      shotgun: Phaser.Input.Keyboard.KeyCodes.THREE,
+      rifle: Phaser.Input.Keyboard.KeyCodes.FOUR,
     });
 
     this.pointer = {
@@ -106,6 +101,7 @@ export class GameScene extends Phaser.Scene {
       y: -30
     };
 
+    // Events
     this.input.on('pointermove', (pointer) => {
       this.pointer.x = pointer.x;
       this.pointer.y = pointer.y;
@@ -119,6 +115,7 @@ export class GameScene extends Phaser.Scene {
       //this.shootLaser(pointer);
       //shoot.play();
     });
+
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 10;
       this.player.isAttack = true;
@@ -126,10 +123,13 @@ export class GameScene extends Phaser.Scene {
       this.shoot = true;
       this.pointMouse = pointer;
     });
+
     this.physics.add.collider(this.player, layer2, null, null, this);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
     this.physicsEvent = new Physics(this, map);
     this.physicsEvent.setCollide(this.zombies, this.laserGroup);
+
     this.cameras.main.startFollow(this.player);
   }
 
@@ -137,18 +137,27 @@ export class GameScene extends Phaser.Scene {
     this.soundShoot.play();
     this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
     this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
-    this.fireDelta = 0;    
+    this.fireDelta = 0;
+  }
+
+  createWeapon(posX, posY, texture) {
+    this.weapon = new Weapon({
+      scene: this,
+      x: posX,
+      y: posY,
+      texture: texture,
+    });
   }
 
   update() {
     if (this.shoot) {
       this.fireDelta++;
       if (this.fireDelta % 10 === 0) {
-       this.shootLaser(this.pointMouse);  
+        this.shootLaser(this.pointMouse);
       }
     }
     if (this.player.active === true) this.player.update(this.pointer);
-    if (this.weapon.active === true) this.weapon.update();
+    if (this.weapon && this.weapon.active === true) this.weapon.update();
 
     if (this.zombies.getChildren().length !== 0) {
       for (let i = 0; i < this.zombies.getChildren().length; i++) {

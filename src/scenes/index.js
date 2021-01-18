@@ -1,3 +1,5 @@
 import { GameScene } from './GameScene';
+import { MenuScene } from './MenuScene';
+import { LoadScene } from './LoadScene'
 
-export default GameScene;
+export { GameScene, LoadScene, MenuScene };
