@@ -3,12 +3,27 @@
 /* eslint-disable no-useless-constructor */
 import Phaser from 'phaser';
 
-import loadBg from '../assets/menu/loadBG.jpg' 
-import backgound from '../assets/menu/bg.jpg'
-import option_btn from '../assets/menu/options_button.png'
-import play_btn from '../assets/menu/play_button.png'
-import logo from '../assets/menu/logo.png'
-import scull from '../assets/menu/scull.png'
+// //Hero
+// import  knife from '../assets/player/body/knife/knife.png';
+// import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';
+// import knifeAnim from '../assets/player/body/knife/knife_anim.json';
+// //Laser
+// import laser from '../assets/weapon/laser.png';
+// //Player
+// import feet from '../assets/player/feet/feet.png';
+// import feetAtlas from '../assets/player/feet/feet_atlas.json';
+// import feetAnim from '../assets/player/feet/feet_anim.json';
+// //weapon
+// import pistol from '../assets/weapon/pistol.png';
+// import rifle from '../assets/weapon/rifle.png';
+// import shotgun from '../assets/weapon/shotgun.png';
+// //zombie
+// import townMaleAtlas from '../assets/zombie/zombie_atlas.json';
+// import townMale from '../assets/zombie/zombie.png';
+// import maleAnim from '../assets/zombie/zombie_anim.json';
+// //map
+// import terrain from '../assets/map/terrain.png';
+// import map from '../assets/map/map.json'
 
 
 export class LoadScene extends Phaser.Scene {
@@ -17,23 +32,38 @@ export class LoadScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('load_bg', loadBg, 0, 0)
-        this.add.image(0, 0, 'load_bg')
-        this.load.image('menu_bg', backgound, 0, 0)
-        this.load.image('options_btn', option_btn)
-        this.load.image('play_btn', play_btn)
-        this.load.image('logo', logo)
-        this.load.image('scull', scull)
-
-        this.showLoading(this)
+        this.showLoading()
+    //         //player
+    // this.load.atlas('feet', feet, feetAtlas);
+    // this.load.animation('feet_anim', feetAnim);
+    // this.load.atlas('body_knife', knife, knifeAtlas);
+    // this.load.animation('knife_anim', knifeAnim);
+    // //laser
+    // this.load.image('laser', laser);
+    // //hero
+    // this.load.atlas('knife', knife, knifeAtlas);
+    // this.load.animation('knife_anim', knifeAnim);
+    // //weapon
+    // this.load.image('pistol', pistol);
+    // this.load.image('rifle', rifle);
+    // this.load.image('shotgun', shotgun); 
+    // //zombie
+    // this.load.atlas(
+    //     'zombie',
+    //     townMale,
+    //     townMaleAtlas
+    //   );
+    //   this.load.animation('zombie_anim', maleAnim);
+    //   this.load.image('tilesets', terrain);
+    //   this.load.tilemapTiledJSON('map', map);
     }
 
-    showLoading(scene) {
-        console.log(scene)
-        const width = scene.cameras.main.width
-        const height = scene.cameras.main.height
+    showLoading() {
 
-        const loadingText = scene.make.text({
+        const width = this.cameras.main.width
+        const height = this.cameras.main.height
+
+        const loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 30,
             text: 'Loading',
@@ -44,13 +74,13 @@ export class LoadScene extends Phaser.Scene {
         })
         loadingText.setOrigin(0.5, 0.5)
 
-        const loadingBox = scene.add.graphics()
+        const loadingBox = this.add.graphics()
         loadingBox.fillStyle(0X222222, 0.8) 
         loadingBox.fillRect(width / 3, height / 2, width / 3 + 40, 50)
 
-        const loadingBar = scene.add.graphics()
+        const loadingBar = this.add.graphics()
 
-        scene.load.on('progress', (percent) => {
+        this.load.on('progress', (percent) => {
             loadingBar.clear()
             loadingBar.fillStyle(0XFFFFFF)
             loadingBar.fillRect(width / 3 + 20, height / 2 + 10, width / 3 * percent, 30).setDepth(1)
@@ -58,6 +88,6 @@ export class LoadScene extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('MenuScene')
+        this.scene.start('GameScene')
     }
 }

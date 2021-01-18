@@ -6,7 +6,6 @@ import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
 import { Player, Zombie, Hero, Weapon, Laser, LaserGroup } from '../models';
 import { Physics } from './Physics';
-import { LoadScene } from './LoadScene';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -14,8 +13,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    const loading = new LoadScene()
-    loading.showLoading(this)
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
     Player.preload(this);
