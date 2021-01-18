@@ -1,6 +1,42 @@
+/* eslint-disable no-shadow */
+/* eslint-disable max-classes-per-file */
 import Phaser from 'phaser';
 import laser from '../assets/weapon/laser.png';
 import fire from '../assets/weapon/flash-1.png';
+
+export class Laser extends Phaser.Physics.Arcade.Sprite {
+  constructor(scene, x, y) {
+    super(scene, x, y, 'laser');
+  }
+
+  preUpdate(time, delta) {
+    super.preUpdate(time, delta);
+
+    if (this.y <= 0) {
+      this.setActive(false);
+      this.setVisible(false);
+    }
+  }
+
+  static preload(scene) {
+    scene.load.image('laser', laser);
+  }
+
+  fire(x, y, mouseX, mouseY) {
+    this.body.reset(x, y);
+    this.setActive(true);
+    this.setOrigin(1);
+    this.setVisible(true);
+    const angle = Phaser.Math.Angle.Between(
+      mouseX + this.scene.cameras.main.scrollX, mouseY + this.scene.cameras.main.scrollY, x, y,
+    );
+    this.incX = Math.cos(angle);
+    this.incY = Math.sin(angle);
+    this.setOrigin(4 * this.incX, 4 * this.incY);
+    this.setVelocity(this.incX * -2900, this.incY * -2900);
+  }
+}
+
 export class LaserGroup extends Phaser.Physics.Arcade.Group {
   constructor(scene) {
     super(scene.physics.world, scene);
@@ -10,95 +46,65 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
       frameQuantity: 30,
       active: false,
       key: 'laser',
-    })
+    });
   }
 
-	fireLaser(x, y, mouseX, mouseY) {
+  fireLaser(x, y, mouseX, mouseY) {
     const laser = this.getFirstDead(true, x, y, 'laser');
-    if(laser){
+    if (laser) {
       laser.fire(x, y, mouseX, mouseY);
     }
   }
 }
 
-export class Laser extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
-        super(scene, x, y, 'laser');
-    }
-    preUpdate(time, delta){
-        super.preUpdate(time, delta);
-        
-        if(this.y <= 0){
-            this.setActive(false);
-            this.setVisible(false);
-        }
-    }
-
-  static preload(scene) {
-    scene.load.image('laser', laser);
+export class Fire extends Phaser.Physics.Arcade.Sprite {
+  constructor(scene, x, y) {
+    super(scene, x, y, 'fire');
   }
 
-    fire(x, y, mouseX, mouseY) {
-      
-        this.body.reset(x, y);
-        this.setActive(true);
-        this.setOrigin(1);
-        this.setVisible(true);
-        let angle = Phaser.Math.Angle.Between(mouseX + this.scene.cameras.main.scrollX, mouseY + this.scene.cameras.main.scrollY, x, y);
-        this.incX = Math.cos(angle);
-        this.incY = Math.sin(angle);
-        console.log("this.incX  - "+ this.incX);
-        console.log("this.incY  - "+ this.incX);
-        this.setOrigin(4 * this.incX,4 * this.incY);
-        this.setVelocity(this.incX * -2900, this.incY * -2900);
-    }
+  preUpdate(time, delta) {
+    super.preUpdate(time, delta);
+    setTimeout(() => {
+      this.setActive(false);
+      this.setVisible(false);
+    }, 10);
+  }
+
+  static preload(scene) {
+    scene.load.image('fire', fire);
+  }
+
+  fire(x, y, mouseX, mouseY) {
+    this.body.reset(x, y);
+    this.setActive(true);
+    this.scale = 0.5;
+    this.setVisible(true);
+    const angle = Phaser.Math.Angle.Between(
+      x, y, mouseX + this.scene.cameras.main.scrollX, mouseY + this.scene.cameras.main.scrollY,
+    );
+    this.setRotation(angle);
+    this.incX = Math.cos(angle);
+    this.incY = Math.sin(angle);
+    this.setVelocity(this.incX, this.incY);
+  }
 }
 
 export class FireGroup extends Phaser.Physics.Arcade.Group {
-    constructor(scene) {
-        super(scene.physics.world, scene);
+  constructor(scene) {
+    super(scene.physics.world, scene);
 
-        this.createMultiple({
-            classType: Fire,
-            frameQuantity: 30,
-            active: false,
-            key: 'fire',
-        })
-    }
+    this.createMultiple({
+      classType: Fire,
+      frameQuantity: 30,
+      active: false,
+      key: 'fire',
+    });
+  }
 
-    fireLaser(x, y, mouseX, mouseY) {
-        const fire = this.getFirstDead(false);
-        if(fire){
-            fire.fire(x, y, mouseX, mouseY);
-        }
+  fireLaser(x, y, mouseX, mouseY) {
+    const fire = this.getFirstDead(false);
+    if (fire) {
+      fire.fire(x, y, mouseX, mouseY);
     }
-}
-
-export class Fire extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
-        super(scene, x, y, 'fire');
-    }
-    preUpdate(time, delta){
-        super.preUpdate(time, delta);
-        setTimeout(() => {
-          this.setActive(false);
-          this.setVisible(false);
-        }, 10);
-    }
-
-    static preload(scene) {
-        scene.load.image('fire', fire);
-      }
-
-    fire(x, y, mouseX, mouseY) {
-        this.body.reset(x, y);
-        this.setActive(true);
-        this.scale = 0.5;
-        this.setVisible(true);
-        let angle = Phaser.Math.Angle.Between(x, y, mouseX + this.scene.cameras.main.scrollX, mouseY + this.scene.cameras.main.scrollY);
-        this.setRotation(angle);
-        this.incX = Math.cos(angle);
-        this.incY = Math.sin(angle);
-        this.setVelocity(this.incX , this.incY);
-    }
+  }
 }

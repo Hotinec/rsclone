@@ -3,9 +3,9 @@
 /* eslint-disable no-useless-constructor */
 import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
-import map from '../assets/map/map.json'
+import mapJSON from '../assets/map/map.json';
 import blood from '../assets/blood/blood.png';
-import { PLAYER_STATE } from '../constants'
+import { PLAYER_STATE } from '../constants';
 import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import {
@@ -15,10 +15,10 @@ import {
   Laser,
   LaserGroup,
   FireGroup,
-  Fire
+  Fire,
 } from '../models';
 import {
-  Physics
+  Physics,
 } from '../Physics';
 
 export class GameScene extends Phaser.Scene {
@@ -34,9 +34,8 @@ export class GameScene extends Phaser.Scene {
 
     // map
     this.load.image('tilesets', terrain);
-    this.load.tilemapTiledJSON('map', map);
-    this.scene.launch('StatusScene')
-
+    this.load.tilemapTiledJSON('map', mapJSON);
+    this.scene.launch('StatusScene');
 
     // models
     Zombie.preload(this);
@@ -51,14 +50,13 @@ export class GameScene extends Phaser.Scene {
 
   newZombie(x, y) {
     this.zombie = new Zombie({
-        scene: this,
-        x: x,
-        y: y,
-        texture: 'zombie',
-        frame: 'skeleton-idle_0'
-      },
-      this.player
-    );
+      scene: this,
+      x,
+      y,
+      texture: 'zombie',
+      frame: 'skeleton-idle_0',
+    },
+    this.player);
     return this.zombie;
   }
 
@@ -72,9 +70,9 @@ export class GameScene extends Phaser.Scene {
     const layer1 = map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
     layer2.setCollisionByProperty({
-      collides: true
+      collides: true,
     });
-  
+
     // this.input.setDefaultCursor('url(./src/assets/cursor.cur), auto');
 
     this.player = new Hero({
@@ -82,7 +80,7 @@ export class GameScene extends Phaser.Scene {
       x: map.widthInPixels / 2,
       y: map.heightInPixels / 2,
       texture: 'knife',
-      frame: 'survivor-idle_knife_0'
+      frame: 'survivor-idle_knife_0',
     });
 
     this.newZombie();
@@ -107,7 +105,7 @@ export class GameScene extends Phaser.Scene {
 
     this.pointer = {
       x: -230,
-      y: -30
+      y: -30,
     };
 
     // Events
@@ -136,23 +134,22 @@ export class GameScene extends Phaser.Scene {
   }
 
   _shootLaser(pointer, delta) {
-    
     if (this.player.anim === 'knife') {
-      if(!this.knifeBounds.body){
+      if (!this.knifeBounds.body) {
         this.knifeBounds = this.physics.add.image();
       }
-      this.physicsEvent.killZombieWithKnife()
-      
-      if(this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13'){
+      this.physicsEvent.killZombieWithKnife();
+
+      if (this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13') {
         this.knifeBounds.destroy();
-        this.player.state = PLAYER_STATE.IDLE
+        this.player.state = PLAYER_STATE.IDLE;
       }
     } else {
       this.soundShoot.play();
-      this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
+      this.laserGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
       this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
       this.fireDelta = 0;
-      this.player.state = PLAYER_STATE.IDLE
+      this.player.state = PLAYER_STATE.IDLE;
     }
   }
 
@@ -161,13 +158,13 @@ export class GameScene extends Phaser.Scene {
       scene: this,
       x: posX,
       y: posY,
-      texture: texture,
+      texture,
     });
   }
 
   update() {
-    if(this.player.state === PLAYER_STATE.ATTACK){
-       this.fireDelta++;
+    if (this.player.state === PLAYER_STATE.ATTACK) {
+      this.fireDelta++;
       if (this.fireDelta % 10 === 0) {
         this._shootLaser(this.pointMouse);
       }
@@ -179,6 +176,6 @@ export class GameScene extends Phaser.Scene {
       for (let i = 0; i < this.zombies.getChildren().length; i++) {
         this.physicsEvent.accellerateTo(this.zombies.getChildren()[i], this.player);
       }
-    };
+    }
   }
 }

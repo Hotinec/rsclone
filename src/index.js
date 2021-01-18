@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 import Phaser from 'phaser';
 
-import { GameScene, LoadScene, MenuScene, StatusScene } from './scenes';
+import {
+  GameScene, LoadScene, MenuScene, StatusScene,
+} from './scenes';
 
 const config = {
   type: Phaser.AUTO,
@@ -8,20 +11,20 @@ const config = {
   height: window.innerHeight,
   backgroundColor: '#33333',
   parent: 'game',
-  scene: [ LoadScene, MenuScene, GameScene, StatusScene ],
+  scene: [LoadScene, MenuScene, GameScene, StatusScene],
   scale: {
     mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   physics: {
-    default: "arcade",
-      arcade: {
-        debug: true
-      }
+    default: 'arcade',
+    arcade: {
+      debug: true,
+    },
   },
   audio: {
-    disableWebAudio: true
-  }
+    disableWebAudio: true,
+  },
 };
 
 const Game = new Phaser.Game(config);

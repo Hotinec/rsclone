@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
     "start": "webpack-dev-server --config webpack/base.js --open",
-    "preinstall": "npx npm-force-resolutions"
+    "preinstall": "npx npm-force-resolutions", 
+    "lint": "eslint --fix --ext .js,.ts ."
   },
   "repository": {
     "type": "git",
@@ -16,8 +17,13 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "file-loader": "^4.3.0",
     "html-webpack-plugin": "^5.0.0-beta.4",
     "ini": "^2.0.0",
@@ -32,6 +38,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "eslint-loader": "^4.0.2",
     "phaser": "^3.51.0",
     "phaser-matter-collision-plugin": "^0.10.2",
     "phaser3-weapon-plugin": "^2.0.1"

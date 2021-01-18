@@ -1,4 +1,8 @@
+/* eslint-disable default-case */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
+
 export class Physics {
   constructor(scene, map) {
     this.scene = scene;
@@ -24,8 +28,8 @@ export class Physics {
       this._showBlood(zombie);
 
       this.scene.laserGroup.getChildren().forEach((item) => {
-          item.setActive(false);
-          item.setVisible(false);
+        item.setActive(false);
+        item.setVisible(false);
       });
 
       this._generateZombies(zombies);
@@ -34,9 +38,14 @@ export class Physics {
 
   destroyZombie(zombies) {
     let x = true;
+
+    function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
     this.scene.physics.add.collider(this.player, zombies, (player, zombie) => {
-			if (!zombie.isAttack) {
-				zombie.isAttack = true;
+      if (!zombie.isAttack) {
+        zombie.isAttack = true;
         player.hp--;
         zombie.body.stop();
         x = false;
@@ -46,10 +55,6 @@ export class Physics {
         });
       }
     });
-
-    function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
   }
 
   accellerateTo(object1, object2) {
@@ -57,48 +62,53 @@ export class Physics {
     object1.update(this.scene.pointer);
   }
 
-  killZombieWithKnife(){
-    const zombies = this.scene.zombies;
+  killZombieWithKnife() {
+    const { zombies } = this.scene;
     const knife = this.scene.knifeBounds;
-    const zombiesArr = zombies.getChildren()
+    const zombiesArr = zombies.getChildren();
 
-    knife.body.setCircle(45)
+    knife.body.setCircle(45);
     knife.setDebugBodyColor(0xffff00);
 
     this._checkKnifeZombieIntersection(zombiesArr, knife);
 
     const playerVelocity = this.player.body.velocity;
-      knife.body.velocity.copy(playerVelocity);
+    knife.body.velocity.copy(playerVelocity);
 
-      const centerBodyOnXY = (a, x, y) => {
-        a.position.set(
-          x - a.halfWidth,
-          y - a.halfHeight
-        );
-      }
-      const centerBodyOnPoint = (a, p) => {
-        centerBodyOnXY(a, p.x, p.y);
-      }
-      centerBodyOnXY(knife.body, this.player.body.x + 60, this.player.body.y + 35);
-  
-      this.player.body.updateCenter();
-      knife.body.updateCenter();
-  
-      const RotateAround = Phaser.Math.RotateAround;
-      RotateAround(knife.body.center, this.player.body.center.x, this.player.body.center.y, this.player.rotation);
-  
-      centerBodyOnPoint(knife.body, knife.body.center);
-      knife.body.velocity.copy(this.player.body.velocity);
-      
-      this._generateZombies(zombies);
+    const centerBodyOnXY = (a, x, y) => {
+      a.position.set(
+        x - a.halfWidth,
+        y - a.halfHeight,
+      );
+    };
+    const centerBodyOnPoint = (a, p) => {
+      centerBodyOnXY(a, p.x, p.y);
+    };
+    centerBodyOnXY(knife.body, this.player.body.x + 60, this.player.body.y + 35);
+
+    this.player.body.updateCenter();
+    knife.body.updateCenter();
+
+    const { RotateAround } = Phaser.Math;
+    RotateAround(
+      knife.body.center,
+      this.player.body.center.x,
+      this.player.body.center.y,
+      this.player.rotation,
+    );
+
+    centerBodyOnPoint(knife.body, knife.body.center);
+    knife.body.velocity.copy(this.player.body.velocity);
+
+    this._generateZombies(zombies);
   }
 
-  _checkKnifeZombieIntersection(zombiesArr, knife){
-    for(let i = 0; i < zombiesArr.length; i++){
+  _checkKnifeZombieIntersection(zombiesArr, knife) {
+    for (let i = 0; i < zombiesArr.length; i++) {
       const zombieBounds = zombiesArr[i].getBounds();
       const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
 
-      if((intersection(knife.getBounds(), zombieBounds))){
+      if ((intersection(knife.getBounds(), zombieBounds))) {
         const zombie = zombiesArr[i];
         zombie.hp -= 2;
         this._showBlood(zombie);
@@ -109,7 +119,13 @@ export class Physics {
   _checkWeapon(zombie) {
     switch (this.scene.score) {
       case 1:
-        this._showWeapon(zombie, 'pistol', 'handgun-body', 'survivor-idle_handgun_0', 'handgun');
+        this._showWeapon(
+          zombie,
+          'pistol',
+          'handgun-body',
+          'survivor-idle_handgun_0',
+          'handgun',
+        );
         break;
       case 10:
         this._showWeapon(zombie, 'shotgun', 'shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
@@ -122,12 +138,14 @@ export class Physics {
 
   _generateZombies(zombies) {
     let x;
-    if(this.player.x < this.map.widthInPixels / 2){
-      x = Phaser.Math.Between(this.player.x + this.scene.game.config.width , this.map.widthInPixels);
+    if (this.player.x < this.map.widthInPixels / 2) {
+      x = Phaser.Math.Between(this.player.x + this.scene.game.config.width, this.map.widthInPixels);
     } else {
-      x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2 ));
+      x = Phaser.Math.Between(
+        0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2),
+      );
     }
-    //const x = Phaser.Math.Between(0, this.scene.game.config.width);
+    // const x = Phaser.Math.Between(0, this.scene.game.config.width);
     const y = Phaser.Math.Between(0, this.scene.game.config.height);
     if (zombies.getChildren().length < 30) {
       for (let i = 0; i < 2; i++) {
@@ -139,14 +157,15 @@ export class Physics {
   _showWeapon(zombie, weapon, texture, frame, anim) {
     if (!this.player.weapon.includes(weapon)) {
       this.scene.createWeapon(zombie.x, zombie.y, weapon);
-      this.scene.physics.add.collider(this.player, this.scene.weapon, (player, weapon) => {
-        weapon.destroy();
+      this.scene.physics.add.collider(this.player, this.scene.weapon, (player, currWeapon) => {
+        currWeapon.destroy();
         this.player.changeWeapon(texture, frame, anim);
       });
       this.player.weapon.push(weapon);
     }
   }
-  _showBlood(zombie){
+
+  _showBlood(zombie) {
     if (zombie.hp === 0) {
       this._checkWeapon(zombie);
       zombie.destroy();
@@ -154,7 +173,5 @@ export class Physics {
       blood.depth = -1;
       this.scene.score++;
     }
-
- 
   }
 }

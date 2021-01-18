@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import  knife from '../assets/player/body/knife/knife.png';
+import knife from '../assets/player/body/knife/knife.png';
 import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';
 import knifeAnim from '../assets/player/body/knife/knife_anim.json';
-import { PLAYER_STATE } from '../constants'
+import { PLAYER_STATE } from '../constants';
 import handgun from '../assets/player/body/handgun/handgun.png';
 import handgunAtlas from '../assets/player/body/handgun/handgun_atlas.json';
 import handgunAnim from '../assets/player/body/handgun/handgun_anim.json';
@@ -15,7 +15,9 @@ import rifleAnim from '../assets/player/body/rifle/rifle_anim.json';
 
 export class Hero extends Phaser.Physics.Arcade.Sprite {
   constructor(data) {
-    let {scene, x, y, texture, frame} = data;
+    const {
+      scene, x, y, texture, frame,
+    } = data;
     super(scene, x, y, texture, frame);
     this.scene.add.existing(this);
 
@@ -36,13 +38,13 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     // knife
     scene.load.atlas('knife', knife, knifeAtlas);
     scene.load.animation('knife_anim', knifeAnim);
-    //handgun
+    // handgun
     scene.load.atlas('handgun-body', handgun, handgunAtlas);
     scene.load.animation('handgun_anim', handgunAnim);
-    //shotgun
+    // shotgun
     scene.load.atlas('shotgun-body', shotgun, shotgunAtlas);
     scene.load.animation('shotgun_anim', shotgunAnim);
-    //rifle
+    // rifle
     scene.load.atlas('rifle-body', rifle, rifleAtlas);
     scene.load.animation('rifle_anim', rifleAnim);
   }
@@ -58,7 +60,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
 
   update(pointer) {
     const speed = 250;
-    let playerVelocity = new Phaser.Math.Vector2();
+    const playerVelocity = new Phaser.Math.Vector2();
 
     if (this.inputKeys.knife.isDown && this.weapon.includes('knife')) {
       this.changeWeapon('knife', 'survivor-idle_knife_0', 'knife');
@@ -69,7 +71,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     } else if (this.inputKeys.rifle.isDown && this.weapon.includes('rifle')) {
       this.changeWeapon('rifle-body', 'survivor-idle_rifle_0', 'rifle');
     }
-    
+
     if (this.inputKeys.left.isDown) {
       playerVelocity.x = -1;
     } else if (this.inputKeys.right.isDown) {
@@ -85,29 +87,31 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     playerVelocity.normalize();
     playerVelocity.scale(speed);
     this.setVelocity(playerVelocity.x, playerVelocity.y);
-  
+
     if (this.state === PLAYER_STATE.ATTACK) {
       if (this.anim === 'knife') {
         this.anims.play('knife_attack', true);
       } else {
         this.anims.play(`${this.anim}_shoot`, true);
       }
-    
+
       if (this.anims.currentFrame.textureFrame === `survivor-shoot_${this.anim}_2`
-      || this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14'){
+      || this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14') {
         this.state = PLAYER_STATE.IDLE;
       }
+    } else if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
+      this.anims.play(`${this.anim}_move`, true);
     } else {
-      if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-        this.anims.play(`${this.anim}_move`, true);
-      } else {
-        this.anims.play(`${this.anim}_idle`, true);
-      }
+      this.anims.play(`${this.anim}_idle`, true);
     }
 
-    
     this.setRotation(
       Phaser.Math.Angle.Between(
-        this.x, this.y, pointer.x + this.scene.cameras.main.scrollX, pointer.y + this.scene.cameras.main.scrollY));
+        this.x,
+        this.y,
+        pointer.x + this.scene.cameras.main.scrollX,
+        pointer.y + this.scene.cameras.main.scrollY,
+      ),
+    );
   }
 }

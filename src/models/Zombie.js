@@ -5,7 +5,9 @@ import maleAnim from '../assets/zombie/zombie_anim.json';
 
 export class Zombie extends Phaser.Physics.Arcade.Sprite {
   constructor(data, player) {
-    let {scene, x, y, texture, frame} = data;
+    const {
+      scene, x, y, texture, frame,
+    } = data;
     super(scene, x, y, texture, frame);
     this.scene.add.existing(this);
     this.player = player;
@@ -29,13 +31,13 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
     return this.body.velocity;
   }
 
-  update(pointer) {
-    let playerVelocity = new Phaser.Math.Vector2();
+  update() {
+    const playerVelocity = new Phaser.Math.Vector2();
     playerVelocity.normalize();
 
     if (this.isAttack) {
       this.anims.play('zombie_attack', true);
-    
+
       if (this.anims.currentFrame.textureFrame === 'skeleton-attack_8') {
         if (this.player && this.player.hp <= 0) {
           this.player.destroy();
@@ -43,21 +45,19 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
 
         this.isAttack = false;
       }
+    } else if (this.isAttack) {
+      this.anims.play('zombie_idle', true);
     } else {
-      if(this.isAttack){
-        this.anims.play('zombie_idle', true);      
-      } else {
-        this.anims.play('zombie_move', true);
-      }
+      this.anims.play('zombie_move', true);
     }
 
     this.setRotation(
       Phaser.Math.Angle.Between(
-        this.x, 
-        this.y, 
-        this.scene.player.x, 
-        this.scene.player.y
-      )
+        this.x,
+        this.y,
+        this.scene.player.x,
+        this.scene.player.y,
+      ),
     );
   }
 }

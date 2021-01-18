@@ -5,7 +5,9 @@ import shotgun from '../assets/weapon/shotgun.png';
 
 export class Weapon extends Phaser.Physics.Arcade.Sprite {
   constructor(data) {
-    let {scene, x, y, texture} = data;
+    const {
+      scene, x, y, texture,
+    } = data;
     super(scene, x, y, texture);
     this.scene.add.existing(this);
     scene.sys.updateList.add(this);
@@ -18,7 +20,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
   static preload(scene) {
     scene.load.image('pistol', pistol);
     scene.load.image('rifle', rifle);
-    scene.load.image('shotgun', shotgun);    
+    scene.load.image('shotgun', shotgun);
   }
 
   get velocity() {
