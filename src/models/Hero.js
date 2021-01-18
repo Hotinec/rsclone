@@ -6,7 +6,12 @@ import { PLAYER_STATE } from '../constants'
 import handgun from '../assets/player/body/handgun/handgun.png';
 import handgunAtlas from '../assets/player/body/handgun/handgun_atlas.json';
 import handgunAnim from '../assets/player/body/handgun/handgun_anim.json';
-
+import shotgun from '../assets/player/body/shotgun/shortgun.png';
+import shotgunAtlas from '../assets/player/body/shotgun/shortgun_atlas.json';
+import shotgunAnim from '../assets/player/body/shotgun/shortgun_anim.json';
+import rifle from '../assets/player/body/rifle/rifle.png';
+import rifleAtlas from '../assets/player/body/rifle/rifle_atlas.json';
+import rifleAnim from '../assets/player/body/rifle/rifle_anim.json';
 
 export class Hero extends Phaser.Physics.Arcade.Sprite {
   constructor(data) {
@@ -20,9 +25,11 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
     this.hp = 10;
-   
     this.setCircle(70, this.width / 4, this.height / 4);
     this.state = PLAYER_STATE.IDLE;
+
+    this.anim = 'knife';
+    this.weapon = ['knife'];
   }
 
   static preload(scene) {
@@ -30,23 +37,45 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     scene.load.atlas('knife', knife, knifeAtlas);
     scene.load.animation('knife_anim', knifeAnim);
     //handgun
-    scene.load.atlas('handgun', handgun, handgunAtlas);
+    scene.load.atlas('handgun-body', handgun, handgunAtlas);
     scene.load.animation('handgun_anim', handgunAnim);
+    //shotgun
+    scene.load.atlas('shotgun-body', shotgun, shotgunAtlas);
+    scene.load.animation('shotgun_anim', shotgunAnim);
+    //rifle
+    scene.load.atlas('rifle-body', rifle, rifleAtlas);
+    scene.load.animation('rifle_anim', rifleAnim);
   }
 
   get velocity() {
     return this.body.velocity;
   }
 
+  changeWeapon(texture, frame, anim) {
+    this.setTexture(texture, frame);
+    this.anim = anim;
+  }
+
   update(pointer) {
     const speed = 250;
     let playerVelocity = new Phaser.Math.Vector2();
+
+    if (this.inputKeys.knife.isDown && this.weapon.includes('knife')) {
+      this.changeWeapon('knife', 'survivor-idle_knife_0', 'knife');
+    } else if (this.inputKeys.pistol.isDown && this.weapon.includes('pistol')) {
+      this.changeWeapon('handgun-body', 'survivor-idle_handgun_0', 'handgun');
+    } else if (this.inputKeys.shotgun.isDown && this.weapon.includes('shotgun')) {
+      this.changeWeapon('shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
+    } else if (this.inputKeys.rifle.isDown && this.weapon.includes('rifle')) {
+      this.changeWeapon('rifle-body', 'survivor-idle_rifle_0', 'rifle');
+    }
     
     if (this.inputKeys.left.isDown) {
       playerVelocity.x = -1;
     } else if (this.inputKeys.right.isDown) {
       playerVelocity.x = 1;
-    } 
+    }
+
     if (this.inputKeys.up.isDown) {
       playerVelocity.y = -1;
     } else if (this.inputKeys.down.isDown) {
@@ -56,39 +85,26 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     playerVelocity.normalize();
     playerVelocity.scale(speed);
     this.setVelocity(playerVelocity.x, playerVelocity.y);
-    
-    // with knife
+  
     if (this.state === PLAYER_STATE.ATTACK) {
-      this.anims.play('knife_attack', true);
-
-      if(this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14'){
-        this.state = PLAYER_STATE.IDLE
+      if (this.anim === 'knife') {
+        this.anims.play('knife_attack', true);
+      } else {
+        this.anims.play(`${this.anim}_shoot`, true);
+      }
+    
+      if (this.anims.currentFrame.textureFrame === `survivor-shoot_${this.anim}_2`
+      || this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14'){
+        this.state = PLAYER_STATE.IDLE;
       }
     } else {
       if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-        this.state = PLAYER_STATE.MOVE
-        this.anims.play('knife_move', true);
+        this.anims.play(`${this.anim}_move`, true);
       } else {
-        this.state = PLAYER_STATE.IDLE
-        this.anims.play('knife_idle', true);
+        this.anims.play(`${this.anim}_idle`, true);
       }
     }
-    
-    // with handgun
 
-    // if (this.state === PLAYER_STATE.ATTACK) {
-    //   this.anims.play('handgun_shoot', true);
-    
-    //   if (this.anims.currentFrame.textureFrame === 'survivor-shoot_handgun_2'){
-    //     this.state = PLAYER_STATE.IDLE;
-    //   }
-    // } else {
-    //   if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-    //     this.anims.play('handgun_move', true);
-    //   } else {
-    //     this.anims.play('handgun_idle', true);
-    //   }
-    // }
     
     this.setRotation(
       Phaser.Math.Angle.Between(
