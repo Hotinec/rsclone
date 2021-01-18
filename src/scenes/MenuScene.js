@@ -3,51 +3,89 @@
 /* eslint-disable no-useless-constructor */
 import Phaser from 'phaser';
 
+import backgound from '../assets/menu/bg.jpg';
+import logo from '../assets/menu/logo.png';
+import scull from '../assets/menu/scull.png';
+import emptyScull from '../assets/menu/scull-empty.png';
+import theme from '../assets/audio/theme.mp3';
+import title from '../assets/menu/empty.png';
+import btn from '../assets/menu/small.png';
+import MainMenu from '../menu/Main';
+import OptionsMenu from '../menu/Options';
+
 export class MenuScene extends Phaser.Scene {
   constructor() {
     super({ key: 'MenuScene' });
+    this.sound = true;
+    this.fullScreen = false;
+    this.texts = [];
+  }
+
+  preload() {
+    this.load.audio('theme', theme);
+    this.load.image('menu_bg', backgound, 0, 0);
+    this.load.image('logo', logo);
+    this.load.image('scull', scull);
+    this.load.image('title', title);
+    this.load.image('btn', btn);
+    this.load.image('empty-scull', emptyScull);
   }
 
   create() {
-    this.add.image(0, 0, 'menu_bg').setOrigin(0).setDepth(0);
-    this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1);
-    const playBtn = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'play_btn').setDepth(1);
-    const optionsBtn = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 100, 'options_btn').setDepth(1);
-    // const hoverSprite = this.add.sprite(100, 100, 'cat')
-    const hoverSprite = this.add.sprite(100, 100, 'scull');
-    hoverSprite.setScale(0.6);
-    hoverSprite.setVisible(false);
+    this.audio = this.sound.add('theme');
+    this.audio.setVolume(1);
+    this.audio.play();
+    this.createBG();
+    this.main = new MainMenu(this);
+    this.options = new OptionsMenu(this);
 
-    playBtn.setInteractive();
-    optionsBtn.setInteractive();
+    this.main.init();
 
-    playBtn.on('pointerover', () => {
-      hoverSprite.setVisible(true);
-      hoverSprite.x = playBtn.x - playBtn.width;
-      hoverSprite.y = playBtn.y;
+    this.hoverImg = this.add.image(100, 100, 'scull').setDepth(1);
+    this.hoverImg.setVisible(false);
+    this.hoverImg.setScale(0.4);
+  }
+
+  createBG() {
+    const bg = this.add.image(0, 0, 'menu_bg').setDepth(0);
+    bg.displayHeight = this.game.config.height;
+    bg.scaleX = bg.scaleY;
+
+    bg.y = this.game.config.height / 2;
+    bg.x = this.game.config.width / 2;
+
+    // bg.x = bg.displayWidth*.5
+  }
+
+  createBtn(x, y, text, arr) {
+    const newBtn = this.add.image(x, y, 'btn').setDepth(1);
+    const btnText = this.make.text({
+      x,
+      y,
+      text,
+      style: {
+        font: '27px monospace',
+        fill: '#212121',
+      },
+    });
+    btnText.setOrigin(0.5, 0.5).setDepth(2);
+    this.initHover(newBtn);
+    arr.push(btnText);
+
+    return newBtn;
+  }
+
+  initHover(button) {
+    button.setInteractive();
+
+    button.on('pointerover', () => {
+      this.hoverImg.setVisible(true);
+      this.hoverImg.x = button.x - this.hoverImg.width;
+      this.hoverImg.y = button.y;
     });
 
-    playBtn.on('pointerout', () => {
-      hoverSprite.setVisible(false);
-      hoverSprite.x = playBtn.x - playBtn.width;
-      hoverSprite.y = playBtn.y;
+    button.on('pointerout', () => {
+      this.hoverImg.setVisible(false);
     });
-
-    optionsBtn.on('pointerover', () => {
-      hoverSprite.setVisible(true);
-      hoverSprite.x = optionsBtn.x - optionsBtn.width;
-      hoverSprite.y = optionsBtn.y;
-    });
-
-    optionsBtn.on('pointerout', () => {
-      hoverSprite.setVisible(false);
-      hoverSprite.x = optionsBtn.x - optionsBtn.width;
-      hoverSprite.y = optionsBtn.y;
-    });
-
-    playBtn.on('pointerdown', () => {
-      this.scene.start('GameScene');
-    });
-    // this.add.image('options_btn')
   }
 }

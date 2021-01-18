@@ -11,7 +11,7 @@ const config = {
   height: window.innerHeight,
   backgroundColor: '#33333',
   parent: 'game',
-  scene: [LoadScene, MenuScene, GameScene, StatusScene],
+  scene: [MenuScene, LoadScene, GameScene, StatusScene],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,

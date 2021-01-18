@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
     "start": "webpack-dev-server --config webpack/base.js --open",
-    "preinstall": "npx npm-force-resolutions", 
+    "preinstall": "npx npm-force-resolutions",
     "lint": "eslint --fix --ext .js,.ts ."
   },
   "repository": {

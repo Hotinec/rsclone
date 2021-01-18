@@ -32,7 +32,7 @@ module.exports = {
         use: 'raw-loader',
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml|cur|wav)$/i,
+        test: /\.(gif|png|jpe?g|svg|xml|cur|wav|mp3)$/i,
         use: 'file-loader',
       },
       {
