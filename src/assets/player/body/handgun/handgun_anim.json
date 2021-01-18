@@ -7,83 +7,83 @@
             "frameRate": 12,
             "frames": [
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_0"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_1"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_2"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_3"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_4"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_5"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_6"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_7"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_8"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_9"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_10"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_11"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_12"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_13"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_14"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_15"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_16"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_17"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_18"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-idle_handgun_19"
                 }
             ]
@@ -95,83 +95,83 @@
             "frameRate": 22,
             "frames": [
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_0"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_1"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_2"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_3"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_4"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_5"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_6"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_7"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_8"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_9"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_10"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_11"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_12"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_13"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_14"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_15"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_16"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_17"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_18"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-move_handgun_19"
                 }
             ]
@@ -184,15 +184,15 @@
             "duration": 50,
             "frames": [
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-shoot_handgun_0"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-shoot_handgun_1"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-shoot_handgun_2"
                 }
             ]
@@ -205,63 +205,63 @@
             "duration": 50,
             "frames": [
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_0"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_1"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_2"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_3"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_4"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_5"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_6"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_7"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_8"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_9"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_10"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_11"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_12"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_13"
                 },
                 {
-                    "key": "handgun",
+                    "key": "handgun-body",
                     "frame": "survivor-reload_handgun_14"
                 }
             ]

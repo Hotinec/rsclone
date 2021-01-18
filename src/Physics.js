@@ -28,52 +28,15 @@ export class Physics {
         this.scene.score++;
       }
 
-      this.showWeapon(zombie);
+      this._checkWeapon(zombie);
 
       this.scene.laserGroup.getChildren().forEach((item) => {
           item.setActive(false);
           item.setVisible(false);
       });
 
-       let x;
-       if(this.player.x < this.map.widthInPixels / 2){
-          x = Phaser.Math.Between(this.player.x + this.scene.game.config.width , this.map.widthInPixels);
-       }
-       else {
-          x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2 ));
-       }
-      //const x = Phaser.Math.Between(0, this.scene.game.config.width);
-      const y = Phaser.Math.Between(0, this.scene.game.config.height);
-      if (zombies.getChildren().length < 30) {
-          for (let i = 0; i < 2; i++) {
-              zombies.add(this.scene.newZombie(x, y));
-          }
-      }
+      this._generateZombies(zombies);
     });
-  }
-
-  showWeapon(zombie) {
-    switch (this.scene.score) {
-      case 1:
-        if (!this.player.weapon.includes('shotgun')) {
-          this.scene.createWeapon(zombie.x, zombie.y, 'shotgun');
-          this.scene.physics.add.collider(this.player, this.scene.weapon, (player, weapon) => {
-            weapon.destroy();
-            this.player.changeWeapon('shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
-          });
-          this.player.weapon.push('shotgun');
-        }
-        break;
-      case 10:
-        if (!this.player.weapon.includes('rifle')) {
-          this.scene.createWeapon(zombie.x, zombie.y, 'rifle');
-          this.scene.physics.add.collider(this.player, this.scene.weapon, (player, weapon) => {
-            weapon.destroy();
-            this.player.changeWeapon('rifle-body', 'survivor-idle_rifle_0', 'rifle');
-          });
-          this.player.weapon.push('rifle');
-        }
-    }
   }
 
   destroyZombie(zombies) {
@@ -99,5 +62,90 @@ export class Physics {
   accellerateTo(object1, object2) {
     this.scene.physics.accelerateToObject(object1, object2, 40, 40, 40);
     object1.update(this.scene.pointer);
+  }
+
+  killZombieWithKnife(){
+    const zombies = this.scene.zombies;
+    const knife = this.scene.knifeBounds;
+    const zombiesArr = zombies.getChildren()
+
+    knife.body.setCircle(45)
+    knife.setDebugBodyColor(0xffff00);
+
+    for(let i = 0; i < zombiesArr.length; i++){
+      const zombieBounds = zombiesArr[i].getBounds()
+      const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
+
+      if((intersection(knife.getBounds(), zombieBounds))){
+        zombiesArr[i].destroy();
+      }
+    }
+
+    const v = this.player.body.velocity;
+      knife.body.velocity.copy(v);
+
+      const centerBodyOnXY = (a, x, y) => {
+        a.position.set(
+          x - a.halfWidth,
+          y - a.halfHeight
+        );
+      }
+      const centerBodyOnPoint = (a, p) => {
+        centerBodyOnXY(a, p.x, p.y);
+      }
+      centerBodyOnXY(knife.body, this.player.body.x + 60, this.player.body.y + 35);
+  
+      this.player.body.updateCenter();
+      knife.body.updateCenter();
+  
+      const RotateAround = Phaser.Math.RotateAround;
+      RotateAround(knife.body.center, this.player.body.center.x, this.player.body.center.y, this.player.rotation);
+  
+      centerBodyOnPoint(knife.body, knife.body.center);
+      knife.body.velocity.copy(this.player.body.velocity);
+      
+      // need to add zombies generation
+      this._generateZombies(zombies);
+  }
+
+  _checkWeapon(zombie) {
+    switch (this.scene.score) {
+      case 1:
+        this._showWeapon(zombie, 'pistol', 'handgun-body', 'survivor-idle_handgun_0', 'handgun');
+        break;
+      case 10:
+        this._showWeapon(zombie, 'shotgun', 'shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
+        break;
+      case 30:
+        this._showWeapon(zombie, 'rifle', 'rifle-body', 'survivor-idle_rifle_0', 'rifle');
+        break;
+    }
+  }
+
+  _generateZombies(zombies) {
+    let x;
+    if(this.player.x < this.map.widthInPixels / 2){
+      x = Phaser.Math.Between(this.player.x + this.scene.game.config.width , this.map.widthInPixels);
+    } else {
+      x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2 ));
+    }
+    //const x = Phaser.Math.Between(0, this.scene.game.config.width);
+    const y = Phaser.Math.Between(0, this.scene.game.config.height);
+    if (zombies.getChildren().length < 30) {
+      for (let i = 0; i < 2; i++) {
+        zombies.add(this.scene.newZombie(x, y));
+      }
+    }
+  }
+
+  _showWeapon(zombie, weapon, texture, frame, anim) {
+    if (!this.player.weapon.includes(weapon)) {
+      this.scene.createWeapon(zombie.x, zombie.y, weapon);
+      this.scene.physics.add.collider(this.player, this.scene.weapon, (player, weapon) => {
+        weapon.destroy();
+        this.player.changeWeapon(texture, frame, anim);
+      });
+      this.player.weapon.push(weapon);
+    }
   }
 }

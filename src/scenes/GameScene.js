@@ -5,7 +5,8 @@ import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
 import blod from '../assets/blod/blood.png';
-import cursor from '../assets/PngItem_2912951.cur';
+import { PLAYER_STATE } from '../constants'
+import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import {
   Zombie,
@@ -61,6 +62,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.input.setDefaultCursor(`url(${cursor}), auto`);
     this.soundShoot = this.sound.add('shoot');
 
     // map creation
@@ -74,8 +76,8 @@ export class GameScene extends Phaser.Scene {
       scene: this,
       x: map.widthInPixels / 2,
       y: map.heightInPixels / 2,
-      texture: 'handgun',
-      frame: 'survivor-idle_handgun_0'
+      texture: 'knife',
+      frame: 'survivor-idle_knife_0'
     });
 
     this.newZombie();
@@ -96,6 +98,8 @@ export class GameScene extends Phaser.Scene {
       rifle: Phaser.Input.Keyboard.KeyCodes.FOUR,
     });
 
+    this.knifeBounds = this.physics.add.image();
+
     this.pointer = {
       x: -230,
       y: -30
@@ -107,19 +111,16 @@ export class GameScene extends Phaser.Scene {
       this.pointer.y = pointer.y;
     });
 
-
     this.input.on('pointerup', (pointer) => {
-      this.player.isAttack = false;
+      this.player.state = PLAYER_STATE.IDLE;
       this.shoot = false;
-      this.player.isAttack = true;
-      this.shootLaser(pointer);
-      //shoot.play();
+       this.player.state = PLAYER_STATE.ATTACK;
+      this._shootLaser(pointer);
     });
 
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
-      this.player.isAttack = true;
-      //this.shootLaser(pointer);
+      this.player.state = PLAYER_STATE.ATTACK;
       this.shoot = true;
       this.pointMouse = pointer;
     });
@@ -133,11 +134,21 @@ export class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
   }
 
-  shootLaser(pointer, delta) {
-    this.soundShoot.play();
-    this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
-    this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
-    this.fireDelta = 0;
+  _shootLaser(pointer, delta) {
+    if (this.player.anim === 'knife') {
+      if(!this.knifeBounds.body){
+        this.knifeBounds = this.physics.add.image();
+      }
+      this.physicsEvent.killZombieWithKnife()
+      if(this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13'){
+        this.knifeBounds.destroy();
+      }
+    } else {
+      this.soundShoot.play();
+      this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
+      this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+      this.fireDelta = 0;
+    }
   }
 
   createWeapon(posX, posY, texture) {
@@ -153,7 +164,7 @@ export class GameScene extends Phaser.Scene {
     if (this.shoot) {
       this.fireDelta++;
       if (this.fireDelta % 10 === 0) {
-        this.shootLaser(this.pointMouse);
+        this._shootLaser(this.pointMouse);
       }
     }
     if (this.player.active === true) this.player.update(this.pointer);
