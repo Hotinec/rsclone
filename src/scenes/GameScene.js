@@ -4,7 +4,7 @@
 import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import map from '../assets/map/map.json'
-import blod from '../assets/blod/blood.png';
+import blood from '../assets/blood/blood.png';
 import { PLAYER_STATE } from '../constants'
 import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
@@ -30,7 +30,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('blod', blod);
+    this.load.image('blood', blood);
 
     // map
     this.load.image('tilesets', terrain);
@@ -112,16 +112,12 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.input.on('pointerup', (pointer) => {
-      this.player.state = PLAYER_STATE.IDLE;
-      this.shoot = false;
-       this.player.state = PLAYER_STATE.ATTACK;
       this._shootLaser(pointer);
     });
 
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
       this.player.state = PLAYER_STATE.ATTACK;
-      this.shoot = true;
       this.pointMouse = pointer;
     });
 
@@ -135,19 +131,23 @@ export class GameScene extends Phaser.Scene {
   }
 
   _shootLaser(pointer, delta) {
+    
     if (this.player.anim === 'knife') {
       if(!this.knifeBounds.body){
         this.knifeBounds = this.physics.add.image();
       }
       this.physicsEvent.killZombieWithKnife()
+      
       if(this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13'){
         this.knifeBounds.destroy();
+        this.player.state = PLAYER_STATE.IDLE
       }
     } else {
       this.soundShoot.play();
       this.laserGroup.fireLaser(this.player.x , this.player.y , pointer.x, pointer.y);
       this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
       this.fireDelta = 0;
+      this.player.state = PLAYER_STATE.IDLE
     }
   }
 
@@ -161,8 +161,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.shoot) {
-      this.fireDelta++;
+
+    if(this.player.state === PLAYER_STATE.ATTACK){
+       this.fireDelta++;
       if (this.fireDelta % 10 === 0) {
         this._shootLaser(this.pointMouse);
       }

@@ -21,14 +21,7 @@ export class Physics {
       zombie.hp--;
       bullet.destroy();
 
-      if (zombie.hp === 0) {
-        zombie.destroy();
-        const blod = this.scene.add.image(zombie.x, zombie.y, 'blod').setScale(0.2);
-        blod.depth = -1;
-        this.scene.score++;
-      }
-
-      this._checkWeapon(zombie);
+      this._showBlood(zombie);
 
       this.scene.laserGroup.getChildren().forEach((item) => {
           item.setActive(false);
@@ -72,17 +65,10 @@ export class Physics {
     knife.body.setCircle(45)
     knife.setDebugBodyColor(0xffff00);
 
-    for(let i = 0; i < zombiesArr.length; i++){
-      const zombieBounds = zombiesArr[i].getBounds()
-      const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
+    this._checkKnifeZombieIntersection(zombiesArr, knife);
 
-      if((intersection(knife.getBounds(), zombieBounds))){
-        zombiesArr[i].destroy();
-      }
-    }
-
-    const v = this.player.body.velocity;
-      knife.body.velocity.copy(v);
+    const playerVelocity = this.player.body.velocity;
+      knife.body.velocity.copy(playerVelocity);
 
       const centerBodyOnXY = (a, x, y) => {
         a.position.set(
@@ -104,8 +90,20 @@ export class Physics {
       centerBodyOnPoint(knife.body, knife.body.center);
       knife.body.velocity.copy(this.player.body.velocity);
       
-      // need to add zombies generation
       this._generateZombies(zombies);
+  }
+
+  _checkKnifeZombieIntersection(zombiesArr, knife){
+    for(let i = 0; i < zombiesArr.length; i++){
+      const zombieBounds = zombiesArr[i].getBounds();
+      const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
+
+      if((intersection(knife.getBounds(), zombieBounds))){
+        const zombie = zombiesArr[i];
+        zombie.hp -= 2;
+        this._showBlood(zombie);
+      }
+    }
   }
 
   _checkWeapon(zombie) {
@@ -147,5 +145,16 @@ export class Physics {
       });
       this.player.weapon.push(weapon);
     }
+  }
+  _showBlood(zombie){
+    if (zombie.hp === 0) {
+      this._checkWeapon(zombie);
+      zombie.destroy();
+      const blood = this.scene.add.image(zombie.x, zombie.y, 'blood').setScale(0.2);
+      blood.depth = -1;
+      this.scene.score++;
+    }
+
+ 
   }
 }
