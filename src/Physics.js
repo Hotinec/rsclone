@@ -79,7 +79,7 @@ export class Physics {
   }
 
   showAmmo(zombie) {
-    if (this.scene.score % 5 === 0) {
+    if (this.scene.score % 3 === 0) {
       if (this.player.weapon.includes('shotgun')) {
         this.scene.createAmmo(zombie.x, zombie.y, 'shotgunAmmo');
         this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
@@ -88,7 +88,7 @@ export class Physics {
           console.log(this.scene.laserGroup.magazine.shotgunAll);
         });
       }
-    } else if (this.scene.score % 10 === 0) {
+    } else if (this.scene.score % 5 === 0) {
       if (this.player.weapon.includes('rifle')) {
         this.scene.createAmmo(zombie.x, zombie.y, 'rifleAmmo');
         this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
