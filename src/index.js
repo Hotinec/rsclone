@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { GameScene, LoadScene, MenuScene } from './scenes';
+
+import { GameScene, LoadScene, MenuScene, StatusScene } from './scenes';
 
 const config = {
   type: Phaser.AUTO,
@@ -7,7 +8,7 @@ const config = {
   height: window.innerHeight,
   backgroundColor: '#33333',
   parent: 'game',
-  scene: [ LoadScene, MenuScene, GameScene  ],
+  scene: [ LoadScene, MenuScene, GameScene, StatusScene ],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH

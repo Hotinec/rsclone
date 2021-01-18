@@ -28,6 +28,8 @@ export class GameScene extends Phaser.Scene {
     // map
     this.load.image('tilesets', terrain);
     this.load.tilemapTiledJSON('map', map);
+    this.scene.launch('StatusScene')
+
 
     // models
     Zombie.preload(this);
@@ -68,6 +70,8 @@ export class GameScene extends Phaser.Scene {
     });
   
     this.input.setDefaultCursor('url(./src/assets/cursor.cur), auto');
+
+   
 
     this.weapon = new Weapon({
       scene: this,
