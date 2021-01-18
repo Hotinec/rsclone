@@ -30,18 +30,17 @@ export class Physics {
       }
 
       this.showWeapon(zombie);
-      
+
       this.scene.laserGroup.getChildren().forEach((item) => {
         item.setActive(false);
         item.setVisible(false);
       });
 
       let x;
-      if(this.player.x < this.map.widthInPixels / 2){
-        x = Phaser.Math.Between(this.player.x + this.scene.game.config.width , this.map.widthInPixels);
-      }
-       else {
-        x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2 ));
+      if (this.player.x < this.map.widthInPixels / 2) {
+        x = Phaser.Math.Between(this.player.x + this.scene.game.config.width, this.map.widthInPixels);
+      } else {
+        x = Phaser.Math.Between(0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2));
       }
       //const x = Phaser.Math.Between(0, this.scene.game.config.width);
       let y = Phaser.Math.Between(0, this.scene.game.config.height);
@@ -80,48 +79,50 @@ export class Physics {
   }
 
   showAmmo(zombie) {
-    //if (this.scene.score % 10 === 0) {
+    if (this.scene.score % 5 === 0) {
       if (this.player.weapon.includes('shotgun')) {
         this.scene.createAmmo(zombie.x, zombie.y, 'shotgunAmmo');
-        this.scene.physics.add.collider(this.player, this.scene.ammo, (player ,ammo) => {
+        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
           this.scene.laserGroup.magazine.shotgunAll += 6;
           ammo.destroy();
           console.log(this.scene.laserGroup.magazine.shotgunAll);
         });
       }
-    //   if (this.player.weapon.includes('rifle')) {
-    //     this.scene.createAmmo(zombie.x, zombie.y, 'rifleAmmo');
-    //     this.scene.physics.add.collider(this.player, this.scene.ammo, (player ,ammo) => {
-    //       this.scene.laserGroup.magazine.rifleAll += 30;
-    //       ammo.destroy();
-    //       console.log(this.scene.laserGroup.magazine.rifleAll);
-    //     });
-    // }
-  //}
-}
-
-destroyZombie(zombies) {
-  let x = true;
-  this.scene.physics.add.collider(this.player, zombies, (player, zombie) => {
-    if (!zombie.isAttack) {
-      zombie.isAttack = true;
-      player.hp--;
-      zombie.body.stop();
-      x = false;
-
-      delay(700).then(() => {
-        x = true;
-      });
+    } else if (this.scene.score % 10 === 0) {
+      if (this.player.weapon.includes('rifle')) {
+        this.scene.createAmmo(zombie.x, zombie.y, 'rifleAmmo');
+        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
+          this.scene.laserGroup.magazine.rifleAll += 30;
+          ammo.destroy();
+          console.log(this.scene.laserGroup.magazine.rifleAll);
+        });
+      }
     }
-  });
 
-  function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
-}
 
-accellerateTo(object1, object2) {
-  this.scene.physics.accelerateToObject(object1, object2, 40, 40, 40);
-  object1.update(this.scene.pointer);
-}
+  destroyZombie(zombies) {
+    let x = true;
+    this.scene.physics.add.collider(this.player, zombies, (player, zombie) => {
+      if (!zombie.isAttack) {
+        zombie.isAttack = true;
+        player.hp--;
+        zombie.body.stop();
+        x = false;
+
+        delay(700).then(() => {
+          x = true;
+        });
+      }
+    });
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  }
+
+  accellerateTo(object1, object2) {
+    this.scene.physics.accelerateToObject(object1, object2, 40, 40, 40);
+    object1.update(this.scene.pointer);
+  }
 }
