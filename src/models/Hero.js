@@ -29,6 +29,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
 
     this.anim = 'handgun';
     this.weapon = ['handgun'];
+    this.isReload = false;
   }
 
   static preload(scene) {
@@ -60,10 +61,8 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     let playerVelocity = new Phaser.Math.Vector2();
 
     if (this.inputKeys.pistol.isDown && this.weapon.includes('handgun')) {
-      console.log('handgun')
       this.changeWeapon('handgun', 'survivor-idle_handgun_0', 'handgun');
     } else if (this.inputKeys.shotgun.isDown && this.weapon.includes('shotgun')) {
-      console.log('shotgun')
       this.changeWeapon('shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
     } else if (this.inputKeys.rifle.isDown && this.weapon.includes('rifle')) {
       this.changeWeapon('rifle-body', 'survivor-idle_rifle_0', 'rifle');
@@ -84,21 +83,29 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     playerVelocity.normalize();
     playerVelocity.scale(speed);
     this.setVelocity(playerVelocity.x, playerVelocity.y);
-  
-    if (this.isAttack) {
+    
+    if (this.isAttack && !this.isReload ) {
       this.anims.play(`${this.anim}_shoot`, true);
     
       if (this.anims.currentFrame.textureFrame === `survivor-shoot_${this.anim}_2`){
         this.isAttack = false;
       }
-    } else {
+    } else if (this.isReload) {
+      this.anims.play(`${this.anim}_reload`, true);
+    
+      if (this.anims.currentFrame.textureFrame === `survivor-reload_${this.anim}_10`){
+        this.isReload = false;
+      }
+    } 
+    else {
       if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
         this.anims.play(`${this.anim}_move`, true);
       } else {
         this.anims.play(`${this.anim}_idle`, true);
       }
     }
-    
+
+      
     this.setRotation(
       Phaser.Math.Angle.Between(
         this.x, this.y, pointer.x + this.scene.cameras.main.scrollX, pointer.y + this.scene.cameras.main.scrollY));

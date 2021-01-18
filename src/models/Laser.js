@@ -11,6 +11,13 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
       active: false,
       key: 'laser',
     })
+    this.magazine = {
+      shotgun: 6,
+      shotgunAll: 6,
+      handgun: 10,
+      rifle: 30,
+      rifleAll: 30,
+    }
   }
 
 	fireLaser(x, y, mouseX, mouseY) {
@@ -19,6 +26,27 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
       laser.fire(x, y, mouseX, mouseY);
     }
   }
+
+  reload(weapon){
+    if(weapon === 'rifle'){
+      setTimeout(() => {
+        this.magazine.rifle = 30
+        this.magazine.rifleAll -= 30
+      },1000);
+    }
+    else if(weapon === 'shotgun'){
+      setTimeout(() => {
+        this.magazine.shotgun = 6
+        this.magazine.shotgunAll -= 6
+      },1000);
+    } else {
+      setTimeout(() => {
+        this.magazine.handgun = 10
+      },1000);
+    }
+    this.scene.player.isReload = true;
+  };
+
 }
 
 export class Laser extends Phaser.Physics.Arcade.Sprite {
@@ -47,8 +75,6 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
         let angle = Phaser.Math.Angle.Between(mouseX + this.scene.cameras.main.scrollX, mouseY + this.scene.cameras.main.scrollY, x, y);
         this.incX = Math.cos(angle);
         this.incY = Math.sin(angle);
-        console.log("this.incX  - "+ this.incX);
-        console.log("this.incY  - "+ this.incX);
         this.setOrigin(4 * this.incX,4 * this.incY);
         this.setVelocity(this.incX * -2900, this.incY * -2900);
     }
