@@ -8,6 +8,8 @@ import blood from '../assets/blood/blood.png';
 import { PLAYER_STATE } from '../constants';
 import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
+import knifeAttacke from '../assets/audio/knifeAttack.wav';
+import knifeHit from '../assets/audio/knifeHit.wav';
 import {
   Zombie,
   Hero,
@@ -46,6 +48,8 @@ export class GameScene extends Phaser.Scene {
 
     // audio
     this.load.audio('shoot', shootSound);
+    this.load.audio('khife_attack', knifeAttacke);
+    this.load.audio('knife_hit', knifeHit);
   }
 
   newZombie(x, y) {
@@ -62,7 +66,11 @@ export class GameScene extends Phaser.Scene {
 
   create() {
     this.input.setDefaultCursor(`url(${cursor}), auto`);
+
+    // add sound
     this.soundShoot = this.sound.add('shoot');
+    this.soundKnifeAttack = this.sound.add('khife_attack');
+    this.soundKnifeHit = this.sound.add('knife_hit');
 
     // map creation
     const map = this.make.tilemap({ key: 'map' });
@@ -72,8 +80,6 @@ export class GameScene extends Phaser.Scene {
     layer2.setCollisionByProperty({
       collides: true,
     });
-
-    // this.input.setDefaultCursor('url(./src/assets/cursor.cur), auto');
 
     this.player = new Hero({
       scene: this,
@@ -120,6 +126,11 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
+
+      if (this.player.anim === 'knife' && this.player.state !== PLAYER_STATE.ATTACK) {
+        setTimeout(() => this.soundKnifeAttack.play(), 500);
+      }
+
       this.player.state = PLAYER_STATE.ATTACK;
       this.pointMouse = pointer;
     });

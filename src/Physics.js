@@ -110,7 +110,7 @@ export class Physics {
 
       if ((intersection(knife.getBounds(), zombieBounds))) {
         const zombie = zombiesArr[i];
-        zombie.hp -= 2;
+        zombie.hp = 0;
         this._showBlood(zombie);
       }
     }
