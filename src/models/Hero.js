@@ -101,6 +101,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
         // this.state = PLAYER_STATE.IDLE;
       }
     } else if (this.isReload) {
+      this.scene.reloadSound.play();
       this.anims.play(`${this.anim}_reload`, true);
       if (this.anims.currentFrame.textureFrame === `survivor-reload_${this.anim}_10`) {
         this.isReload = false;

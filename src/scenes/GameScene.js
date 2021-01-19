@@ -9,7 +9,8 @@ import { PLAYER_STATE } from '../constants';
 import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import knifeAttacke from '../assets/audio/knifeAttack.wav';
-import knifeHit from '../assets/audio/knifeHit.wav';
+import reload from '../assets/audio/reload.wav';
+import top from '../assets/audio/top.wav';
 import {
   Zombie,
   Hero,
@@ -51,7 +52,8 @@ export class GameScene extends Phaser.Scene {
     // audio
     this.load.audio('shoot', shootSound);
     this.load.audio('khife_attack', knifeAttacke);
-    this.load.audio('knife_hit', knifeHit);
+    this.load.audio('reload', reload);
+    this.load.audio('top', top);
   }
 
   newZombie(x, y) {
@@ -72,7 +74,8 @@ export class GameScene extends Phaser.Scene {
     // add sound
     this.soundShoot = this.sound.add('shoot');
     this.soundKnifeAttack = this.sound.add('khife_attack');
-    this.soundKnifeHit = this.sound.add('knife_hit');
+    this.reloadSound = this.sound.add('reload');
+    this.topSound = this.sound.add('top');
 
     //   this.data.set('armore', 10);
     //   this.data.set('level', 1);
@@ -93,8 +96,6 @@ export class GameScene extends Phaser.Scene {
     layer2.setCollisionByProperty({
       collides: true,
     });
-
-    // this.input.setDefaultCursor('url(./src/assets/cursor.cur), auto');
 
     this.player = new Hero({
       scene: this,
@@ -167,7 +168,9 @@ export class GameScene extends Phaser.Scene {
       }
       this.physicsEvent.killZombieWithKnife();
 
-      if (this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13') {
+      if (this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_12'
+      || this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13'
+      || this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14') {
         this.knifeBounds.destroy();
         this.player.state = PLAYER_STATE.IDLE;
       }
