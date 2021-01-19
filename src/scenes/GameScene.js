@@ -136,7 +136,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.input.on('pointerup', (pointer) => {
-      this._shootLaser(pointer);
+      // this._shootLaser(pointer);
       if (this.player.anim === 'rifle') this.player.state = PLAYER_STATE.IDLE;
     });
 
@@ -166,8 +166,9 @@ export class GameScene extends Phaser.Scene {
         this.knifeBounds = this.physics.add.image();
       }
       this.physicsEvent.killZombieWithKnife();
-
-      if (this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13') {
+      if (this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_12'
+      || this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_13'
+      || this.player.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14') {
         this.knifeBounds.destroy();
         this.player.state = PLAYER_STATE.IDLE;
       }
