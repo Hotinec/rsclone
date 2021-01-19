@@ -32,6 +32,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
 
     this.anim = 'knife';
     this.weapon = ['knife'];
+    this.isReload = false;
   }
 
   static preload(scene) {
@@ -97,7 +98,12 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
 
       if (this.anims.currentFrame.textureFrame === `survivor-shoot_${this.anim}_2`
       || this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14') {
-        this.state = PLAYER_STATE.IDLE;
+        // this.state = PLAYER_STATE.IDLE;
+      }
+    } else if (this.isReload) {
+      this.anims.play(`${this.anim}_reload`, true);
+      if (this.anims.currentFrame.textureFrame === `survivor-reload_${this.anim}_10`) {
+        this.isReload = false;
       }
     } else if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
       this.anims.play(`${this.anim}_move`, true);

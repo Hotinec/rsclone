@@ -146,10 +146,12 @@ export class Physics {
       );
     }
     // const x = Phaser.Math.Between(0, this.scene.game.config.width);
-    const y = Phaser.Math.Between(0, this.scene.game.config.height);
+    let y = Phaser.Math.Between(0, this.scene.game.config.height);
     if (zombies.getChildren().length < 30) {
       for (let i = 0; i < 2; i++) {
         zombies.add(this.scene.newZombie(x, y));
+        y += 200;
+        x += 200;
       }
     }
   }
@@ -168,10 +170,31 @@ export class Physics {
   _showBlood(zombie) {
     if (zombie.hp === 0) {
       this._checkWeapon(zombie);
+      this._showAmmo(zombie);
       zombie.destroy();
       const blood = this.scene.add.image(zombie.x, zombie.y, 'blood').setScale(0.2);
       blood.depth = -1;
       this.scene.score++;
+    }
+  }
+
+  _showAmmo(zombie) {
+    if (this.scene.score % 3 === 0) {
+      if (this.player.weapon.includes('shotgun')) {
+        this.scene.createAmmo(zombie.x, zombie.y, 'shotgunAmmo');
+        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
+          this.scene.laserGroup.magazine.shotgunAll += 6;
+          ammo.destroy();
+        });
+      }
+    } else if (this.scene.score % 5 === 0) {
+      if (this.player.weapon.includes('rifle')) {
+        this.scene.createAmmo(zombie.x, zombie.y, 'rifleAmmo');
+        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
+          this.scene.laserGroup.magazine.rifleAll += 30;
+          ammo.destroy();
+        });
+      }
     }
   }
 }

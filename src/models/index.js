@@ -5,6 +5,8 @@ import {
   Laser, LaserGroup, FireGroup, Fire,
 } from './Laser';
 
+import { Ammo } from './Ammo';
+
 export {
-  Zombie, Hero, Weapon, Laser, LaserGroup, FireGroup, Fire,
+  Zombie, Hero, Weapon, Laser, LaserGroup, FireGroup, Fire, Ammo,
 };
