@@ -18,6 +18,7 @@ import {
   LaserGroup,
   FireGroup,
   Fire,
+  Ammo,
 } from '../models';
 import {
   Physics,
@@ -45,6 +46,7 @@ export class GameScene extends Phaser.Scene {
     Weapon.preload(this);
     Laser.preload(this);
     Fire.preload(this);
+    Ammo.preload(this);
 
     // audio
     this.load.audio('shoot', shootSound);
@@ -72,6 +74,17 @@ export class GameScene extends Phaser.Scene {
     this.soundKnifeAttack = this.sound.add('khife_attack');
     this.soundKnifeHit = this.sound.add('knife_hit');
 
+    //   this.data.set('armore', 10);
+    //   this.data.set('level', 1);
+    //   this.data.set('score', 0);
+    //   this.text = this.add.text(100, 100, {font: '64px, Courier', fill:'#00ff00'});
+    //   this.text.setText([
+    //     'armore :' + this.data.get('armore'),
+    //     'level :' + this.data.get('level'),
+    //     'score :' + this.data.get('score'),
+    //   ])
+    //  this.text.setScrollFactor(0);
+
     // map creation
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('terrain', 'tilesets', 32, 32, 0, 0);
@@ -80,6 +93,8 @@ export class GameScene extends Phaser.Scene {
     layer2.setCollisionByProperty({
       collides: true,
     });
+
+    // this.input.setDefaultCursor('url(./src/assets/cursor.cur), auto');
 
     this.player = new Hero({
       scene: this,
@@ -122,6 +137,7 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerup', (pointer) => {
       this._shootLaser(pointer);
+      if (this.player.anim === 'rifle') this.player.state = PLAYER_STATE.IDLE;
     });
 
     this.input.on('pointerdown', (pointer) => {
@@ -156,16 +172,53 @@ export class GameScene extends Phaser.Scene {
         this.player.state = PLAYER_STATE.IDLE;
       }
     } else {
-      this.soundShoot.play();
-      this.laserGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
-      this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+      const delBulletFromAmmo = (gun) => {
+        this.laserGroup.magazine[`${gun}`] -= 1;
+        if (this.laserGroup.magazine[`${gun}`] === 0) {
+          this.laserGroup.reload(this.player.anim);
+        }
+        this.soundShoot.play();
+        this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+      };
+
+      const fire = (gun) => {
+        this.laserGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+        delBulletFromAmmo(gun);
+      };
+
+      if (this.player.anim === 'shotgun' && this.laserGroup.magazine.shotgun !== 0 && this.laserGroup.magazine.shotgunAll > -1) {
+        for (let i = 0; i < 6; i++) {
+          this.laserGroup.fireLaser(
+            this.player.x, this.player.y,
+            pointer.x + i * 10, pointer.y + i * 10,
+          );
+        }
+        delBulletFromAmmo(this.player.anim);
+      // eslint-disable-next-line no-mixed-operators
+      }
+      if (this.player.anim === 'handgun' && this.laserGroup.magazine.handgun !== 0) {
+        fire(this.player.anim);
+      }
+      if (this.player.anim === 'rifle' && this.laserGroup.magazine.rifle !== 0 && this.laserGroup.magazine.rifleAll > -1) {
+        fire(this.player.anim);
+      }
+
       this.fireDelta = 0;
-      this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim !== 'rifle') this.player.state = PLAYER_STATE.IDLE;
     }
   }
 
   createWeapon(posX, posY, texture) {
     this.weapon = new Weapon({
+      scene: this,
+      x: posX,
+      y: posY,
+      texture,
+    });
+  }
+
+  createAmmo(posX, posY, texture) {
+    this.ammo = new Ammo({
       scene: this,
       x: posX,
       y: posY,
@@ -180,6 +233,7 @@ export class GameScene extends Phaser.Scene {
         this._shootLaser(this.pointMouse);
       }
     }
+
     if (this.player.active === true) this.player.update(this.pointer);
     if (this.weapon && this.weapon.active === true) this.weapon.update();
 
