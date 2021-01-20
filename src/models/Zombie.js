@@ -23,7 +23,6 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
     scene.sys.displayList.add(this);
     this.setScale(zombieProperties[type].scale);
     scene.physics.world.enableBody(this);
-    this.setImmovable(true);
     this.setCircle(zombieProperties[type].circle, this.width / 4, this.height / 4);
 
     this.isAttack = false;

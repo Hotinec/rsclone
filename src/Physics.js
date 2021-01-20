@@ -14,9 +14,10 @@ export class Physics {
   }
 
   setCollide(zombies, bullets) {
-    this.scene.physics.add.collider(zombies);
-    this.zombie.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
-    this.player.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
+    this.scene.physics.add.collider(zombies, zombies, (zomb) => {
+      zomb.setVelocityY(this.player.body.y);
+      zomb.setVelocityX(this.player.body.x);
+    });
     this.destroyZombie(zombies);
     this.shootZombie(zombies, bullets);
   }
@@ -99,7 +100,7 @@ export class Physics {
     );
 
     centerBodyOnPoint(knife.body, knife.body.center);
-    // knife.body.velocity.copy(this.player.body.velocity);
+    knife.body.velocity.copy(this.player.body.velocity);
 
     this._generateZombies(zombies);
   }
