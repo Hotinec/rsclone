@@ -5,7 +5,7 @@ import Phaser from 'phaser';
 import terrain from '../assets/map/terrain.png';
 import mapJSON from '../assets/map/map.json';
 import blood from '../assets/blood/blood.png';
-import { PLAYER_STATE } from '../constants';
+import { PLAYER_STATE, ZOMBIE_TYPE } from '../constants';
 import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import knifeAttacke from '../assets/audio/knifeAttack.wav';
@@ -56,13 +56,12 @@ export class GameScene extends Phaser.Scene {
     this.load.audio('top', top);
   }
 
-  newZombie(x, y) {
+  newZombie(x = 0, y = 0, type = ZOMBIE_TYPE.TYPE_1) {
     this.zombie = new Zombie({
       scene: this,
       x,
       y,
-      texture: 'zombie',
-      frame: 'skeleton-idle_0',
+      type,
     },
     this.player);
     return this.zombie;
