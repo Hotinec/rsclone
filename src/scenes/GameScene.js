@@ -123,7 +123,7 @@ export class GameScene extends Phaser.Scene {
       rifle: Phaser.Input.Keyboard.KeyCodes.FOUR,
     });
 
-    this.knifeBounds = this.physics.add.image();
+    this.knifeBounds = this.physics.add.image(-100, -100);
 
     this.pointer = {
       x: -230,
@@ -153,6 +153,8 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.physics.add.collider(this.player, layer2, null, null, this);
+    this.physics.add.collider(this.zombies, layer2, null, null, this);
+
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.physicsEvent = new Physics(this, map);
@@ -164,7 +166,7 @@ export class GameScene extends Phaser.Scene {
   _shootLaser(pointer, delta) {
     if (this.player.anim === 'knife') {
       if (!this.knifeBounds.body) {
-        this.knifeBounds = this.physics.add.image();
+        this.knifeBounds = this.physics.add.image(-100, -100);
       }
       this.physicsEvent.killZombieWithKnife();
 

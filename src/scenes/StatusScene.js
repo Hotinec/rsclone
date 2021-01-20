@@ -8,6 +8,10 @@ import rightCap from '../assets/status/barHorizontal_red_right.png';
 import leftShadow from '../assets/status/barHorizontal_shadow_left.png';
 import middleShadow from '../assets/status/barHorizontal_shadow_mid.png';
 import rightShadow from '../assets/status/barHorizontal_shadow_right.png';
+import handgunBullet from '../assets/weapon/handgun_bullet.png';
+import shotgunBullet from '../assets/weapon/shotgun_bullet.png';
+import rifleBullet from '../assets/weapon/rifle_bullet.png';
+import scull from '../assets/menu/scull.png';
 
 export class StatusScene extends Phaser.Scene {
   constructor() {
@@ -18,12 +22,17 @@ export class StatusScene extends Phaser.Scene {
     this.load.image('left-cap', leftCap);
     this.load.image('middle', middle);
     this.load.image('right-cap', rightCap);
-
     this.load.image('left-cap-shadow', leftShadow);
     this.load.image('middle-shadow', middleShadow);
     this.load.image('right-cap-shadow', rightShadow);
 
     this.load.image('heart', heart);
+
+    this.load.image('shotgunBullet', shotgunBullet);
+    this.load.image('handgunBullet', handgunBullet);
+    this.load.image('rifleBullet', rifleBullet);
+
+    this.load.image('score-image', scull);
   }
 
   init() {
@@ -40,11 +49,9 @@ export class StatusScene extends Phaser.Scene {
     rt.fill(0x000000, 0.65);
     // content
     this.createHealthBarView();
-
-    this.timedEvent = this.time.addEvent({
-      delay: 6000000, callback: this.onClockEvent, callbackScope: this, repeat: 1,
-    });
-    this.timeText = this.add.text(window.innerWidth - 100, 23, '', { color: '#a3a3a3' });
+    this.createScoreView();
+    this.createAmmoView();
+    this.createTimeView();
   }
 
   setMeterPercentage(hp = 10) {
@@ -69,7 +76,7 @@ export class StatusScene extends Phaser.Scene {
       .setOrigin(0, 0.5);
     middleShadowCap.displayWidth = this.fullWidth;
 
-    const rightShadowCap = this.add.image(middleShadowCap.x + middleShadowCap.displayWidth, y, 'right-cap-shadow')
+    this.rightShadowCap = this.add.image(middleShadowCap.x + middleShadowCap.displayWidth, y, 'right-cap-shadow')
       .setOrigin(0, 0.5);
 
     this.leftCap = this.add.image(x, y, 'left-cap')
@@ -83,10 +90,81 @@ export class StatusScene extends Phaser.Scene {
 
     leftShadowCap.displayHeight = 6;
     middleShadowCap.displayHeight = 6;
-    rightShadowCap.displayHeight = 6;
+    this.rightShadowCap.displayHeight = 6;
     this.leftCap.displayHeight = 6;
     this.middle.displayHeight = 6;
     this.rightCap.displayHeight = 6;
+  }
+
+  createScoreView() {
+    const scoreImage = this.add.image(this.rightShadowCap.x + 50, 30, 'score-image');
+    scoreImage.setScale(0.2);
+    this.scoreText = this.add.text(scoreImage.x + 30, 23, '0', { color: '#a3a3a3' });
+  }
+
+  createAmmoView() {
+    this.handgunAmmoImg = this.add.image(this.scoreText.x + 50, 30, 'handgunBullet');
+    this.shotgunAmmoImg = this.add.image(this.scoreText.x + 50, 30, 'shotgunBullet');
+    this.rifleAmmoImg = this.add.image(this.scoreText.x + 50, 30, 'rifleBullet');
+
+    this.handgunAmmoImg.setScale(0.6);
+    this.shotgunAmmoImg.setScale(0.8);
+    this.rifleAmmoImg.setScale(0.6);
+
+    this.handgunAmmoImg.setVisible(false);
+    this.shotgunAmmoImg.setVisible(false);
+    this.rifleAmmoImg.setVisible(false);
+    this.ammoText = this.add.text(this.shotgunAmmoImg.x + 30, 23, '', { color: '#a3a3a3' });
+  }
+
+  createTimeView() {
+    this.timedEvent = this.time.addEvent({
+      delay: 6000000, callback: this.onClockEvent, callbackScope: this, repeat: 1,
+    });
+    this.timeText = this.add.text(window.innerWidth - 100, 23, '', { color: '#a3a3a3' });
+  }
+
+  updateAmmo() {
+    const { magazine } = this.gameScene.laserGroup;
+
+    switch (this.gameScene.player.anim) {
+      case 'handgun':
+        this.ammoText.setText(`${magazine.handgun}/10`);
+        this.updateAmmoImage(this.handgunAmmoImg);
+        break;
+      case 'shotgun':
+        this.ammoText.setText(`${magazine.shotgun}/6`);
+        this.updateAmmoImage(this.shotgunAmmoImg);
+        break;
+      case 'rifle':
+        this.ammoText.setText(`${magazine.rifle}/30`);
+        this.updateAmmoImage(this.rifleAmmoImg);
+        break;
+      default:
+        break;
+    }
+  }
+
+  updateAmmoImage(ammo) {
+    this.handgunAmmoImg.setVisible(false);
+    this.shotgunAmmoImg.setVisible(false);
+    this.rifleAmmoImg.setVisible(false);
+
+    ammo.setVisible(true);
+  }
+
+  updateScore() {
+    this.scoreText.setText(`${this.gameScene.score}`);
+  }
+
+  updateTime() {
+    const time = this.timedEvent.getElapsedSeconds();
+
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time - (minutes * 60));
+
+    this.timeText.setText(`${this.addZero(hours)}:${this.addZero(minutes)}:${this.addZero(seconds)}`);
   }
 
   addZero(number) {
@@ -97,14 +175,9 @@ export class StatusScene extends Phaser.Scene {
     if (this.gameScene.player) {
       const { hp } = this.gameScene.player;
       this.setMeterPercentage(hp);
+      this.updateAmmo();
+      this.updateScore();
     }
-
-    const time = this.timedEvent.getElapsedSeconds();
-
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time - (minutes * 60));
-
-    this.timeText.setText(`${this.addZero(hours)}:${this.addZero(minutes)}:${this.addZero(seconds)}`);
+    this.updateTime();
   }
 }
