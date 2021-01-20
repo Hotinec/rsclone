@@ -98,7 +98,6 @@ export class Physics {
     );
 
     centerBodyOnPoint(knife.body, knife.body.center);
-    knife.body.velocity.copy(this.player.body.velocity);
 
     this._generateZombies(zombies);
   }

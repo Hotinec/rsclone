@@ -22,8 +22,19 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
     scene.load.image('laser', laser);
   }
 
-  fire(x, y, mouseX, mouseY) {
-    this.body.reset(x, y);
+  fire({
+    x, y, rotation,
+  }, { x: mouseX, y: mouseY }) {
+    const c = Math.cos(rotation);
+    const s = Math.sin(rotation);
+
+    const tx = (x) - x;
+    const ty = (y + 15) - y;
+
+    const newx = tx * c - ty * s + x;
+    const newy = tx * s + ty * c + y;
+    this.body.reset(newx, newy);
+
     this.setActive(true);
     this.setOrigin(1);
     this.setVisible(true);
@@ -56,10 +67,10 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
     };
   }
 
-  fireLaser(x, y, mouseX, mouseY) {
-    const laser = this.getFirstDead(true, x, y, 'laser');
+  fireLaser(player, mouse) {
+    const laser = this.getFirstDead(true, player.x, player.y, 'laser');
     if (laser) {
-      laser.fire(x, y, mouseX, mouseY);
+      laser.fire(player, mouse);
     }
   }
 
@@ -100,8 +111,16 @@ export class Fire extends Phaser.Physics.Arcade.Sprite {
     scene.load.image('fire', fire);
   }
 
-  fire(x, y, mouseX, mouseY) {
-    this.body.reset(x, y);
+  fire({ x, y, rotation }, { x: mouseX, y: mouseY }) {
+    const c = Math.cos(rotation);
+    const s = Math.sin(rotation);
+
+    const tx = (x + 15) - x;
+    const ty = (y + 17) - y;
+
+    const newx = tx * c - ty * s + x;
+    const newy = tx * s + ty * c + y;
+    this.body.reset(newx, newy);
     this.setActive(true);
     this.scale = 0.5;
     this.setVisible(true);
@@ -123,14 +142,15 @@ export class FireGroup extends Phaser.Physics.Arcade.Group {
       classType: Fire,
       frameQuantity: 30,
       active: false,
+      visible: false,
       key: 'fire',
     });
   }
 
-  fireLaser(x, y, mouseX, mouseY) {
+  fireLaser(player, mouse) {
     const fire = this.getFirstDead(false);
     if (fire) {
-      fire.fire(x, y, mouseX, mouseY);
+      fire.fire(player, mouse);
     }
   }
 }

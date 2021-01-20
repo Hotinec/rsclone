@@ -180,14 +180,15 @@ export class GameScene extends Phaser.Scene {
       const delBulletFromAmmo = (gun) => {
         this.laserGroup.magazine[`${gun}`] -= 1;
         if (this.laserGroup.magazine[`${gun}`] === 0) {
+          this.reloadSound.play();
           this.laserGroup.reload(this.player.anim);
         }
         this.soundShoot.play();
-        this.fireGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+        this.fireGroup.fireLaser(this.player, pointer);
       };
 
       const fire = (gun) => {
-        this.laserGroup.fireLaser(this.player.x, this.player.y, pointer.x, pointer.y);
+        this.laserGroup.fireLaser(this.player, pointer);
         delBulletFromAmmo(gun);
       };
 
