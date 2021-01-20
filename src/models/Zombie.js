@@ -45,8 +45,8 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
     const playerVelocity = new Phaser.Math.Vector2();
     playerVelocity.normalize();
 
-    if (zombieProperties[this.type].isAttack) {
-      this.anims.play(this.attackAnim, true);
+    if (this.isAttack) {
+      this.anims.play(zombieProperties[this.type].attackAnim, true);
 
       if (this.anims.currentFrame.textureFrame === zombieProperties[this.type].attackEndFrame) {
         if (this.player && this.player.hp <= 0) {
@@ -55,8 +55,6 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
 
         this.isAttack = false;
       }
-    } else if (this.isAttack) {
-      this.anims.play(zombieProperties[this.type].idleAnim, true);
     } else {
       this.anims.play(zombieProperties[this.type].moveAnim, true);
     }

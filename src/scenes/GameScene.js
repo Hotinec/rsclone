@@ -238,6 +238,7 @@ export class GameScene extends Phaser.Scene {
 
     if (this.player.active === true) this.player.update(this.pointer);
     if (this.weapon && this.weapon.active === true) this.weapon.update();
+    if (this.ammo && this.ammo.active) this.ammo.update();
 
     if (this.zombies.getChildren().length !== 0) {
       for (let i = 0; i < this.zombies.getChildren().length; i++) {
