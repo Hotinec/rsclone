@@ -137,17 +137,15 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerup', (pointer) => {
       // this._shootLaser(pointer);
-      if (this.player.anim === 'rifle') this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim === 'rifle' && this.player.state !== PLAYER_STATE.RELOAD) this.player.state = PLAYER_STATE.IDLE;
     });
 
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
-
       if (this.player.anim === 'knife' && this.player.state !== PLAYER_STATE.ATTACK) {
         setTimeout(() => this.soundKnifeAttack.play(), 500);
       }
-
-      this.player.state = PLAYER_STATE.ATTACK;
+      if (this.player.state !== PLAYER_STATE.RELOAD) this.player.state = PLAYER_STATE.ATTACK;
       this.pointMouse = pointer;
     });
 
@@ -205,7 +203,7 @@ export class GameScene extends Phaser.Scene {
       }
 
       this.fireDelta = 0;
-      if (this.player.anim !== 'rifle') this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim !== 'rifle' && this.player.state !== PLAYER_STATE.RELOAD) this.player.state = PLAYER_STATE.IDLE;
     }
   }
 

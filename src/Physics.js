@@ -99,8 +99,6 @@ export class Physics {
 
     centerBodyOnPoint(knife.body, knife.body.center);
     knife.body.velocity.copy(this.player.body.velocity);
-
-    this._generateZombies(zombies);
   }
 
   _checkKnifeZombieIntersection(zombiesArr, knife) {
@@ -112,6 +110,9 @@ export class Physics {
         const zombie = zombiesArr[i];
         zombie.hp = 0;
         this._showBlood(zombie);
+        for (let x = 0; x < 3; x++) {
+          this._generateZombies(this.scene.zombies);
+        }
       }
     }
   }
@@ -146,15 +147,28 @@ export class Physics {
       );
     }
     // const x = Phaser.Math.Between(0, this.scene.game.config.width);
-    let y = Phaser.Math.Between(0, this.scene.game.config.height);
+    const y = Phaser.Math.Between(0, this.scene.game.config.height);
     if (zombies.getChildren().length < 30) {
       for (let i = 0; i < 2; i++) {
-        zombies.add(this.scene.newZombie(x, y));
-        y += 200;
-        x += 200;
+        const newZombie = this.scene.newZombie(x, y);
+        this._checkZombieIntersection(zombies.getChildren(), newZombie);
+        zombies.add(newZombie);
       }
     }
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  _checkZombieIntersection(zombies, newZombie) {
+    const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
+    zombies.forEach((item) => {
+      item.update();
+      if (intersection(item.getBounds(), newZombie.getBounds())) {
+        newZombie.x += 150;
+      }
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
 
   _showWeapon(zombie, weapon, texture, frame, anim) {
     if (!this.player.weapon.includes(weapon)) {

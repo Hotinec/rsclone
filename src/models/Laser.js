@@ -3,6 +3,7 @@
 import Phaser from 'phaser';
 import laser from '../assets/weapon/laser.png';
 import fire from '../assets/weapon/flash-1.png';
+import { PLAYER_STATE } from '../constants';
 
 export class Laser extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
@@ -64,19 +65,23 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
   }
 
   reload(weapon) {
+    this.scene.player.state = PLAYER_STATE.RELOAD;
     if (weapon === 'rifle') {
       setTimeout(() => {
         this.magazine.rifle = 30;
         this.magazine.rifleAll -= 30;
+        this.scene.player.state = PLAYER_STATE.IDLE;
       }, 1000);
     } else if (weapon === 'shotgun') {
       setTimeout(() => {
         this.magazine.shotgun = 6;
         this.magazine.shotgunAll -= 6;
+        this.scene.player.state = PLAYER_STATE.IDLE;
       }, 1000);
     } else {
       setTimeout(() => {
         this.magazine.handgun = 10;
+        this.scene.player.state = PLAYER_STATE.IDLE;
       }, 1000);
     }
     this.scene.player.isReload = true;
