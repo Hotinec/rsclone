@@ -74,6 +74,7 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
       shotgun: 6,
       shotgunAll: 6,
       handgun: 10,
+      handgunAll: 10,
       rifle: 30,
       rifleAll: 30,
     };
@@ -87,7 +88,12 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
   }
 
   reload(weapon) {
-    if (weapon === 'rifle') {
+    if (weapon === 'handgun') {
+      setTimeout(() => {
+        this.magazine.handgun = 10;
+        this.magazine.handgunAll -= 10;
+      }, 1000);
+    } else if (weapon === 'rifle') {
       setTimeout(() => {
         this.magazine.rifle = 30;
         this.magazine.rifleAll -= 30;
@@ -97,11 +103,8 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
         this.magazine.shotgun = 6;
         this.magazine.shotgunAll -= 6;
       }, 1000);
-    } else {
-      setTimeout(() => {
-        this.magazine.handgun = 10;
-      }, 1000);
     }
+
     this.scene.player.isReload = true;
   }
 }

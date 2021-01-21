@@ -23,10 +23,6 @@ export class Ammo extends Phaser.Physics.Arcade.Sprite {
     scene.load.image('shotgunAmmo', shotgunAmmo);
   }
 
-  get velocity() {
-    return this.body.velocity;
-  }
-
   update() {
     this.rotation += 0.01;
   }
