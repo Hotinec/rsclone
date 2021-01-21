@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
+import { ZOMBIE_TYPE } from './constants';
 
 export class Physics {
   constructor(scene, map) {
@@ -13,9 +14,10 @@ export class Physics {
   }
 
   setCollide(zombies, bullets) {
-    this.scene.physics.add.collider(zombies);
-    this.zombie.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
-    this.player.setBounce(1, 1).setCollideWorldBounds(false).setMass(100);
+    this.scene.physics.add.collider(zombies, zombies, (zomb) => {
+      zomb.setVelocityY(this.player.body.y);
+      zomb.setVelocityX(this.player.body.x);
+    });
     this.destroyZombie(zombies);
     this.shootZombie(zombies, bullets);
   }
@@ -144,11 +146,14 @@ export class Physics {
         0, this.map.widthInPixels - (this.player.x + this.scene.game.config.width / 2),
       );
     }
-    // const x = Phaser.Math.Between(0, this.scene.game.config.width);
+
     let y = Phaser.Math.Between(0, this.scene.game.config.height);
     if (zombies.getChildren().length < 30) {
       for (let i = 0; i < 2; i++) {
-        zombies.add(this.scene.newZombie(x, y));
+        const type = zombies.getChildren().length % 5 === 0
+          ? ZOMBIE_TYPE.TYPE_2
+          : ZOMBIE_TYPE.TYPE_1;
+        zombies.add(this.scene.newZombie(x, y, type));
         y += 200;
         x += 200;
       }
