@@ -10,6 +10,8 @@ import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import knifeAttacke from '../assets/audio/knifeAttack.wav';
 import knifeHit from '../assets/audio/knifeHit.wav';
+import { DarkScene, gameState } from './DarkScene';
+
 import {
   Zombie,
   Hero,
@@ -63,6 +65,10 @@ export class GameScene extends Phaser.Scene {
       frame: 'skeleton-idle_0',
     },
     this.player);
+    console.log(gameState());
+    if (gameState() === 'black') {
+      this.darkScene.darkZombie(this.zombie);
+    }
     return this.zombie;
   }
 
@@ -104,6 +110,10 @@ export class GameScene extends Phaser.Scene {
       frame: 'survivor-idle_knife_0',
     });
 
+    if (gameState() === 'black') {
+      this.darkScene = new DarkScene();
+      this.darkScene.darking(this, layer1, layer2);
+    }
     this.newZombie();
 
     this.zombies = this.physics.add.group();

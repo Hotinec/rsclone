@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import townMaleAtlas from '../assets/zombie/zombie_atlas.json';
 import townMale from '../assets/zombie/zombie.png';
 import maleAnim from '../assets/zombie/zombie_anim.json';
+import { gameState } from '../scenes/DarkScene';
 
 export class Zombie extends Phaser.Physics.Arcade.Sprite {
   constructor(data, player) {
@@ -41,6 +42,9 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
       if (this.anims.currentFrame.textureFrame === 'skeleton-attack_8') {
         if (this.player && this.player.hp <= 0) {
           this.player.destroy();
+          gameState('black');
+          const x = this.scene.scene.get('GameScene');
+          x.scene.restart();
         }
 
         this.isAttack = false;
