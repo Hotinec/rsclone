@@ -26,7 +26,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     this.setScale(0.4);
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
-    this.hp = 10;
+    this.hp = 100;
     this.setCircle(70, this.width / 4, this.height / 4);
     this.state = PLAYER_STATE.IDLE;
 
@@ -101,6 +101,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
         // this.state = PLAYER_STATE.IDLE;
       }
     } else if (this.isReload) {
+      this.scene.reloadSound.play();
       this.anims.play(`${this.anim}_reload`, true);
       if (this.anims.currentFrame.textureFrame === `survivor-reload_${this.anim}_10`) {
         this.isReload = false;

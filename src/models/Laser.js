@@ -23,17 +23,29 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
   }
 
   fire({
-    x, y, rotation,
+    x, y, rotation, anim,
   }, { x: mouseX, y: mouseY }) {
-    const c = Math.cos(rotation);
-    const s = Math.sin(rotation);
+    const rotationCos = Math.cos(rotation);
+    const rotationSin = Math.sin(rotation);
 
-    const tx = (x) - x;
-    const ty = (y + 15) - y;
+    const objectPositionTmp = {
+      x: x + 0, y: y + 15,
+    };
 
-    const newx = tx * c - ty * s + x;
-    const newy = tx * s + ty * c + y;
-    this.body.reset(newx, newy);
+    if (anim === 'shotgun') {
+      objectPositionTmp.x = x + 20;
+      objectPositionTmp.y = y + 10;
+    }
+    if (anim === 'rifle') {
+      objectPositionTmp.x = x + 35;
+    }
+
+    const templateX = objectPositionTmp.x - x;
+    const templateY = objectPositionTmp.y - y;
+
+    const newX = templateX * rotationCos - templateY * rotationSin + x;
+    const newY = templateX * rotationSin + templateY * rotationCos + y;
+    this.body.reset(newX, newY);
 
     this.setActive(true);
     this.setOrigin(1);
@@ -111,16 +123,28 @@ export class Fire extends Phaser.Physics.Arcade.Sprite {
     scene.load.image('fire', fire);
   }
 
-  fire({ x, y, rotation }, { x: mouseX, y: mouseY }) {
-    const c = Math.cos(rotation);
-    const s = Math.sin(rotation);
+  fire({
+    x, y, rotation, anim,
+  }, { x: mouseX, y: mouseY }) {
+    const rotationCos = Math.cos(rotation);
+    const rotationSin = Math.sin(rotation);
 
-    const tx = (x + 15) - x;
-    const ty = (y + 17) - y;
+    const objectPositionTmp = {
+      x: x + 15, y: y + 17,
+    };
+    if (anim === 'shotgun') {
+      objectPositionTmp.x = x + 25;
+    }
+    if (anim === 'rifle') {
+      objectPositionTmp.x = x + 30;
+    }
 
-    const newx = tx * c - ty * s + x;
-    const newy = tx * s + ty * c + y;
-    this.body.reset(newx, newy);
+    const templateX = objectPositionTmp.x - x;
+    const templateY = objectPositionTmp.y - y;
+
+    const newX = templateX * rotationCos - templateY * rotationSin + x;
+    const newY = templateY * rotationSin + templateX * rotationCos + y;
+    this.body.reset(newX, newY);
     this.setActive(true);
     this.scale = 0.5;
     this.setVisible(true);

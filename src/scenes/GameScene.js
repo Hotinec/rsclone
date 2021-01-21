@@ -195,8 +195,8 @@ export class GameScene extends Phaser.Scene {
       if (this.player.anim === 'shotgun' && this.laserGroup.magazine.shotgun !== 0 && this.laserGroup.magazine.shotgunAll > -1) {
         for (let i = 0; i < 6; i++) {
           this.laserGroup.fireLaser(
-            this.player.x, this.player.y,
-            pointer.x + i * 10, pointer.y + i * 10,
+            this.player,
+            { x: pointer.x + i * 10, y: pointer.y + i * 10 },
           );
         }
         delBulletFromAmmo(this.player.anim);
