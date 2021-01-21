@@ -175,6 +175,7 @@ export class Physics {
     if (zombie.hp === 0) {
       this._checkWeapon(zombie);
       this._showAmmo(zombie);
+      this._showFirstAid(zombie);
       zombie.destroy();
       const blood = this.scene.add.image(zombie.x, zombie.y, 'blood').setScale(0.2);
       blood.depth = -1;
@@ -183,22 +184,52 @@ export class Physics {
   }
 
   _showAmmo(zombie) {
-    if (this.scene.score % 3 === 0) {
+    if (this.scene.score % 14 === 0) {
+      if (this.player.weapon.includes('pistol')) {
+        this.scene.createAmmo(zombie.x, zombie.y, 'pistolAmmo');
+        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
+          this.scene.laserGroup.magazine.handgunAll += 10;
+          if (this.scene.laserGroup.magazine.handgun === 0) this.scene.reload();
+          ammo.destroy();
+        });
+      }
+    } else if (this.scene.score % 3 === 0 && this.scene.score % 7 !== 0) {
       if (this.player.weapon.includes('shotgun')) {
         this.scene.createAmmo(zombie.x, zombie.y, 'shotgunAmmo');
         this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
           this.scene.laserGroup.magazine.shotgunAll += 6;
+          if (this.scene.laserGroup.magazine.shotgun === 0) this.scene.reload();
           ammo.destroy();
         });
       }
-    } else if (this.scene.score % 5 === 0) {
+    } else if (this.scene.score % 5 === 0 && this.scene.score % 10 !== 0) {
       if (this.player.weapon.includes('rifle')) {
         this.scene.createAmmo(zombie.x, zombie.y, 'rifleAmmo');
         this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
           this.scene.laserGroup.magazine.rifleAll += 30;
+          if (this.scene.laserGroup.magazine.rifle === 0) this.scene.reload();
           ammo.destroy();
         });
       }
+    }
+  }
+
+  _addCollider(weapon, zombie) {
+    this.scene.createAmmo(zombie.x, zombie.y, `${weapon}Ammo`);
+    this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
+      this.scene.laserGroup.magazine[`${weapon}All`] += 30;
+      if (this.scene.laserGroup.magazine[weapon] === 0) this.scene.reload();
+      ammo.destroy();
+    });
+  }
+
+  _showFirstAid(zombie) {
+    if (this.scene.score % 21 === 0) {
+      this.scene.createFirstAid(zombie.x, zombie.y);
+      this.scene.physics.add.collider(this.player, this.scene.firstAid, (player, firstAid) => {
+        player.hp = 10;
+        firstAid.destroy();
+      });
     }
   }
 }

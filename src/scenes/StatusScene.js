@@ -129,15 +129,15 @@ export class StatusScene extends Phaser.Scene {
 
     switch (this.gameScene.player.anim) {
       case 'handgun':
-        this.ammoText.setText(`${magazine.handgun}/10`);
+        this.ammoText.setText(`${magazine.handgun}/${magazine.handgunAll}`);
         this.updateAmmoImage(this.handgunAmmoImg);
         break;
       case 'shotgun':
-        this.ammoText.setText(`${magazine.shotgun}/6`);
+        this.ammoText.setText(`${magazine.shotgun}/${magazine.shotgunAll}`);
         this.updateAmmoImage(this.shotgunAmmoImg);
         break;
       case 'rifle':
-        this.ammoText.setText(`${magazine.rifle}/30`);
+        this.ammoText.setText(`${magazine.rifle}/${magazine.rifleAll}`);
         this.updateAmmoImage(this.rifleAmmoImg);
         break;
       default:
