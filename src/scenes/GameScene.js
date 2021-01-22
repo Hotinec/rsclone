@@ -113,7 +113,7 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerup', (pointer) => {
       this._shootLaser(pointer);
-      if (anim === WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim === WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
     });
 
     this.input.on('pointerdown', (pointer) => {
@@ -220,7 +220,7 @@ export class GameScene extends Phaser.Scene {
       const handgunFire = anim === WEAPON.HANDGUN && handgun !== 0;
       if (shotgunFire) {
         this._shotgunFire(pointer);
-        this.delBulletFromAmmo(anim, pointer);
+        this.fire(anim, pointer);
       // eslint-disable-next-line no-mixed-operators
       }
       if (handgunFire) {
