@@ -5,7 +5,7 @@ import maleAnim from '../assets/zombie/zombie_anim.json';
 import zombie2 from '../assets/zombie/zombie_2.png';
 import zombie2Atlas from '../assets/zombie/zombie_2_atlas.json';
 import zombie2Anim from '../assets/zombie/zombie_2_anim.json';
-import { zombieProperties } from './ZombieProperties';
+import { zombieProperties } from '../properties';
 
 export class Zombie extends Phaser.Physics.Arcade.Sprite {
   constructor(data, player) {

@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import knife from '../assets/player/body/knife/knife.png';
 import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';
 import knifeAnim from '../assets/player/body/knife/knife_anim.json';
-import { PLAYER_STATE } from '../constants';
+import { PLAYER_STATE, WEAPON } from '../constants';
 import handgun from '../assets/player/body/handgun/handgun.png';
 import handgunAtlas from '../assets/player/body/handgun/handgun_atlas.json';
 import handgunAnim from '../assets/player/body/handgun/handgun_anim.json';
@@ -12,26 +12,25 @@ import shotgunAnim from '../assets/player/body/shotgun/shortgun_anim.json';
 import rifle from '../assets/player/body/rifle/rifle.png';
 import rifleAtlas from '../assets/player/body/rifle/rifle_atlas.json';
 import rifleAnim from '../assets/player/body/rifle/rifle_anim.json';
+import { playerProperties, weaponProperties } from '../properties';
 
 export class Hero extends Phaser.Physics.Arcade.Sprite {
   constructor(data) {
-    const {
-      scene, x, y, texture, frame,
-    } = data;
-    super(scene, x, y, texture, frame);
+    const { scene, x, y } = data;
+    super(scene, x, y, playerProperties.defaultTexture, playerProperties.defaultFrame);
     this.scene.add.existing(this);
 
     scene.sys.updateList.add(this);
     scene.sys.displayList.add(this);
-    this.setScale(0.4);
+    this.setScale(playerProperties.scale);
     scene.physics.world.enableBody(this);
     this.setImmovable(true);
-    this.hp = 10;
-    this.setCircle(70, this.width / 4, this.height / 4);
+    this.hp = playerProperties.hp;
+    this.setCircle(playerProperties.circle, this.width / 4, this.height / 4);
     this.state = PLAYER_STATE.IDLE;
 
-    this.anim = 'knife';
-    this.weapon = ['knife'];
+    this.anim = WEAPON.KNIFE;
+    this.weapon = [WEAPON.KNIFE];
     this.isReload = false;
   }
 
@@ -54,24 +53,16 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     return this.body.velocity;
   }
 
-  changeWeapon(texture, frame, anim) {
-    this.setTexture(texture, frame);
-    this.anim = anim;
+  changeWeapon(weapon) {
+    this.setTexture(weaponProperties[weapon].body, weaponProperties[weapon].frame);
+    this.anim = weapon;
   }
 
   update(pointer) {
     const speed = 250;
     const playerVelocity = new Phaser.Math.Vector2();
 
-    if (this.inputKeys.knife.isDown && this.weapon.includes('knife')) {
-      this.changeWeapon('knife', 'survivor-idle_knife_0', 'knife');
-    } else if (this.inputKeys.pistol.isDown && this.weapon.includes('pistol')) {
-      this.changeWeapon('handgun-body', 'survivor-idle_handgun_0', 'handgun');
-    } else if (this.inputKeys.shotgun.isDown && this.weapon.includes('shotgun')) {
-      this.changeWeapon('shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
-    } else if (this.inputKeys.rifle.isDown && this.weapon.includes('rifle')) {
-      this.changeWeapon('rifle-body', 'survivor-idle_rifle_0', 'rifle');
-    }
+    this._checkWeapon();
 
     if (this.inputKeys.left.isDown) {
       playerVelocity.x = -1;
@@ -90,15 +81,10 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
     this.setVelocity(playerVelocity.x, playerVelocity.y);
 
     if (this.state === PLAYER_STATE.ATTACK) {
-      if (this.anim === 'knife') {
+      if (this.anim === WEAPON.KNIFE) {
         this.anims.play('knife_attack', true);
       } else {
         this.anims.play(`${this.anim}_shoot`, true);
-      }
-
-      if (this.anims.currentFrame.textureFrame === `survivor-shoot_${this.anim}_2`
-      || this.anims.currentFrame.textureFrame === 'survivor-meleeattack_knife_14') {
-        // this.state = PLAYER_STATE.IDLE;
       }
     } else if (this.isReload) {
       this.scene.reloadSound.play();
@@ -120,5 +106,17 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
         pointer.y + this.scene.cameras.main.scrollY,
       ),
     );
+  }
+
+  _checkWeapon() {
+    if (this.inputKeys.knife.isDown && this.weapon.includes(WEAPON.KNIFE)) {
+      this.changeWeapon(WEAPON.KNIFE);
+    } else if (this.inputKeys.pistol.isDown && this.weapon.includes(WEAPON.HANDGUN)) {
+      this.changeWeapon(WEAPON.HANDGUN);
+    } else if (this.inputKeys.shotgun.isDown && this.weapon.includes(WEAPON.SHOTGUN)) {
+      this.changeWeapon(WEAPON.SHOTGUN);
+    } else if (this.inputKeys.rifle.isDown && this.weapon.includes(WEAPON.RIFLE)) {
+      this.changeWeapon(WEAPON.RIFLE);
+    }
   }
 }
