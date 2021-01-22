@@ -180,7 +180,7 @@
             "key": "knife_attack",
             "type": "frames",
             "repeat": -1,
-            "frameRate": 12,
+            "frameRate": 18,
             "duration": 50,
             "frames": [
                 {
