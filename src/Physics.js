@@ -214,7 +214,8 @@ export class Physics {
   }
 
   _showFirstAid(zombie) {
-    if (this.scene.score % 21 === 0) {
+    const { score } = this.scene;
+    if (score % 21 === 0 && score !== 0) {
       this.scene.createFirstAid(zombie.x, zombie.y);
       this.scene.physics.add.collider(this.player, this.scene.firstAid, (player, firstAid) => {
         player.hp = 10;

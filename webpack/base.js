@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+  entry: './src/index.ts',
   mode: 'development',
   devtool: 'eval-source-map',
   output: {
@@ -14,14 +15,14 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.(tsx?)|(js)$/,
+        test: /\.(ts?)|(js)$/,
         exclude: /node_modules/,
         use: {
           loader: 'eslint-loader',
         },
       },
       {
-        test: /\.(tsx?)|(js)$/,
+        test: /\.(ts?)|(js)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -36,7 +37,7 @@ module.exports = {
         use: 'file-loader',
       },
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },

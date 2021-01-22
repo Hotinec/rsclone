@@ -58,6 +58,10 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
 
   changeWeapon(weapon) {
     const { body, frame } = weaponProperties[weapon];
+    const { KNIFE } = WEAPON;
+    if (this.anim === KNIFE && weapon !== KNIFE) {
+      this.scene.knifeBounds.destroy();
+    }
     this.setTexture(body, frame);
     this.anim = weapon;
   }
