@@ -6,7 +6,7 @@ import terrain from '../assets/map/terrain.png';
 import mapJSON from '../assets/map/map.json';
 import blood from '../assets/blood/blood.png';
 import firstAid from '../assets/first-aid-kit.png';
-import { PLAYER_STATE, ZOMBIE_TYPE } from '../constants';
+import { PLAYER_STATE, ZOMBIE_TYPE, WEAPON } from '../constants';
 import cursor from '../assets/cursor.cur';
 import shootSound from '../assets/audio/pistol.wav';
 import knifeAttacke from '../assets/audio/knifeAttack.wav';
@@ -22,9 +22,7 @@ import {
   Fire,
   Ammo,
 } from '../models';
-import {
-  Physics,
-} from '../Physics';
+import { Physics } from '../Physics';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -91,8 +89,6 @@ export class GameScene extends Phaser.Scene {
       scene: this,
       x: map.widthInPixels / 2,
       y: map.heightInPixels / 2,
-      texture: 'knife',
-      frame: 'survivor-idle_knife_0',
     });
 
     this.newZombie();
@@ -128,13 +124,13 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerup', (pointer) => {
       this._shootLaser(pointer);
-      if (this.player.anim === 'rifle') this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim === WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
     });
 
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
 
-      if (this.player.anim === 'knife' && this.player.state !== PLAYER_STATE.ATTACK) {
+      if (this.player.anim === WEAPON.KNIFE && this.player.state !== PLAYER_STATE.ATTACK) {
         setTimeout(() => this.soundKnifeAttack.play(), 500);
       }
 
@@ -154,7 +150,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   _shootLaser(pointer, delta) {
-    if (this.player.anim === 'knife') {
+    if (this.player.anim === WEAPON.KNIFE) {
       if (!this.knifeBounds.body) {
         this.knifeBounds = this.physics.add.image(-100, -100);
       }
@@ -182,7 +178,8 @@ export class GameScene extends Phaser.Scene {
         delBulletFromAmmo(gun);
       };
 
-      if (this.player.anim === 'shotgun' && this.laserGroup.magazine.shotgun !== 0 && this.laserGroup.magazine.shotgunAll > -1) {
+      if (this.player.anim === WEAPON.SHOTGUN && this.laserGroup.magazine.shotgun !== 0
+        && this.laserGroup.magazine.shotgunAll > -1) {
         for (let i = 0; i < 6; i++) {
           this.laserGroup.fireLaser(
             this.player,
@@ -192,15 +189,16 @@ export class GameScene extends Phaser.Scene {
         delBulletFromAmmo(this.player.anim);
       // eslint-disable-next-line no-mixed-operators
       }
-      if (this.player.anim === 'handgun' && this.laserGroup.magazine.handgun !== 0) {
+      if (this.player.anim === WEAPON.HANDGUN && this.laserGroup.magazine.handgun !== 0) {
         fire(this.player.anim);
       }
-      if (this.player.anim === 'rifle' && this.laserGroup.magazine.rifle !== 0 && this.laserGroup.magazine.rifleAll > -1) {
+      if (this.player.anim === WEAPON.RIFLE && this.laserGroup.magazine.rifle !== 0
+        && this.laserGroup.magazine.rifleAll > -1) {
         fire(this.player.anim);
       }
 
       this.fireDelta = 0;
-      if (this.player.anim !== 'rifle') this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim !== WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
     }
   }
 

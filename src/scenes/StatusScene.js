@@ -12,6 +12,7 @@ import handgunBullet from '../assets/weapon/handgun_bullet.png';
 import shotgunBullet from '../assets/weapon/shotgun_bullet.png';
 import rifleBullet from '../assets/weapon/rifle_bullet.png';
 import scull from '../assets/menu/scull.png';
+import { WEAPON } from '../constants';
 
 export class StatusScene extends Phaser.Scene {
   constructor() {
@@ -128,15 +129,15 @@ export class StatusScene extends Phaser.Scene {
     const { magazine } = this.gameScene.laserGroup;
 
     switch (this.gameScene.player.anim) {
-      case 'handgun':
+      case WEAPON.HANDGUN:
         this.ammoText.setText(`${magazine.handgun}/${magazine.handgunAll}`);
         this.updateAmmoImage(this.handgunAmmoImg);
         break;
-      case 'shotgun':
+      case WEAPON.SHOTGUN:
         this.ammoText.setText(`${magazine.shotgun}/${magazine.shotgunAll}`);
         this.updateAmmoImage(this.shotgunAmmoImg);
         break;
-      case 'rifle':
+      case WEAPON.RIFLE:
         this.ammoText.setText(`${magazine.rifle}/${magazine.rifleAll}`);
         this.updateAmmoImage(this.rifleAmmoImg);
         break;
@@ -164,7 +165,9 @@ export class StatusScene extends Phaser.Scene {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time - (minutes * 60));
 
-    this.timeText.setText(`${this.addZero(hours)}:${this.addZero(minutes)}:${this.addZero(seconds)}`);
+    this.timeText.setText(
+      `${this.addZero(hours)}:${this.addZero(minutes)}:${this.addZero(seconds)}`,
+    );
   }
 
   addZero(number) {

@@ -2,7 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
-import { ZOMBIE_TYPE } from './constants';
+import { ZOMBIE_TYPE, WEAPON } from './constants';
+import { weaponProperties } from './properties';
 
 export class Physics {
   constructor(scene, map) {
@@ -120,19 +121,13 @@ export class Physics {
   _checkWeapon(zombie) {
     switch (this.scene.score) {
       case 1:
-        this._showWeapon(
-          zombie,
-          'pistol',
-          'handgun-body',
-          'survivor-idle_handgun_0',
-          'handgun',
-        );
+        this._showWeapon(zombie, WEAPON.HANDGUN);
         break;
       case 10:
-        this._showWeapon(zombie, 'shotgun', 'shotgun-body', 'survivor-idle_shotgun_0', 'shotgun');
+        this._showWeapon(zombie, WEAPON.SHOTGUN);
         break;
       case 30:
-        this._showWeapon(zombie, 'rifle', 'rifle-body', 'survivor-idle_rifle_0', 'rifle');
+        this._showWeapon(zombie, WEAPON.RIFLE);
         break;
     }
   }
@@ -160,12 +155,12 @@ export class Physics {
     }
   }
 
-  _showWeapon(zombie, weapon, texture, frame, anim) {
+  _showWeapon(zombie, weapon) {
     if (!this.player.weapon.includes(weapon)) {
       this.scene.createWeapon(zombie.x, zombie.y, weapon);
       this.scene.physics.add.collider(this.player, this.scene.weapon, (player, currWeapon) => {
         currWeapon.destroy();
-        this.player.changeWeapon(texture, frame, anim);
+        this.player.changeWeapon(weapon);
       });
       this.player.weapon.push(weapon);
     }
@@ -177,47 +172,32 @@ export class Physics {
       this._showAmmo(zombie);
       this._showFirstAid(zombie);
       zombie.destroy();
-      const blood = this.scene.add.image(zombie.x, zombie.y, 'blood').setScale(0.2);
-      blood.depth = -1;
+      const bloodImg = this.scene.add.image(zombie.x, zombie.y, 'blood').setScale(0.2);
+      bloodImg.depth = -1;
       this.scene.score++;
     }
   }
 
   _showAmmo(zombie) {
     if (this.scene.score % 14 === 0) {
-      if (this.player.weapon.includes('pistol')) {
-        this.scene.createAmmo(zombie.x, zombie.y, 'pistolAmmo');
-        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
-          this.scene.laserGroup.magazine.handgunAll += 10;
-          if (this.scene.laserGroup.magazine.handgun === 0) this.scene.reload();
-          ammo.destroy();
-        });
+      if (this.player.weapon.includes(WEAPON.HANDGUN)) {
+        this._addAmmoCollider(WEAPON.HANDGUN, zombie);
       }
     } else if (this.scene.score % 3 === 0 && this.scene.score % 7 !== 0) {
-      if (this.player.weapon.includes('shotgun')) {
-        this.scene.createAmmo(zombie.x, zombie.y, 'shotgunAmmo');
-        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
-          this.scene.laserGroup.magazine.shotgunAll += 6;
-          if (this.scene.laserGroup.magazine.shotgun === 0) this.scene.reload();
-          ammo.destroy();
-        });
+      if (this.player.weapon.includes(WEAPON.SHOTGUN)) {
+        this._addAmmoCollider(WEAPON.SHOTGUN, zombie);
       }
     } else if (this.scene.score % 5 === 0 && this.scene.score % 10 !== 0) {
-      if (this.player.weapon.includes('rifle')) {
-        this.scene.createAmmo(zombie.x, zombie.y, 'rifleAmmo');
-        this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
-          this.scene.laserGroup.magazine.rifleAll += 30;
-          if (this.scene.laserGroup.magazine.rifle === 0) this.scene.reload();
-          ammo.destroy();
-        });
+      if (this.player.weapon.includes(WEAPON.RIFLE)) {
+        this._addAmmoCollider(WEAPON.RIFLE, zombie);
       }
     }
   }
 
-  _addCollider(weapon, zombie) {
+  _addAmmoCollider(weapon, zombie) {
     this.scene.createAmmo(zombie.x, zombie.y, `${weapon}Ammo`);
     this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
-      this.scene.laserGroup.magazine[`${weapon}All`] += 30;
+      this.scene.laserGroup.magazine[`${weapon}All`] += weaponProperties[weapon].magazine;
       if (this.scene.laserGroup.magazine[weapon] === 0) this.scene.reload();
       ammo.destroy();
     });

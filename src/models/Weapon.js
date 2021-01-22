@@ -18,7 +18,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
   }
 
   static preload(scene) {
-    scene.load.image('pistol', pistol);
+    scene.load.image('handgun', pistol);
     scene.load.image('rifle', rifle);
     scene.load.image('shotgun', shotgun);
   }
