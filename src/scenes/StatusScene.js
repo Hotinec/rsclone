@@ -13,6 +13,7 @@ import shotgunBullet from '../assets/weapon/shotgun_bullet.png';
 import rifleBullet from '../assets/weapon/rifle_bullet.png';
 import scull from '../assets/menu/scull.png';
 import pauseImg from '../assets/status/pause.png';
+import { WEAPON } from '../constants';
 
 export class StatusScene extends Phaser.Scene {
   constructor() {
@@ -101,15 +102,17 @@ export class StatusScene extends Phaser.Scene {
   }
 
   createScoreView() {
-    const scoreImage = this.add.image(this.rightShadowCap.x + 50, 30, 'score-image');
+    const { x } = this.rightShadowCap;
+    const scoreImage = this.add.image(x + 50, 30, 'score-image');
     scoreImage.setScale(0.2);
     this.scoreText = this.add.text(scoreImage.x + 30, 23, '0', { color: '#a3a3a3' });
   }
 
   createAmmoView() {
-    this.handgunAmmoImg = this.add.image(this.scoreText.x + 50, 30, 'handgunBullet');
-    this.shotgunAmmoImg = this.add.image(this.scoreText.x + 50, 30, 'shotgunBullet');
-    this.rifleAmmoImg = this.add.image(this.scoreText.x + 50, 30, 'rifleBullet');
+    const { x } = this.scoreText;
+    this.handgunAmmoImg = this.add.image(x + 50, 30, 'handgunBullet');
+    this.shotgunAmmoImg = this.add.image(x + 50, 30, 'shotgunBullet');
+    this.rifleAmmoImg = this.add.image(x + 50, 30, 'rifleBullet');
 
     this.handgunAmmoImg.setScale(0.6);
     this.shotgunAmmoImg.setScale(0.8);
@@ -118,7 +121,8 @@ export class StatusScene extends Phaser.Scene {
     this.handgunAmmoImg.setVisible(false);
     this.shotgunAmmoImg.setVisible(false);
     this.rifleAmmoImg.setVisible(false);
-    this.ammoText = this.add.text(this.shotgunAmmoImg.x + 30, 23, '', { color: '#a3a3a3' });
+    const { x: ammoX } = this.shotgunAmmoImg;
+    this.ammoText = this.add.text(ammoX + 30, 23, '', { color: '#a3a3a3' });
   }
 
   createTimeView() {
@@ -129,9 +133,10 @@ export class StatusScene extends Phaser.Scene {
   }
 
   createPauseBtn() {
+    const { width, height } = this.gameScene.game.config;
     const pause = this.add.renderTexture(
-      this.gameScene.game.config.width - 96,
-      this.gameScene.game.config.height - 60,
+      width - 96,
+      height - 60,
       110, 60,
     );
     pause.fill(0x000000, 0.65);
@@ -149,8 +154,8 @@ export class StatusScene extends Phaser.Scene {
         pause.fill(0x000000, 0.9);
       });
 
-    const pauseImage = this.add.image(this.gameScene.game.config.width - 48,
-      this.gameScene.game.config.height - 30, 'pause');
+    const pauseImage = this.add.image(width - 48,
+      height - 30, 'pause');
     pauseImage.setScale(0.8);
   }
 
@@ -158,16 +163,16 @@ export class StatusScene extends Phaser.Scene {
     const { magazine } = this.gameScene.laserGroup;
 
     switch (this.gameScene.player.anim) {
-      case 'handgun':
-        this.ammoText.setText(`${magazine.handgun}/10`);
+      case WEAPON.HANDGUN:
+        this.ammoText.setText(`${magazine.handgun}/${magazine.handgunAll}`);
         this.updateAmmoImage(this.handgunAmmoImg);
         break;
-      case 'shotgun':
-        this.ammoText.setText(`${magazine.shotgun}/6`);
+      case WEAPON.SHOTGUN:
+        this.ammoText.setText(`${magazine.shotgun}/${magazine.shotgunAll}`);
         this.updateAmmoImage(this.shotgunAmmoImg);
         break;
-      case 'rifle':
-        this.ammoText.setText(`${magazine.rifle}/30`);
+      case WEAPON.RIFLE:
+        this.ammoText.setText(`${magazine.rifle}/${magazine.rifleAll}`);
         this.updateAmmoImage(this.rifleAmmoImg);
         break;
       default:
@@ -184,7 +189,8 @@ export class StatusScene extends Phaser.Scene {
   }
 
   updateScore() {
-    this.scoreText.setText(`${this.gameScene.score}`);
+    const { score } = this.gameScene;
+    this.scoreText.setText(`${score}`);
   }
 
   updateTime() {
@@ -194,7 +200,9 @@ export class StatusScene extends Phaser.Scene {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time - (minutes * 60));
 
-    this.timeText.setText(`${this.addZero(hours)}:${this.addZero(minutes)}:${this.addZero(seconds)}`);
+    this.timeText.setText(
+      `${this.addZero(hours)}:${this.addZero(minutes)}:${this.addZero(seconds)}`,
+    );
   }
 
   addZero(number) {

@@ -18,13 +18,9 @@ export class Ammo extends Phaser.Physics.Arcade.Sprite {
   }
 
   static preload(scene) {
-    scene.load.image('pistolAmmo', pistolAmmo);
+    scene.load.image('handgunAmmo', pistolAmmo);
     scene.load.image('rifleAmmo', rifleAmmo);
     scene.load.image('shotgunAmmo', shotgunAmmo);
-  }
-
-  get velocity() {
-    return this.body.velocity;
   }
 
   update() {

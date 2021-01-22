@@ -1,10 +1,8 @@
 import { Zombie } from './Zombie';
 import { Hero } from './Hero';
 import { Weapon } from './Weapon';
-import {
-  Laser, LaserGroup, FireGroup, Fire,
-} from './Laser';
-
+import { Laser, LaserGroup } from './Laser';
+import { Fire, FireGroup } from './Fire';
 import { Ammo } from './Ammo';
 
 export {
