@@ -105,7 +105,7 @@ export class GameScene extends Phaser.Scene {
       x: -230,
       y: -30,
     };
-    const { anim } = this.player;
+
     this.input.on('pointermove', (pointer) => {
       this.pointer.x = pointer.x;
       this.pointer.y = pointer.y;
@@ -118,7 +118,7 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerdown', (pointer) => {
       this.fireDelta = 0;
-      if (anim === WEAPON.KNIFE && this.player.state !== PLAYER_STATE.ATTACK) {
+      if (this.player.anim === WEAPON.KNIFE && this.player.state !== PLAYER_STATE.ATTACK) {
         setTimeout(() => this.soundKnifeAttack.play(), 500);
       }
       this.player.state = PLAYER_STATE.ATTACK;

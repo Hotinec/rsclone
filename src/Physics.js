@@ -71,27 +71,21 @@ export class Physics {
   killZombieWithKnife() {
     const { zombies } = this.scene;
     const knife = this.scene.knifeBounds;
-    const zombiesArr = zombies.getChildren();
 
     knife.body.setCircle(45);
     knife.setDebugBodyColor(0xffff00);
 
-    this._checkKnifeZombieIntersection(zombiesArr, knife);
+    this._checkKnifeZombieIntersection(zombies, knife);
     this._setKnifeBoundsPosition(knife);
     this._generateZombies(zombies);
   }
 
-  _checkKnifeZombieIntersection(zombiesArr, knife) {
-    for (let i = 0; i < zombiesArr.length; i++) {
-      const zombieBounds = zombiesArr[i].getBounds();
-      const intersection = Phaser.Geom.Intersects.RectangleToRectangle;
-
-      if ((intersection(knife.getBounds(), zombieBounds))) {
-        const zombie = zombiesArr[i];
-        zombie.hp = 0;
-        this._showBlood(zombie);
-      }
-    }
+  _checkKnifeZombieIntersection(zombies, knife) {
+    this.scene.physics.add.overlap(knife, zombies, (kn, zombie) => {
+      zombies.killAndHide(zombie);
+      zombie.hp = 0;
+      this._showBlood(zombie);
+    });
   }
 
   _setKnifeBoundsPosition(knife) {
