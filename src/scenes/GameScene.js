@@ -96,6 +96,7 @@ export class GameScene extends Phaser.Scene {
     layer2.setCollisionByProperty({
       collides: true,
     });
+    // background
 
     this.player = new Hero({
       scene: this,

@@ -34,7 +34,7 @@ export class MenuScene extends Phaser.Scene {
   create() {
     this.audio = this.sound.add('theme');
     this.audio.setVolume(1);
-    // this.audio.play();
+    this.audio.play();
     this.createBG();
     this.main = new MainMenu(this);
     this.options = new OptionsMenu(this);

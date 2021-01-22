@@ -12,6 +12,7 @@ import handgunBullet from '../assets/weapon/handgun_bullet.png';
 import shotgunBullet from '../assets/weapon/shotgun_bullet.png';
 import rifleBullet from '../assets/weapon/rifle_bullet.png';
 import scull from '../assets/menu/scull.png';
+import pauseImg from '../assets/status/pause.png';
 
 export class StatusScene extends Phaser.Scene {
   constructor() {
@@ -33,6 +34,8 @@ export class StatusScene extends Phaser.Scene {
     this.load.image('rifleBullet', rifleBullet);
 
     this.load.image('score-image', scull);
+
+    this.load.image('pause', pauseImg);
   }
 
   init() {
@@ -52,6 +55,7 @@ export class StatusScene extends Phaser.Scene {
     this.createScoreView();
     this.createAmmoView();
     this.createTimeView();
+    this.createPauseBtn();
   }
 
   setMeterPercentage(hp = 10) {
@@ -122,6 +126,32 @@ export class StatusScene extends Phaser.Scene {
       delay: 6000000, callback: this.onClockEvent, callbackScope: this, repeat: 1,
     });
     this.timeText = this.add.text(window.innerWidth - 100, 23, '', { color: '#a3a3a3' });
+  }
+
+  createPauseBtn() {
+    const pause = this.add.renderTexture(
+      this.gameScene.game.config.width - 96,
+      this.gameScene.game.config.height - 60,
+      110, 60,
+    );
+    pause.fill(0x000000, 0.65);
+    pause.setInteractive()
+      .on('pointerup', () => {
+        this.gameScene.scene.pause();
+        this.scene.pause();
+        this.scene.launch('PauseScene');
+      })
+      .on('pointerout', () => {
+        pause.clear();
+        pause.fill(0x000000, 0.65);
+      })
+      .on('pointerover', () => {
+        pause.fill(0x000000, 0.9);
+      });
+
+    const pauseImage = this.add.image(this.gameScene.game.config.width - 48,
+      this.gameScene.game.config.height - 30, 'pause');
+    pauseImage.setScale(0.8);
   }
 
   updateAmmo() {
