@@ -56,7 +56,11 @@ export class PauseScene extends Phaser.Scene {
         finishBtn.alpha = 1;
       })
       .on('pointerup', () => {
-        // finish scene
+        this.scene.stop();
+        this.scene.stop('StatusScene');
+        this.scene.stop('GameScene');
+        this.gameScene.gameMusic.stop();
+        this.scene.start('GameOverScene');
       });
 
     const finishTxt = this.add.text(positionX + 80, resumeBtn.y + 80, 'FINISH', {

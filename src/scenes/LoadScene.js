@@ -1,18 +1,25 @@
 /* eslint-disable class-methods-use-this */
 import Phaser from 'phaser';
 
+import gameMusic from '../assets/audio/game.mp3';
+import gameOverMusic from '../assets/audio/gameOver.mp3';
+import saveBtn from '../assets/menu/save-btn.png';
+
 export class LoadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'LoadScene' });
   }
 
   preload() {
+    this.load.audio('game-music', gameMusic);
+    this.load.audio('gameOver-music', gameOverMusic);
+    this.load.image('save-btn', saveBtn);
+    this.setMusic();
     this.showLoading();
   }
 
   showLoading() {
-    const { width } = this.cameras.main;
-    const { height } = this.cameras.main;
+    const { width, height } = this.cameras.main;
 
     const loadingText = this.make.text({
       x: width / 2,
@@ -38,7 +45,13 @@ export class LoadScene extends Phaser.Scene {
     });
   }
 
+  setMusic() {
+    this.loadingMusic = this.sound.add('intro');
+    this.loadingMusic.play();
+  }
+
   create() {
+    this.loadingMusic.stop();
     this.scene.start('GameScene');
   }
 }

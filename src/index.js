@@ -2,7 +2,7 @@
 import Phaser from 'phaser';
 
 import {
-  GameScene, LoadScene, MenuScene, StatusScene, PauseScene,
+  GameScene, LoadScene, MenuScene, StatusScene, PauseScene, GameOverScene,
 } from './scenes';
 
 const config = {
@@ -11,7 +11,7 @@ const config = {
   height: window.innerHeight,
   backgroundColor: '#33333',
   parent: 'game',
-  scene: [MenuScene, LoadScene, GameScene, StatusScene, PauseScene],
+  scene: [MenuScene, LoadScene, GameScene, StatusScene, PauseScene, GameOverScene],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -21,6 +21,9 @@ const config = {
     arcade: {
       debug: true,
     },
+  },
+  dom: {
+    createContainer: true,
   },
   audio: {
     disableWebAudio: true,

@@ -12,8 +12,8 @@ export default class OptionsMenu {
 
   init() {
     this.menu.hoverImg.setScale(0.3);
+    this.checkSize();
     this.createTitle();
-    this.createSoundOpt();
     this.createVolumeSet();
     this.createFSOpt();
     this.createBackBtn();
@@ -21,12 +21,11 @@ export default class OptionsMenu {
   }
 
   checkSize() {
-    const MIDDLE_WIDTH = 1000;
-    const MIDDLE_HEIGHT = 700;
-    const WIDTH = this.menu.game.config.width;
-    const HEIGHT = this.menu.game.config.height;
+    const middleWidth = 1000;
+    const middleHeight = 700;
+    const { width, height } = this.menu.game.config;
 
-    if (WIDTH < MIDDLE_WIDTH && MIDDLE_HEIGHT < HEIGHT) {
+    if (width < middleWidth && middleHeight < height) {
       this.btwDistanse = 50;
     }
   }
@@ -34,81 +33,52 @@ export default class OptionsMenu {
   createTitle() {
     this.title = this.menu.add.image(this.x,
       this.y * 0.1, 'title');
-    const titleText = this.menu.make.text({
-      x: this.x,
-      y: this.y * 0.1,
-      text: 'Options',
-      style: {
-        font: '40px monospace',
-        fill: '#212121',
+    this.title.textContent = this.menu.make.text(
+      {
+        x: this.x,
+        y: this.y * 0.1,
+        text: 'Options',
+        style: {
+          font: '40px monospace',
+          fill: '#212121',
+        },
       },
-    });
-    titleText.setOrigin(0.5, 0.1).setDepth(2);
-    this.btnsTexts.push(titleText);
-  }
-
-  createSoundOpt() {
-    const y = this.y * 0.3;
-
-    this.soundTitle = this.menu.add.image(this.x, y + this.operationNum * this.btwDistanse, 'btn');
-    const titleText = this.menu.make.text({
-      x: this.x,
-      y,
-      text: 'Sound',
-      style: {
-        font: '30px monospace',
-        fill: '#212121',
-      },
-    });
-    titleText.setOrigin(0.5, 0.5).setDepth(2);
-    this.operationNum++;
-    this.btnsTexts.push(titleText);
-    this.soundOnBtn = this.menu.createBtn(this.x - this.soundTitle.width / 2, y + this.operationNum * this.btwDistanse, 'On', this.btnsTexts);
-    this.soundOffBtn = this.menu.createBtn(this.x + this.soundTitle.width / 2, y + this.operationNum * this.btwDistanse, 'Off', this.btnsTexts);
-    this.operationNum++;
+    );
+    this.title.textContent.setOrigin(0.5, 0.1).setDepth(2);
   }
 
   createFSOpt() {
     const y = this.y * 0.3;
 
-    this.FSTitle = this.menu.add.image(this.x, y + this.operationNum * this.btwDistanse, 'btn');
-    const titleText = this.menu.make.text({
-      x: this.x,
-      y: y + this.operationNum * this.btwDistanse,
-      text: 'FullScreen',
-      style: {
-        font: '30px monospace',
-        fill: '#212121',
-      },
-    });
-    titleText.setOrigin(0.5, 0.5).setDepth(2);
-    this.btnsTexts.push(titleText);
-    this.operationNum++;
-    this.fullscreenOn = this.menu.createBtn(this.x - this.soundTitle.width / 2, y + this.operationNum * this.btwDistanse, 'On', this.btnsTexts);
-    this.fullscreenOff = this.menu.createBtn(this.x + this.soundTitle.width / 2, y + this.operationNum * this.btwDistanse, 'Off', this.btnsTexts);
+    const { isFullscreen } = this.menu.scale;
+
+    this.fullScreenBtn = this.menu.createBtn(this.x, y + this.operationNum * this.btwDistanse, isFullscreen ? 'FullScreen On' : 'FullScreen Off');
     this.operationNum++;
   }
 
   createVolumeSet() {
-    const y = this.y * 0.3;
+    const y = this.y * 0.3 + this.operationNum * this.btwDistanse;
 
-    this.volumeTitle = this.menu.add.image(this.x, y + this.operationNum * this.btwDistanse, 'btn');
-    const volumeText = this.menu.make.text({
+    // this.volumeTitle = this.menu.add.image(this.x , y+this.operationNum*this.btwDistanse, 'btn')
+
+    this.volumeTitle = this.menu.add.image(this.x, y, 'btn');
+    this.volumeTitle.textContent = this.menu.make.text({
       x: this.x,
-      y: y + this.operationNum * this.btwDistanse,
+      y,
       text: 'Volume',
       style: {
         font: '30px monospace',
         fill: '#212121',
       },
     });
+    this.volumeTitle.textContent.setOrigin(0.5, 0.5);
     this.operationNum++;
-    this.volumeBox = this.menu.add.image(this.x, y + this.operationNum * this.btwDistanse, 'btn');
+
+    // this.volumeBox = this.menu.add.image(this.x , y+this.operationNum*this.btwDistanse, 'btn')
+    this.volumeBox = this.menu.add.image(this.x, y, 'btn');
     this.volumeBox.setVisible(false);
     this.createVolumeIndicator();
     this.operationNum++;
-    volumeText.setOrigin(0.5, 0.5).setDepth(2);
-    this.btnsTexts.push(volumeText);
   }
 
   createVolumeIndicator() {
@@ -123,7 +93,7 @@ export default class OptionsMenu {
     const y = this.y * 0.3 + this.operationNum * this.btwDistanse;
     const img = this.menu.add.image(100, 100, btn).setDepth(3);
     img.setScale(0.25);
-    img.x = width + img.width * 0.25 * i + img.width * 0.25;
+    img.x = width + img.width * 0.2 * i + img.width * 0.2;
     img.y = y;
     img.id = i;
     img.setInteractive();
@@ -133,31 +103,20 @@ export default class OptionsMenu {
   createBackBtn() {
     const y = this.y * 0.3;
 
-    this.backBtn = this.menu.createBtn(this.x, y + this.operationNum * this.btwDistanse, 'Back', this.btnsTexts);
+    this.backBtn = this.menu.createBtn(this.x, y + this.operationNum * this.btwDistanse, 'Back');
   }
 
   initClicks() {
-    this.soundOffBtn.on('pointerdown', () => {
-      if (!this.menu.sound) return;
-
-      this.menu.sound = false;
-      this.menu.audio.pause();
-    });
-    this.soundOnBtn.on('pointerdown', () => {
-      if (this.sound) return;
-      this.menu.sound = true;
-      this.menu.audio.resume();
-    });
-
-    this.fullscreenOn.on('pointerdown', () => {
-      if (!this.menu.scale.isFullscreen) {
+    this.fullScreenBtn.on('pointerdown', () => {
+      const btn = this.fullScreenBtn.textContent;
+      const { isFullscreen } = this.menu.scale;
+      if (!isFullscreen) {
         this.menu.scale.startFullscreen();
-      }
-    });
-
-    this.fullscreenOff.on('pointerdown', () => {
-      if (this.menu.scale.isFullscreen) {
+        btn.setText('FullScreen On');
+        // this.menu.game.scale.resize();
+      } else {
         this.menu.scale.stopFullscreen();
+        btn.setText('FullScreen Off');
       }
     });
 
@@ -180,8 +139,9 @@ export default class OptionsMenu {
   }
 
   setVolumeUp(idx) {
-    const n = +`0.${idx * 2}`;
-    this.menu.audio.setVolume(n);
+    const n = +`0.${idx}`;
+    this.menu.game.volume = n;
+    this.menu.sound.setVolume(n);
 
     for (let i = 0; i <= idx; i++) {
       this.volumeIndicatorsOn[i].setVisible(true);
@@ -189,8 +149,8 @@ export default class OptionsMenu {
   }
 
   setVolumeDown(idx) {
-    const n = +`0.${idx * 2}`;
-    this.menu.audio.setVolume(n);
+    const n = +`0.${idx}`;
+    this.menu.sound.setVolume(n);
 
     for (let i = this.volumeIndicatorsOn.length - 1; idx <= i; i--) {
       this.volumeIndicatorsOn[i].setVisible(false);
@@ -199,22 +159,19 @@ export default class OptionsMenu {
 
   removeOptionsMenu() {
     this.title.destroy();
+    this.title.textContent.destroy();
     this.backBtn.destroy();
-    this.volumeTitle.destroy();
+    this.backBtn.textContent.destroy();
     this.volumeBox.destroy();
-    this.FSTitle.destroy();
-    this.soundTitle.destroy();
-    this.soundOnBtn.destroy();
-    this.soundOffBtn.destroy();
-    this.fullscreenOff.destroy();
-    this.fullscreenOn.destroy();
+    this.fullScreenBtn.destroy();
+    this.fullScreenBtn.textContent.destroy();
+    this.volumeTitle.destroy();
+    this.volumeTitle.textContent.destroy();
     this.menu.hoverImg.setVisible(false);
-    this.btnsTexts.forEach((el) => el.destroy());
     this.volumeIndicatorsOn.forEach((el) => el.destroy());
     this.volumeIndicatorsOff.forEach((el) => el.destroy());
     this.volumeIndicatorsOn = [];
     this.volumeIndicatorsOff = [];
-    this.btnsTexts = [];
     this.operationNum = 0;
   }
 }
