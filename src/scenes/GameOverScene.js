@@ -143,8 +143,10 @@ export class GameOverScene extends BaseScene {
   }
 
   setMusic() {
+    const menu = this.scene.get('MenuScene');
+
     this.gameOverMusic = this.sound.add('gameOver-music');
     this.gameOverMusic.setLoop(true);
-    this.gameOverMusic.play();
+    if (menu.soundOn) this.gameOverMusic.play();
   }
 }

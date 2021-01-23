@@ -18,6 +18,7 @@ import BaseScene from './BaseScene';
 export class MenuScene extends BaseScene {
   constructor() {
     super({ key: 'MenuScene' });
+    this.soundOn = false;
   }
 
   preload() {
@@ -33,6 +34,7 @@ export class MenuScene extends BaseScene {
 
   create() {
     this.setMusic();
+    if (this.soundOn) this.audio.play();
     this.sound.setVolume(0.5);
 
     this.createBG();

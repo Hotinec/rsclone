@@ -283,9 +283,11 @@ export class GameScene extends Phaser.Scene {
   }
 
   setMusic() {
+    const menu = this.scene.get('MenuScene');
+
     this.gameMusic = this.sound.add('game-music');
     this.gameMusic.setVolume(0.2);
-    this.gameMusic.play();
     this.gameMusic.setLoop(true);
+    if (menu.soundOn) this.gameMusic.play();
   }
 }

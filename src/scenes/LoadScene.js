@@ -46,8 +46,10 @@ export class LoadScene extends Phaser.Scene {
   }
 
   setMusic() {
+    const menu = this.scene.get('MenuScene');
+
     this.loadingMusic = this.sound.add('intro');
-    this.loadingMusic.play();
+    if (menu.soundOn) this.loadingMusic.play();
   }
 
   create() {

@@ -33,10 +33,11 @@ export default class MainMenu {
       if (this.soundBtn.textContent.text === 'Sound Off') {
         if (!this.menu.audio.isPlaying) {
           this.menu.audio.play();
+          this.menu.soundOn = true;
           this.soundBtn.textContent.setText('Sound On');
           return;
         }
-
+        this.menu.soundOn = true;
         this.menu.sound.setMute(false);
         this.soundBtn.textContent.setText('Sound On');
         return;
@@ -44,6 +45,7 @@ export default class MainMenu {
 
       if (this.soundBtn.textContent.text === 'Sound On') {
         this.menu.sound.setMute(true);
+        this.menu.soundOn = false;
         this.soundBtn.textContent.setText('Sound Off');
       }
     });
