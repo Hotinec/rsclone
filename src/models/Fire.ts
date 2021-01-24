@@ -1,15 +1,22 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-shadow */
 /* eslint-disable max-classes-per-file */
 import Phaser from 'phaser';
 import fire from '../assets/weapon/flash-1.png';
 import { WEAPON } from '../constants';
+import { IPointer } from './IPointer';
+import { Hero } from './Hero';
 
 export class Fire extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
+  incY: number;
+
+  incX: number;
+
+  constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'fire');
   }
 
-  preUpdate(time, delta) {
+  preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
     setTimeout(() => {
       this.setActive(false);
@@ -17,13 +24,13 @@ export class Fire extends Phaser.Physics.Arcade.Sprite {
     }, 10);
   }
 
-  static preload(scene) {
+  static preload(scene: Phaser.Scene): void {
     scene.load.image('fire', fire);
   }
 
   fire({
     x, y, rotation, anim,
-  }, { x: mouseX, y: mouseY }) {
+  }: Hero, { x: mouseX, y: mouseY }: IPointer): void {
     const rotationCos = Math.cos(rotation);
     const rotationSin = Math.sin(rotation);
 
@@ -58,7 +65,7 @@ export class Fire extends Phaser.Physics.Arcade.Sprite {
 }
 
 export class FireGroup extends Phaser.Physics.Arcade.Group {
-  constructor(scene) {
+  constructor(scene: Phaser.Scene) {
     super(scene.physics.world, scene);
 
     this.createMultiple({
@@ -70,7 +77,7 @@ export class FireGroup extends Phaser.Physics.Arcade.Group {
     });
   }
 
-  fireLaser(player, mouse) {
+  fireLaser(player: Hero, mouse: IPointer): void {
     const fire = this.getFirstDead(false);
     if (fire) {
       fire.fire(player, mouse);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import Phaser from 'phaser';
 
@@ -27,4 +28,4 @@ const config = {
   },
 };
 
-const Game = new Phaser.Game(config);
+const Game: Phaser.Game = new Phaser.Game(config);

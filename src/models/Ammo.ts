@@ -3,8 +3,15 @@ import pistolAmmo from '../assets/weapon/handgun_bullet.png';
 import rifleAmmo from '../assets/weapon/rifle_bullet.png';
 import shotgunAmmo from '../assets/weapon/shotgun_bullet.png';
 
+interface IAmmo {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  texture: string;
+}
+
 export class Ammo extends Phaser.Physics.Arcade.Sprite {
-  constructor(data) {
+  constructor(data: IAmmo) {
     const {
       scene, x, y, texture,
     } = data;
@@ -17,13 +24,13 @@ export class Ammo extends Phaser.Physics.Arcade.Sprite {
     this.setImmovable(false);
   }
 
-  static preload(scene) {
+  static preload(scene: Phaser.Scene): void {
     scene.load.image('handgunAmmo', pistolAmmo);
     scene.load.image('rifleAmmo', rifleAmmo);
     scene.load.image('shotgunAmmo', shotgunAmmo);
   }
 
-  update() {
+  update(): void {
     this.rotation += 0.01;
   }
 }

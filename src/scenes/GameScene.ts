@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable import/extensions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
 /* eslint-disable no-useless-constructor */
@@ -23,8 +25,45 @@ import {
   Ammo,
 } from '../models';
 import { Physics } from '../Physics';
+import { IPointer } from '../models/IPointer';
 
 export class GameScene extends Phaser.Scene {
+  weapon: Weapon | null;
+
+  score: number;
+
+  player: Hero;
+
+  physicsEvent: Physics;
+
+  pointer: IPointer;
+
+  pointMouse: IPointer;
+
+  zombie: Zombie;
+
+  zombies: Phaser.Physics.Arcade.Group;
+
+  fireDelta: number;
+
+  laserGroup: LaserGroup;
+
+  fireGroup: FireGroup;
+
+  knifeBounds: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+
+  soundShoot: Phaser.Sound.BaseSound;
+
+  soundKnifeAttack: Phaser.Sound.BaseSound;
+
+  reloadSound: Phaser.Sound.BaseSound;
+
+  topSound: Phaser.Sound.BaseSound;
+
+  ammo: Ammo;
+
+  firstAid: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+
   constructor() {
     super('GameScene');
 
@@ -32,7 +71,7 @@ export class GameScene extends Phaser.Scene {
     this.score = 0;
   }
 
-  preload() {
+  preload(): void {
     this.load.image('blood', blood);
     this.load.image('first_aid', firstAid);
 
@@ -56,7 +95,7 @@ export class GameScene extends Phaser.Scene {
     this.load.audio('top', top);
   }
 
-  create() {
+  create(): void {
     this.input.setDefaultCursor(`url(${cursor}), auto`);
 
     this.createSound();
@@ -69,8 +108,8 @@ export class GameScene extends Phaser.Scene {
     this.createEvents();
 
     // collisions
-    this.physics.add.collider(this.player, layer2, null, null, this);
-    this.physics.add.collider(this.zombies, layer2, null, null, this);
+    this.physics.add.collider(this.player, layer2, undefined, undefined, this);
+    this.physics.add.collider(this.zombies, layer2, undefined, undefined, this);
     this.physicsEvent.setCollide(this.zombies, this.laserGroup);
 
     // camera settings
@@ -79,17 +118,17 @@ export class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
   }
 
-  createSound() {
+  createSound(): void {
     this.soundShoot = this.sound.add('shoot');
     this.soundKnifeAttack = this.sound.add('khife_attack');
     this.reloadSound = this.sound.add('reload');
     this.topSound = this.sound.add('top');
   }
 
-  createMap() {
+  createMap(): {map: Phaser.Tilemaps.Tilemap; layer2: Phaser.Tilemaps.TilemapLayer} {
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('terrain', 'tilesets', 32, 32, 0, 0);
-    const layer1 = map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
+    map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
     layer2.setCollisionByProperty({
       collides: true,
@@ -100,23 +139,23 @@ export class GameScene extends Phaser.Scene {
     };
   }
 
-  createEvents() {
+  createEvents(): void {
     this.pointer = {
       x: -230,
       y: -30,
     };
 
-    this.input.on('pointermove', (pointer) => {
+    this.input.on('pointermove', (pointer: IPointer) => {
       this.pointer.x = pointer.x;
       this.pointer.y = pointer.y;
     });
 
-    this.input.on('pointerup', (pointer) => {
+    this.input.on('pointerup', (pointer: IPointer) => {
       this._shootLaser(pointer);
       if (this.player.anim === WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
     });
 
-    this.input.on('pointerdown', (pointer) => {
+    this.input.on('pointerdown', (pointer: IPointer) => {
       this.fireDelta = 0;
       if (this.player.anim === WEAPON.KNIFE && this.player.state !== PLAYER_STATE.ATTACK) {
         setTimeout(() => this.soundKnifeAttack.play(), 500);
@@ -126,7 +165,9 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  newZombie(x = 100, y = 200, type = ZOMBIE_TYPE.TYPE_1) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line no-undef
+  newZombie(x = 100, y = 200, type = ZOMBIE_TYPE.TYPE_1): Zombie {
     this.zombie = new Zombie({
       scene: this,
       x,
@@ -137,7 +178,10 @@ export class GameScene extends Phaser.Scene {
     return this.zombie;
   }
 
-  createInstances(mapProperties) {
+  createInstances(mapProperties: {
+    map: Phaser.Tilemaps.Tilemap;
+    layer2: Phaser.Tilemaps.TilemapLayer;
+  }): void {
     const { widthInPixels, heightInPixels } = mapProperties.map;
     this.player = new Hero({
       scene: this,
@@ -153,10 +197,11 @@ export class GameScene extends Phaser.Scene {
     this.fireGroup = new FireGroup(this);
     this.physicsEvent = new Physics(this, mapProperties.map);
 
+    // @ts-ignore
     this.knifeBounds = this.physics.add.image(-100, -100);
   }
 
-  createHotKeys() {
+  createHotKeys(): void {
     this.player.inputKeys = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -169,9 +214,13 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  delBulletFromAmmo(gun, pointer) {
+  delBulletFromAmmo(gun: string, pointer: IPointer): void {
+    // @ts-ignore
     this.laserGroup.magazine[`${gun}`] -= 1;
+
+    // @ts-ignore
     if (this.laserGroup.magazine[`${gun}`] === 0
+    // @ts-ignore
     && this.laserGroup.magazine[`${gun}All`] > 0) {
       this.reload();
     }
@@ -179,12 +228,12 @@ export class GameScene extends Phaser.Scene {
     this.fireGroup.fireLaser(this.player, pointer);
   }
 
-  fire(gun, pointer) {
+  fire(gun: string, pointer: IPointer): void {
     this.laserGroup.fireLaser(this.player, pointer);
     this.delBulletFromAmmo(gun, pointer);
   }
 
-  _shotgunFire(pointer) {
+  _shotgunFire(pointer: IPointer): void {
     for (let i = 0; i < 6; i++) {
       this.laserGroup.fireLaser(
         this.player,
@@ -193,7 +242,7 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  _shootLaser(pointer, delta) {
+  _shootLaser(pointer: IPointer): void {
     const { anim } = this.player;
     const { textureFrame } = this.player.anims.currentFrame;
     const {
@@ -202,6 +251,7 @@ export class GameScene extends Phaser.Scene {
 
     if (anim === WEAPON.KNIFE) {
       if (!this.knifeBounds.body) {
+        // @ts-ignore
         this.knifeBounds = this.physics.add.image(-100, -100);
       }
       this.physicsEvent.killZombieWithKnife();
@@ -235,12 +285,12 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  reload() {
+  reload(): void {
     this.reloadSound.play();
     this.laserGroup.reload(this.player.anim);
   }
 
-  createWeapon(posX, posY, texture) {
+  createWeapon(posX: number, posY: number, texture: string): void {
     this.weapon = new Weapon({
       scene: this,
       x: posX,
@@ -249,7 +299,7 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  createAmmo(posX, posY, texture) {
+  createAmmo(posX: number, posY: number, texture: string): void {
     this.ammo = new Ammo({
       scene: this,
       x: posX,
@@ -258,11 +308,11 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  createFirstAid(posX, posY) {
+  createFirstAid(posX: number, posY: number): void {
     this.firstAid = this.physics.add.image(posX, posY, 'first_aid').setScale(0.03);
   }
 
-  update() {
+  update(): void {
     if (this.player.state === PLAYER_STATE.ATTACK) {
       this.fireDelta++;
       if (this.fireDelta % 10 === 0) {

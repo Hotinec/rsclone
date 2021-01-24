@@ -1,4 +1,12 @@
-export const weaponProperties = {
+interface IWeaponProperties {
+  [key: string]: {
+    body: string,
+    frame: string,
+    magazine?: number,
+  };
+}
+
+export const weaponProperties: IWeaponProperties = {
   knife: {
     body: 'knife',
     frame: 'survivor-idle_knife_0',
