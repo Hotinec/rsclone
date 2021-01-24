@@ -31,10 +31,11 @@ export class PauseScene extends Phaser.Scene {
     const points = this.add.text(positionX, health.y + 25, `Score: ${score}`, infoFont);
     const resumeBtn = this.add.image(positionX + 80, points.y + 100, 'btn').setInteractive()
       .on('pointerover', () => {
-        resumeBtn.alpha = 0.8;
+        resumeBtn.tintFill = false;
+        resumeBtn.setTint('0xbababa');
       })
       .on('pointerout', () => {
-        resumeBtn.alpha = 1;
+        resumeBtn.clearTint();
       })
       .on('pointerup', () => {
         this.scene.stop();
@@ -50,10 +51,11 @@ export class PauseScene extends Phaser.Scene {
     resumeTxt.setOrigin(0.5, 0.5);
     const finishBtn = this.add.image(positionX + 80, resumeBtn.y + 80, 'btn').setInteractive()
       .on('pointerover', () => {
-        finishBtn.alpha = 0.8;
+        finishBtn.tintFill = false;
+        finishBtn.setTint('0xbababa');
       })
       .on('pointerout', () => {
-        finishBtn.alpha = 1;
+        finishBtn.clearTint();
       })
       .on('pointerup', () => {
         this.scene.stop();

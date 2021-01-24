@@ -17,26 +17,55 @@ export default class BaseScene extends Phaser.Scene {
       },
     });
     btn.textContent.setOrigin(0.5, 0.5).setDepth(2);
-    this.initHover(btn);
-
+    this.initHover(btn, false);
     return btn;
   }
 
-  initHover(btn) {
+  createSwitchBtn(settings) {
+    const {
+      x, y, onTexture, offTexture, width, height, option,
+    } = settings;
+    const createBtn = (texture) => {
+      const bttn = this.add.image(x, y, texture).setDepth(1);
+      bttn.displayWidth = width;
+      bttn.displayHeight = height;
+      this.initHover(bttn, true);
+      return bttn;
+    };
+    const on = createBtn(onTexture);
+    const off = createBtn(offTexture);
+
+    if (option) {
+      on.setVisible(true);
+      off.setVisible(false);
+    } else {
+      off.setVisible(true);
+      on.setVisible(false);
+    }
+    return { on, off };
+  }
+
+  initHover(btn, isSwitch) {
     btn.setInteractive();
 
     btn.on('pointerover', () => {
       const currentBtn = btn;
-      currentBtn.alpha = 0.8;
-      this.hoverImg.setVisible(true);
-      this.hoverImg.x = btn.x - this.hoverImg.width;
-      this.hoverImg.y = btn.y;
+      currentBtn.tintFill = false;
+      currentBtn.setTint('0xbababa');
+      if (!isSwitch) {
+        this.hoverImg.setVisible(true);
+        this.hoverImg.setDepth(5);
+        this.hoverImg.x = btn.x - this.hoverImg.width;
+        this.hoverImg.y = btn.y;
+      }
     });
 
     btn.on('pointerout', () => {
       const currentBtn = btn;
-      currentBtn.alpha = 1;
-      this.hoverImg.setVisible(false);
+      currentBtn.clearTint();
+      if (!isSwitch) {
+        this.hoverImg.setVisible(false);
+      }
     });
   }
 

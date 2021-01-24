@@ -15,8 +15,19 @@ export default class MainMenu {
     const { audio } = this.menu;
 
     this.playBtn = this.menu.createBtn(width / 2, height / 2 + 50, 'New Game');
-    this.optionsBtn = this.menu.createBtn(width / 2, height / 2 + 100, 'Options');
-    this.soundBtn = this.menu.createBtn(width / 2, height / 2 + 150, audio.isPlaying ? 'Sound On' : 'Sound Off');
+    this.aboutBtn = this.menu.createBtn(width / 2, height / 2 + 110, 'About');
+    this.optionsBtn = this.menu.createBtn(width / 2, height / 2 + 170, 'Options');
+    this.soundBtn = this.menu.createSwitchBtn(
+      {
+        x: width / 2,
+        y: height / 2 + 230,
+        onTexture: 'unmute',
+        offTexture: 'mute',
+        width: 55,
+        height: 55,
+        option: audio.isPlaying,
+      },
+    );
   }
 
   initClicks() {
@@ -29,25 +40,24 @@ export default class MainMenu {
       this.menu.options.init();
     });
 
-    this.soundBtn.on('pointerdown', () => {
-      if (this.soundBtn.textContent.text === 'Sound Off') {
-        if (!this.menu.audio.isPlaying) {
-          this.menu.audio.play();
-          this.menu.soundOn = true;
-          this.soundBtn.textContent.setText('Sound On');
-          return;
-        }
+    this.soundBtn.off.on('pointerdown', () => {
+      if (!this.menu.audio.isPlaying) {
+        this.menu.audio.play();
         this.menu.soundOn = true;
-        this.menu.sound.setMute(false);
-        this.soundBtn.textContent.setText('Sound On');
+        this.soundBtn.off.setVisible(false);
+        this.soundBtn.on.setVisible(true);
         return;
       }
-
-      if (this.soundBtn.textContent.text === 'Sound On') {
-        this.menu.sound.setMute(true);
-        this.menu.soundOn = false;
-        this.soundBtn.textContent.setText('Sound Off');
-      }
+      this.menu.soundOn = true;
+      this.menu.sound.setMute(false);
+      this.soundBtn.off.setVisible(false);
+      this.soundBtn.on.setVisible(true);
+    });
+    this.soundBtn.on.on('pointerdown', () => {
+      this.menu.sound.setMute(true);
+      this.menu.soundOn = false;
+      this.soundBtn.off.setVisible(true);
+      this.soundBtn.on.setVisible(false);
     });
   }
 
@@ -70,8 +80,9 @@ export default class MainMenu {
     this.logo.destroy();
     this.playBtn.destroy();
     this.playBtn.textContent.destroy();
-    this.soundBtn.destroy();
-    this.soundBtn.textContent.destroy();
+    this.soundBtn.on.destroy();
+    this.soundBtn.off.destroy();
+    this.aboutBtn.destroy();
     this.optionsBtn.destroy();
     this.optionsBtn.textContent.destroy();
     this.menu.hoverImg.setVisible(false);

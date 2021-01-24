@@ -11,11 +11,11 @@ export class GameOverScene extends BaseScene {
 
   create() {
     const { width, height } = this.game.config;
-    const background = this.add.renderTexture(0, 0, width, height);
-    background.fill(0x000000, 1);
     this.getScore();
     this.setMusic();
     this.createBG();
+    const background = this.add.renderTexture(0, 0, width, height);
+    background.fill(0x000000, 0.65);
     this.setHoverImg();
     this.getInput();
     this.initInputEvents();
@@ -49,26 +49,30 @@ export class GameOverScene extends BaseScene {
     const config = {
       maxLength: 30,
       minLength: 1,
-      placeholder: 'Enter your name',
-      paddingLeft: 10,
+      placeholder: 'Name...',
+      paddingLeft: '10px',
       paddingRight: 0,
-      paddingTop: 2,
-      paddingBottom: 2,
-      fontSize: 30,
-      color: '#ffffff',
-      border: 1,
-      backgroundColor: '#212121',
-      borderColor: '#eeeeee',
+      paddingTop: '2px',
+      paddingBottom: '2px',
+      fontSize: '22px',
+      fontFamily: 'monospace',
+      color: '#000000',
+      border: '3px solid',
+      backgroundColor: '#e6e6e6',
+      borderColor: '#9c9f9e',
+      outline: 'none',
     };
 
     const { width, height } = this.game.config;
+    const y = height * 0.4 + 200;
 
-    this.inputText = new InputText(this, width / 2, height * 0.3 + 150, 400, 50, config);
+    this.inputText = new InputText(this, width / 2, y, 270, 40, config);
     this.add.existing(this.inputText);
-    this.inputText.setOrigin(0.7, 0.5);
-    this.saveBtn = this.createBtn(width / 2, height * 0.3 + 153, '', 'save-btn');
-    this.saveBtn.x = width / 2 + this.inputText.width - this.saveBtn.width + 20;
-    this.saveBtn.setOrigin(0.7, 0.5);
+    this.inputText.setOrigin(0.8, 0.5);
+
+    const x = (width + this.inputText.displayWidth) / 2 + 5;
+    this.saveBtn = this.createBtn(x, y + 3, 'SAVE');
+    this.saveBtn.displayWidth = 150;
   }
 
   initInputEvents() {
@@ -96,42 +100,34 @@ export class GameOverScene extends BaseScene {
       time: this.time,
       score: this.score,
     };
-
     this.results.push(result);
   }
 
   setTextContent() {
-    const shadow = {
-      offsetX: 4,
-      offsetY: -3,
-      color: '#000000',
-      blur: 5,
-      fill: true,
-    };
-    const fill = '#ffffff';
     const { width, height } = this.game.config;
+    const x = width / 2;
+    const y = height * 0.4;
+
+    const title = this.add.text(x, height * 0.3, 'GAME OVER', { font: '46px monospace' });
+    title.setOrigin(0.5, 0.5);
 
     this.scoreText = this.make.text({
-      x: width / 2,
-      y: height * 0.3,
+      x: x - 154,
+      y,
       text: `Score: ${this.score}`,
-      style: { font: '50px monospace', fill, shadow },
+      style: { font: '32px monospace' },
     });
-    this.scoreText.setOrigin(0.5, 0.5);
-
     this.timeText = this.make.text({
-      x: width / 2,
-      y: height * 0.3 + 50,
+      x: x - 154,
+      y: y + 50,
       text: `Time: ${this.time}`,
-      style: { font: '50px monospace', fill, shadow },
+      style: { font: '32px monospace' },
     });
-    this.timeText.setOrigin(0.5, 0.5);
-
     this.savingText = this.make.text({
-      x: width / 2,
-      y: height * 0.3 + 100,
+      x,
+      y: y + 150,
       text: 'Enter your name to save a result',
-      style: { font: '30px monospace', fill, shadow },
+      style: { font: '22px monospace' },
     });
     this.savingText.setOrigin(0.5, 0.5);
   }
