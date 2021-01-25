@@ -26,6 +26,7 @@ import {
 } from '../models';
 import { Physics } from '../Physics';
 import { IPointer } from '../models/IPointer';
+import { DarkMode } from '../DarkMode';
 
 export class GameScene extends Phaser.Scene {
   weapon: Weapon | null;
@@ -64,11 +65,18 @@ export class GameScene extends Phaser.Scene {
 
   firstAid: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
 
+  mode: string;
+
+  darkMode: DarkMode;
+
   constructor() {
     super('GameScene');
 
     this.weapon = null;
     this.score = 0;
+    this.mode = 'black';
+
+    this.darkMode = new DarkMode();
   }
 
   preload(): void {
@@ -128,11 +136,15 @@ export class GameScene extends Phaser.Scene {
   createMap(): {map: Phaser.Tilemaps.Tilemap; layer2: Phaser.Tilemaps.TilemapLayer} {
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('terrain', 'tilesets', 32, 32, 0, 0);
-    map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
+    const layer1 = map.createLayer('Tile Layer 1', tileset, 0, 0).setDepth(-1);
     const layer2 = map.createLayer('Tile Layer 2', tileset, 0, 0);
     layer2.setCollisionByProperty({
       collides: true,
     });
+
+    if (this.mode === 'black') {
+      this.darkMode.darking(this, layer1, layer2);
+    }
 
     return {
       map, layer2,
@@ -175,6 +187,11 @@ export class GameScene extends Phaser.Scene {
       type,
     },
     this.player);
+
+    if (this.mode === 'black') {
+      this.darkMode.setDarkObject(this.zombie);
+    }
+
     return this.zombie;
   }
 
@@ -297,6 +314,9 @@ export class GameScene extends Phaser.Scene {
       y: posY,
       texture,
     });
+    if (this.mode === 'black') {
+      this.darkMode.setDarkObject(this.weapon);
+    }
   }
 
   createAmmo(posX: number, posY: number, texture: string): void {
@@ -306,10 +326,16 @@ export class GameScene extends Phaser.Scene {
       y: posY,
       texture,
     });
+    if (this.mode === 'black') {
+      this.darkMode.setDarkObject(this.ammo);
+    }
   }
 
   createFirstAid(posX: number, posY: number): void {
     this.firstAid = this.physics.add.image(posX, posY, 'first_aid').setScale(0.03);
+    if (this.mode === 'black') {
+      this.darkMode.setDarkObject(this.firstAid);
+    }
   }
 
   update(): void {

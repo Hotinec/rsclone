@@ -1,5 +1,5 @@
 import { zombieProperties } from './ZombieProperties';
-import { weaponProperties } from './WeaponProperties';
+import { weaponProperties } from './WeaponProperties.ts';
 import { playerProperties } from './PlayerProperties';
 
 export {
