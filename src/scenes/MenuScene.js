@@ -13,6 +13,7 @@ import title from '../assets/menu/empty.png';
 import btn from '../assets/menu/btn.png';
 import MainMenu from '../menu/Main';
 import OptionsMenu from '../menu/Options';
+import Score from '../menu/BestScore';
 import BaseScene from './BaseScene';
 
 export class MenuScene extends BaseScene {
@@ -30,6 +31,12 @@ export class MenuScene extends BaseScene {
     this.load.image('title', title);
     this.load.image('btn', btn);
     this.load.image('empty-scull', emptyScull);
+
+    // this.load.scenePlugin({
+    //   key: 'rexuiplugin',
+    //   url: 'phaser3-rex-plugins/templates/ui/ui-plugin.js',
+    //   sceneKey: 'rexUI',
+    // });
   }
 
   create() {
@@ -40,6 +47,7 @@ export class MenuScene extends BaseScene {
     this.createBG();
     this.main = new MainMenu(this);
     this.options = new OptionsMenu(this);
+    this.score = new Score(this);
 
     this.main.init();
     this.setHoverImg();

@@ -16,7 +16,8 @@ export default class MainMenu {
 
     this.playBtn = this.menu.createBtn(width / 2, height / 2 + 50, 'New Game');
     this.optionsBtn = this.menu.createBtn(width / 2, height / 2 + 100, 'Options');
-    this.soundBtn = this.menu.createBtn(width / 2, height / 2 + 150, audio.isPlaying ? 'Sound On' : 'Sound Off');
+    this.bestSoresBtn = this.menu.createBtn(width / 2, height / 2 + 150, 'Best Scores');
+    this.soundBtn = this.menu.createBtn(width / 2, height / 2 + 200, audio.isPlaying ? 'Sound On' : 'Sound Off');
   }
 
   initClicks() {
@@ -27,6 +28,11 @@ export default class MainMenu {
     this.optionsBtn.on('pointerdown', () => {
       this.removeMainMenu();
       this.menu.options.init();
+    });
+
+    this.bestSoresBtn.on('pointerdown', () => {
+      this.removeMainMenu();
+      this.menu.score.init();
     });
 
     this.soundBtn.on('pointerdown', () => {
@@ -72,6 +78,8 @@ export default class MainMenu {
     this.playBtn.textContent.destroy();
     this.soundBtn.destroy();
     this.soundBtn.textContent.destroy();
+    this.bestSoresBtn.destroy();
+    this.bestSoresBtn.textContent.destroy();
     this.optionsBtn.destroy();
     this.optionsBtn.textContent.destroy();
     this.menu.hoverImg.setVisible(false);
