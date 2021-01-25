@@ -36,7 +36,7 @@ export default class Score {
         },
       },
     );
-    this.title.textContent.setOrigin(0.5, 0.1).setDepth(2);
+    this.title.textContent.setOrigin(0.5, 0).setDepth(2);
   }
 
   createTable() {
@@ -77,7 +77,7 @@ export default class Score {
 
   createResultRow(idx, arr) {
     const width = 500;
-    const part = width / 4;
+    const part = width / 5;
 
     const {
       time, score, name, date,
@@ -88,11 +88,11 @@ export default class Score {
     const font = '16px monospace';
     const fill = '#ffffff';
 
-    const txtIdx = this.menu.add.text(6, 20, `${idx + 1}.`, { font, fill });
-    const txtName = this.menu.add.text(30, 20, `${shortName}`, { font, fill });
-    const txtTime = this.menu.add.text(part + 40, 20, `${time}`, { font, fill });
-    const txtDate = this.menu.add.text(2 * part + 40, 20, `${date || ''}`, { font, fill });
-    const txtScore = this.menu.add.text(3 * part + 70, 20, `${score}`, { font, fill });
+    const txtIdx = this.menu.add.text(20, 20, `${idx + 1}.`, { font, fill });
+    const txtName = this.menu.add.text(35, 20, `${shortName}`, { font, fill });
+    const txtTime = this.menu.add.text(1.7 * part, 20, `${time}`, { font, fill });
+    const txtDate = this.menu.add.text(2.9 * part, 20, `${date || ''}`, { font, fill });
+    const txtScore = this.menu.add.text(4.3 * part, 20, `${score}`, { font, fill });
     // txtScore.setOrigin(0.1, 0.5);
 
     const container = this.menu.add.container(0, 0,
@@ -102,15 +102,15 @@ export default class Score {
 
   createTitleRow(arr) {
     const width = 500;
-    const part = width / 4;
+    const part = width / 5;
 
     const font = '25px monospace';
     const fill = '#ffffff';
 
-    const txtName = this.menu.add.text(46, 10, 'Name', { font, fill });
-    const txtTime = this.menu.add.text(part + 46, 10, 'Time', { font, fill });
-    const txtDate = this.menu.add.text(2 * part + 46, 10, 'Date', { font, fill });
-    const txtScore = this.menu.add.text(3 * part + 46, 10, 'Score', { font, fill });
+    const txtName = this.menu.add.text(part / 2, 10, 'Name', { font, fill });
+    const txtTime = this.menu.add.text(part * 1.75, 10, 'Time', { font, fill });
+    const txtDate = this.menu.add.text(part * 3, 10, 'Date', { font, fill });
+    const txtScore = this.menu.add.text(part * 4, 10, 'Score', { font, fill });
 
     const container = this.menu.add.container(0, 0,
       [...arr, txtName, txtTime, txtScore, txtDate]);
