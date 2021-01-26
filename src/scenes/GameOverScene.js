@@ -18,6 +18,7 @@ export class GameOverScene extends BaseScene {
     background.fill(0x000000, 0.65);
     this.setHoverImg();
     this.getInput();
+    this.getDate();
     this.initInputEvents();
     this.switchOffHover();
     this.setTextContent();
@@ -47,7 +48,7 @@ export class GameOverScene extends BaseScene {
 
   getInput() {
     const config = {
-      maxLength: 30,
+      maxLength: 15,
       minLength: 1,
       placeholder: 'Name...',
       paddingLeft: '10px',
@@ -99,8 +100,18 @@ export class GameOverScene extends BaseScene {
       name: this.inputText.text,
       time: this.time,
       score: this.score,
+      date: this.date,
     };
     this.results.push(result);
+  }
+
+  getDate() {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    this.date = `${day}/${month + 1}/${year}`;
   }
 
   setTextContent() {

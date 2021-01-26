@@ -15,19 +15,9 @@ export default class MainMenu {
     const { audio } = this.menu;
 
     this.playBtn = this.menu.createBtn(width / 2, height / 2 + 50, 'New Game');
-    this.aboutBtn = this.menu.createBtn(width / 2, height / 2 + 110, 'About');
-    this.optionsBtn = this.menu.createBtn(width / 2, height / 2 + 170, 'Options');
-    this.soundBtn = this.menu.createSwitchBtn(
-      {
-        x: width / 2,
-        y: height / 2 + 230,
-        onTexture: 'unmute',
-        offTexture: 'mute',
-        width: 55,
-        height: 55,
-        option: audio.isPlaying,
-      },
-    );
+    this.optionsBtn = this.menu.createBtn(width / 2, height / 2 + 100, 'Options');
+    this.bestSoresBtn = this.menu.createBtn(width / 2, height / 2 + 150, 'Best Scores');
+    this.soundBtn = this.menu.createBtn(width / 2, height / 2 + 200, audio.isPlaying ? 'Sound On' : 'Sound Off');
   }
 
   initClicks() {
@@ -40,9 +30,19 @@ export default class MainMenu {
       this.menu.options.init();
     });
 
-    this.soundBtn.off.on('pointerdown', () => {
-      if (!this.menu.audio.isPlaying) {
-        this.menu.audio.play();
+    this.bestSoresBtn.on('pointerdown', () => {
+      this.removeMainMenu();
+      this.menu.score.init();
+    });
+
+    this.soundBtn.on('pointerdown', () => {
+      if (this.soundBtn.textContent.text === 'Sound Off') {
+        if (!this.menu.audio.isPlaying) {
+          this.menu.audio.play();
+          this.menu.soundOn = true;
+          this.soundBtn.textContent.setText('Sound On');
+          return;
+        }
         this.menu.soundOn = true;
         this.soundBtn.off.setVisible(false);
         this.soundBtn.on.setVisible(true);
@@ -80,9 +80,10 @@ export default class MainMenu {
     this.logo.destroy();
     this.playBtn.destroy();
     this.playBtn.textContent.destroy();
-    this.soundBtn.on.destroy();
-    this.soundBtn.off.destroy();
-    this.aboutBtn.destroy();
+    this.soundBtn.destroy();
+    this.soundBtn.textContent.destroy();
+    this.bestSoresBtn.destroy();
+    this.bestSoresBtn.textContent.destroy();
     this.optionsBtn.destroy();
     this.optionsBtn.textContent.destroy();
     this.menu.hoverImg.setVisible(false);
