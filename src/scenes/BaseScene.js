@@ -54,7 +54,7 @@ export default class BaseScene extends Phaser.Scene {
       currentBtn.setTint('0xbababa');
       if (!isSwitch) {
         this.hoverImg.setVisible(true);
-        this.hoverImg.setDepth(5);
+        this.hoverImg.setDepth(15);
         this.hoverImg.x = btn.x - this.hoverImg.width;
         this.hoverImg.y = btn.y;
       }

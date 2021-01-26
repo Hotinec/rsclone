@@ -10,6 +10,10 @@ export class LoadScene extends Phaser.Scene {
     super({ key: 'LoadScene' });
   }
 
+  init(theme) {
+    this.theme = theme;
+  }
+
   preload() {
     this.load.audio('game-music', gameMusic);
     this.load.audio('gameOver-music', gameOverMusic);
@@ -54,6 +58,6 @@ export class LoadScene extends Phaser.Scene {
 
   create() {
     this.loadingMusic.stop();
-    this.scene.start('GameScene');
+    this.scene.start('GameScene', this.theme);
   }
 }

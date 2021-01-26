@@ -15,6 +15,7 @@ import mute from '../assets/menu/mute.png';
 import unmute from '../assets/menu/unmute.png';
 import fullOn from '../assets/menu/fullon.png';
 import fullOff from '../assets/menu/fulloff.png';
+import close from '../assets/menu/close.png';
 import MainMenu from '../menu/Main';
 import OptionsMenu from '../menu/Options';
 import BaseScene from './BaseScene';
@@ -38,6 +39,7 @@ export class MenuScene extends BaseScene {
     this.load.image('unmute', unmute);
     this.load.image('full-on', fullOn);
     this.load.image('full-off', fullOff);
+    this.load.image('close', close);
   }
 
   create() {
