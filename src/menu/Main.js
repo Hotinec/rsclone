@@ -15,13 +15,17 @@ export default class MainMenu {
     const { width, height } = this.menu.game.config;
     const { audio } = this.menu;
 
-    this.playBtn = this.menu.createBtn(width / 2, height / 2 + 50, 'New Game');
-    this.aboutBtn = this.menu.createBtn(width / 2, height / 2 + 110, 'About');
-    this.optionsBtn = this.menu.createBtn(width / 2, height / 2 + 170, 'Options');
+    const x = width / 2;
+    const y = height / 2;
+
+    this.playBtn = this.menu.createBtn(x, y + 50, 'New Game');
+    this.optionsBtn = this.menu.createBtn(x, y + 170, 'Options');
+    this.aboutBtn = this.menu.createBtn(x, y + 110, 'About');
+    this.bestSoresBtn = this.menu.createBtn(x, y + 230, 'Best Scores');
     this.soundBtn = this.menu.createSwitchBtn(
       {
-        x: width / 2,
-        y: height / 2 + 230,
+        x,
+        y: y + 290,
         onTexture: 'unmute',
         offTexture: 'mute',
         width: 55,
@@ -35,11 +39,15 @@ export default class MainMenu {
     this.playBtn.on('pointerdown', () => {
       this.menu.audio.stop();
       this.createDialog();
-      // this.menu.scene.start('LoadScene');
     });
     this.optionsBtn.on('pointerdown', () => {
       this.removeMainMenu();
       this.menu.options.init();
+    });
+
+    this.bestSoresBtn.on('pointerdown', () => {
+      this.removeMainMenu();
+      this.menu.score.init();
     });
 
     this.soundBtn.off.on('pointerdown', () => {
@@ -89,15 +97,31 @@ export default class MainMenu {
     this.box = this.menu.add.renderTexture(x, y, 400, 400);
     this.box.fill(0x000000, 0.5).setDepth(8);
 
-    this.close = this.menu.add.image(x + 358, y + 10, 'close').setDepth(9).setOrigin(0, 0).setInteractive();
+    this.close = this.menu.add.image(x + 358, y + 10, 'close')
+      .setDepth(9)
+      .setOrigin(0, 0)
+      .setInteractive();
 
-    this.dialogTitle = this.menu.add.text(x + 200, y + 80, 'Choose the game theme', { font: '26px monospace' }).setOrigin(0.5, 0.5).setDepth(9);
+    this.menu.initHover(this.close, true);
+
+    this.dialogTitle = this.menu.add.text(x + 200, y + 80,
+      'Choose the game theme',
+      { font: '26px monospace' })
+      .setOrigin(0.5, 0.5)
+      .setDepth(9);
+
+    const font = { font: '22px monospace' };
     this.theme1 = this.menu.add.renderTexture(x + 40, y + 150, 320, 50);
     this.theme1.fill(0xffffff, 0.15).setDepth(9).setInteractive();
+    this.theme1Text = this.menu.add.text(x + 200, y + 165, 'Dark theme', font)
+      .setOrigin(0.5, 0)
+      .setDepth(10);
+
     this.theme2 = this.menu.add.renderTexture(x + 40, y + 220, 320, 50);
     this.theme2.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme1Text = this.menu.add.text(x + 200, y + 165, 'Dark theme', { font: '22px monospace' }).setOrigin(0.5, 0).setDepth(10);
-    this.theme2Text = this.menu.add.text(x + 200, y + 232, 'Light theme', { font: '22px monospace' }).setOrigin(0.5, 0).setDepth(10);
+    this.theme2Text = this.menu.add.text(x + 200, y + 232, 'Light theme', font)
+      .setOrigin(0.5, 0)
+      .setDepth(10);
 
     this.okBtn = this.menu.createBtn(x + 200, y + 340, 'OK').setDepth(10);
     this.okBtn.textContent.setDepth(11);
@@ -191,6 +215,8 @@ export default class MainMenu {
     this.soundBtn.off.destroy();
     this.aboutBtn.destroy();
     this.aboutBtn.textContent.destroy();
+    this.bestSoresBtn.destroy();
+    this.bestSoresBtn.textContent.destroy();
     this.optionsBtn.destroy();
     this.optionsBtn.textContent.destroy();
     this.menu.hoverImg.setVisible(false);
