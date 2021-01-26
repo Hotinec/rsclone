@@ -3,89 +3,57 @@
 /* eslint-disable no-useless-constructor */
 import Phaser from 'phaser';
 
-import backgound from '../assets/menu/bg.jpg';
+import background from '../assets/menu/bg.jpg';
 import logo from '../assets/menu/logo.png';
 import scull from '../assets/menu/scull.png';
 import emptyScull from '../assets/menu/scull-empty.png';
 import theme from '../assets/audio/theme.mp3';
+import intro from '../assets/audio/intro.mp3';
 import title from '../assets/menu/empty.png';
-import btn from '../assets/menu/small.png';
+import btn from '../assets/menu/btn.png';
+import mute from '../assets/menu/mute.png';
+import unmute from '../assets/menu/unmute.png';
+import fullOn from '../assets/menu/fullon.png';
+import fullOff from '../assets/menu/fulloff.png';
+import close from '../assets/menu/close.png';
 import MainMenu from '../menu/Main';
 import OptionsMenu from '../menu/Options';
+import Score from '../menu/BestScore';
+import BaseScene from './BaseScene';
 
-export class MenuScene extends Phaser.Scene {
+export class MenuScene extends BaseScene {
   constructor() {
     super({ key: 'MenuScene' });
-    this.sound = true;
-    this.fullScreen = false;
-    this.texts = [];
+    this.soundOn = false;
   }
 
   preload() {
     this.load.audio('theme', theme);
-    this.load.image('menu_bg', backgound, 0, 0);
+    this.load.audio('intro', intro);
+    this.load.image('menu_bg', background, 0, 0);
     this.load.image('logo', logo);
     this.load.image('scull', scull);
     this.load.image('title', title);
     this.load.image('btn', btn);
     this.load.image('empty-scull', emptyScull);
+    this.load.image('mute', mute);
+    this.load.image('unmute', unmute);
+    this.load.image('full-on', fullOn);
+    this.load.image('full-off', fullOff);
+    this.load.image('close', close);
   }
 
   create() {
-    this.audio = this.sound.add('theme');
-    this.audio.setVolume(1);
-    // this.audio.play();
+    this.setMusic();
+    if (this.soundOn) this.audio.play();
+    this.sound.setVolume(0.5);
+
     this.createBG();
     this.main = new MainMenu(this);
     this.options = new OptionsMenu(this);
+    this.score = new Score(this);
 
     this.main.init();
-
-    this.hoverImg = this.add.image(100, 100, 'scull').setDepth(1);
-    this.hoverImg.setVisible(false);
-    this.hoverImg.setScale(0.4);
-  }
-
-  createBG() {
-    const bg = this.add.image(0, 0, 'menu_bg').setDepth(0);
-    bg.displayHeight = this.game.config.height;
-    bg.scaleX = bg.scaleY;
-
-    bg.y = this.game.config.height / 2;
-    bg.x = this.game.config.width / 2;
-
-    // bg.x = bg.displayWidth*.5
-  }
-
-  createBtn(x, y, text, arr) {
-    const newBtn = this.add.image(x, y, 'btn').setDepth(1);
-    const btnText = this.make.text({
-      x,
-      y,
-      text,
-      style: {
-        font: '27px monospace',
-        fill: '#212121',
-      },
-    });
-    btnText.setOrigin(0.5, 0.5).setDepth(2);
-    this.initHover(newBtn);
-    arr.push(btnText);
-
-    return newBtn;
-  }
-
-  initHover(button) {
-    button.setInteractive();
-
-    button.on('pointerover', () => {
-      this.hoverImg.setVisible(true);
-      this.hoverImg.x = button.x - this.hoverImg.width;
-      this.hoverImg.y = button.y;
-    });
-
-    button.on('pointerout', () => {
-      this.hoverImg.setVisible(false);
-    });
+    this.setHoverImg();
   }
 }

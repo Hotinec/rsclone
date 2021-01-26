@@ -60,6 +60,7 @@ export class GameScene extends Phaser.Scene {
     this.input.setDefaultCursor(`url(${cursor}), auto`);
 
     this.createSound();
+    this.setMusic();
     const mapProperties = this.createMap();
     const { widthInPixels, heightInPixels } = mapProperties.map;
     const { layer2 } = mapProperties;
@@ -279,5 +280,14 @@ export class GameScene extends Phaser.Scene {
         this.physicsEvent.accellerateTo(zombie, this.player);
       }
     }
+  }
+
+  setMusic() {
+    const menu = this.scene.get('MenuScene');
+
+    this.gameMusic = this.sound.add('game-music');
+    this.gameMusic.setVolume(0.2);
+    this.gameMusic.setLoop(true);
+    if (menu.soundOn) this.gameMusic.play();
   }
 }
