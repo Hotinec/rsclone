@@ -1,13 +1,19 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import Phaser from 'phaser';
 
 export class PauseScene extends Phaser.Scene {
+  gameScene: Phaser.Scene;
+
+  statusScene: Phaser.Scene;
+
   constructor() {
     super({ key: 'PauseScene' });
   }
 
-  create() {
+  create(): void {
     this.gameScene = this.scene.get('GameScene');
     this.statusScene = this.scene.get('StatusScene');
+    // @ts-ignore
     this.scene.moveAbove('PauseScene', this.statusScene);
     this.scene.bringToTop();
 
@@ -15,13 +21,19 @@ export class PauseScene extends Phaser.Scene {
     const { width, height } = this.gameScene.game.config;
     const contentHeight = 335;
 
+    // @ts-ignore
     const background = this.add.renderTexture(0, 0, width, height);
     background.fill(0x000000, 0.65);
 
+    // @ts-ignore
     const positionX = this.game.config.width / 2 - 75;
+    // @ts-ignore
     const positionY = (height - contentHeight) / 2;
+    // @ts-ignore
     const { hp } = this.gameScene.player;
+    // @ts-ignore
     const { score } = this.gameScene;
+    // @ts-ignore
     const { text: timeText } = this.statusScene.timeText;
     const infoFont = { font: '22px monospace' };
 
@@ -32,6 +44,7 @@ export class PauseScene extends Phaser.Scene {
     const resumeBtn = this.add.image(positionX + 80, points.y + 100, 'btn').setInteractive()
       .on('pointerover', () => {
         resumeBtn.tintFill = false;
+        // @ts-ignore
         resumeBtn.setTint('0xbababa');
       })
       .on('pointerout', () => {
@@ -52,6 +65,7 @@ export class PauseScene extends Phaser.Scene {
     const finishBtn = this.add.image(positionX + 80, resumeBtn.y + 80, 'btn').setInteractive()
       .on('pointerover', () => {
         finishBtn.tintFill = false;
+        // @ts-ignore
         finishBtn.setTint('0xbababa');
       })
       .on('pointerout', () => {
@@ -61,6 +75,7 @@ export class PauseScene extends Phaser.Scene {
         this.scene.stop();
         this.scene.stop('StatusScene');
         this.scene.stop('GameScene');
+        // @ts-ignore
         this.gameScene.gameMusic.stop();
         this.scene.start('GameOverScene');
       });

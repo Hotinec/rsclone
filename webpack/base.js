@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const path = require('path');
@@ -10,6 +11,9 @@ module.exports = {
   devtool: 'eval-source-map',
   output: {
     path: path.resolve(process.cwd(), 'dist'),
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [

@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { Zombie } from './Zombie';
 import { Hero } from './Hero';
 import { Weapon } from './Weapon';

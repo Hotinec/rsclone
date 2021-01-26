@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-shadow */
 import Phaser from 'phaser';
@@ -14,13 +16,43 @@ import rifleBullet from '../assets/weapon/rifle_bullet.png';
 import scull from '../assets/menu/scull.png';
 import pauseImg from '../assets/status/pause.png';
 import { WEAPON } from '../constants';
+import { GameScene } from './GameScene';
 
 export class StatusScene extends Phaser.Scene {
+  fullWidth: number;
+
+  gameScene: GameScene;
+
+  rightShadowCap: Phaser.GameObjects.Image;
+
+  leftCap: Phaser.GameObjects.Image;
+
+  middle: Phaser.GameObjects.Image;
+
+  rightCap: Phaser.GameObjects.Image;
+
+  scoreText: Phaser.GameObjects.Text;
+
+  handgunAmmoImg: Phaser.GameObjects.Image;
+
+  shotgunAmmoImg: Phaser.GameObjects.Image;
+
+  rifleAmmoImg: Phaser.GameObjects.Image;
+
+  timedEvent: Phaser.Time.TimerEvent;
+
+  ammoText: Phaser.GameObjects.Text;
+
+  timeText: Phaser.GameObjects.Text;
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  onClockEvent: Function | undefined;
+
   constructor() {
     super('StatusScene');
   }
 
-  preload() {
+  preload(): void {
     this.load.image('left-cap', leftCap);
     this.load.image('middle', middle);
     this.load.image('right-cap', rightCap);
@@ -39,13 +71,15 @@ export class StatusScene extends Phaser.Scene {
     this.load.image('pause', pauseImg);
   }
 
-  init() {
+  init(): void {
     this.fullWidth = 150;
   }
 
-  create() {
+  create(): void {
+    // @ts-ignore
     this.gameScene = this.scene.get('GameScene');
     // position
+    // @ts-ignore
     this.scene.moveAbove('StatusScene', this.gameScene);
     this.scene.bringToTop();
     // background
@@ -59,14 +93,14 @@ export class StatusScene extends Phaser.Scene {
     this.createPauseBtn();
   }
 
-  setMeterPercentage(hp = 10) {
+  setMeterPercentage(hp = 10): void {
     const width = (this.fullWidth * hp) / 10;
 
     this.middle.displayWidth = width;
     this.rightCap.x = this.middle.x + this.middle.displayWidth;
   }
 
-  createHealthBarView() {
+  createHealthBarView(): void {
     const y = 31;
     const x = 50;
 
@@ -101,14 +135,14 @@ export class StatusScene extends Phaser.Scene {
     this.rightCap.displayHeight = 6;
   }
 
-  createScoreView() {
+  createScoreView(): void {
     const { x } = this.rightShadowCap;
     const scoreImage = this.add.image(x + 50, 30, 'score-image');
     scoreImage.setScale(0.2);
     this.scoreText = this.add.text(scoreImage.x + 30, 23, '0', { color: '#a3a3a3' });
   }
 
-  createAmmoView() {
+  createAmmoView(): void {
     const { x } = this.scoreText;
     this.handgunAmmoImg = this.add.image(x + 50, 30, 'handgunBullet');
     this.shotgunAmmoImg = this.add.image(x + 50, 30, 'shotgunBullet');
@@ -125,19 +159,18 @@ export class StatusScene extends Phaser.Scene {
     this.ammoText = this.add.text(ammoX + 30, 23, '', { color: '#a3a3a3' });
   }
 
-  createTimeView() {
+  createTimeView(): void {
     this.timedEvent = this.time.addEvent({
       delay: 6000000, callback: this.onClockEvent, callbackScope: this, repeat: 1,
     });
     this.timeText = this.add.text(window.innerWidth - 100, 23, '', { color: '#a3a3a3' });
   }
 
-  createPauseBtn() {
+  createPauseBtn(): void {
     const { width, height } = this.gameScene.game.config;
     const pause = this.add.renderTexture(
-      width - 96,
-      height - 60,
-      110, 60,
+      // @ts-ignore
+      width - 96, height - 60, 110, 60,
     );
     pause.fill(0x000000, 0.65);
     pause.setInteractive()
@@ -154,12 +187,12 @@ export class StatusScene extends Phaser.Scene {
         pause.fill(0x000000, 0.9);
       });
 
-    const pauseImage = this.add.image(width - 48,
-      height - 30, 'pause');
+    // @ts-ignore
+    const pauseImage = this.add.image(width - 48, height - 30, 'pause');
     pauseImage.setScale(0.8);
   }
 
-  updateAmmo() {
+  updateAmmo(): void {
     const { magazine } = this.gameScene.laserGroup;
 
     switch (this.gameScene.player.anim) {
@@ -180,7 +213,7 @@ export class StatusScene extends Phaser.Scene {
     }
   }
 
-  updateAmmoImage(ammo) {
+  updateAmmoImage(ammo: Phaser.GameObjects.Image): void {
     this.handgunAmmoImg.setVisible(false);
     this.shotgunAmmoImg.setVisible(false);
     this.rifleAmmoImg.setVisible(false);
@@ -188,12 +221,12 @@ export class StatusScene extends Phaser.Scene {
     ammo.setVisible(true);
   }
 
-  updateScore() {
+  updateScore(): void {
     const { score } = this.gameScene;
     this.scoreText.setText(`${score}`);
   }
 
-  updateTime() {
+  updateTime(): void {
     const time = this.timedEvent.getElapsedSeconds();
 
     const hours = Math.floor(time / 3600);
@@ -205,11 +238,11 @@ export class StatusScene extends Phaser.Scene {
     );
   }
 
-  addZero(number) {
+  addZero(number: number): string {
     return (`0${number}`).slice(-2);
   }
 
-  update() {
+  update(): void {
     if (this.gameScene.player) {
       const { hp } = this.gameScene.player;
       this.setMeterPercentage(hp);

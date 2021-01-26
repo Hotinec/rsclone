@@ -7,9 +7,9 @@
   "noImplicitAny": true,
   "preserveConstEnums": true,
   "esModuleInterop": true,
-  "outDir": "$$ts-jest$$",
+  "outDir": "dist",
   "moduleResolution": "node",
   },
-  "include": ["src/**/*.ts", "src/**/*.js"],
+  "include": ["src/**/*.ts", "./src/typings.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -30,4 +30,4 @@ const config = {
   },
 };
 
-const Game = new Phaser.Game(config);
+const Game: Phaser.Game = new Phaser.Game(config);

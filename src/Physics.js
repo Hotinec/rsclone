@@ -181,6 +181,11 @@ export class Physics {
       this._showFirstAid(zombie);
       zombie.destroy();
       const bloodImg = this.scene.add.image(x, y, 'blood').setScale(0.2);
+
+      if (this.scene.mode === 'black') {
+        this.scene.darkMode.setDarkObject(bloodImg);
+      }
+
       bloodImg.depth = -1;
       this.scene.score++;
     }

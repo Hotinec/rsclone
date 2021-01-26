@@ -1,15 +1,23 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable import/extensions */
 /* eslint-disable no-shadow */
 /* eslint-disable max-classes-per-file */
 import Phaser from 'phaser';
 import laser from '../assets/weapon/laser.png';
 import { WEAPON } from '../constants';
+import { Hero } from './Hero';
+import { IPointer } from './IPointer';
 
 export class Laser extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
+  incX: number;
+
+  incY: number;
+
+  constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'laser');
   }
 
-  preUpdate(time, delta) {
+  preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
 
     if (this.y <= 0) {
@@ -18,13 +26,18 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  static preload(scene) {
+  static preload(scene: Phaser.Scene): void {
     scene.load.image('laser', laser);
   }
 
-  fire({
-    x, y, rotation, anim,
-  }, { x: mouseX, y: mouseY }) {
+  fire(
+    {
+      x, y, rotation, anim,
+    }: Hero,
+    {
+      x: mouseX, y: mouseY,
+    }: IPointer,
+  ): void {
     const rotationCos = Math.cos(rotation);
     const rotationSin = Math.sin(rotation);
 
@@ -61,8 +74,14 @@ export class Laser extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
+interface IMagazine {
+  [key: string]: number
+}
+
 export class LaserGroup extends Phaser.Physics.Arcade.Group {
-  constructor(scene) {
+  magazine: IMagazine;
+
+  constructor(scene: Phaser.Scene) {
     super(scene.physics.world, scene);
 
     this.createMultiple({
@@ -82,14 +101,14 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
     };
   }
 
-  fireLaser(player, mouse) {
+  fireLaser(player: Hero, mouse: IPointer): void {
     const laser = this.getFirstDead(true, player.x, player.y, 'laser');
     if (laser) {
       laser.fire(player, mouse);
     }
   }
 
-  reload(weapon) {
+  reload(weapon: string): void {
     if (weapon === WEAPON.HANDGUN) {
       setTimeout(() => {
         this.magazine.handgun = 10;
@@ -107,6 +126,7 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
       }, 1000);
     }
 
+    // @ts-ignore
     this.scene.player.isReload = true;
   }
 }

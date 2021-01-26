@@ -152,13 +152,13 @@ export default class MainMenu {
       this.theme1.setTint('#919191');
     });
     this.theme1.on('pointerout', () => {
-      if (this.theme !== 'dark') {
+      if (this.theme !== 'black') {
         this.theme1.clearTint();
       }
     });
     this.theme1.on('pointerdown', () => {
       this.changeTheme({
-        themeName: 'dark',
+        themeName: 'black',
         active: this.theme1,
         inactive: this.theme2,
         activeTxt: this.theme1Text,

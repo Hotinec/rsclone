@@ -1,4 +1,18 @@
-export const zombieProperties = {
+interface IZombieProperties {
+  [key: string]: {
+    texture: string,
+    frame: string,
+    hp: number,
+    attackAnim: string,
+    attackEndFrame: string,
+    idleAnim: string,
+    moveAnim: string,
+    scale: number,
+    circle: number,
+  };
+}
+
+export const zombieProperties: IZombieProperties = {
   type1: {
     texture: 'zombie',
     frame: 'skeleton-idle_0',

@@ -3,8 +3,15 @@ import pistol from '../assets/weapon/pistol.png';
 import rifle from '../assets/weapon/rifle.png';
 import shotgun from '../assets/weapon/shotgun.png';
 
+interface IWeapon {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  texture: string;
+}
+
 export class Weapon extends Phaser.Physics.Arcade.Sprite {
-  constructor(data) {
+  constructor(data: IWeapon) {
     const {
       scene, x, y, texture,
     } = data;
@@ -17,17 +24,17 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
     this.setImmovable(false);
   }
 
-  static preload(scene) {
+  static preload(scene: Phaser.Scene): void {
     scene.load.image('handgun', pistol);
     scene.load.image('rifle', rifle);
     scene.load.image('shotgun', shotgun);
   }
 
-  get velocity() {
+  get velocity(): Phaser.Math.Vector2 {
     return this.body.velocity;
   }
 
-  update() {
+  update(): void {
     this.rotation += 0.01;
   }
 }
