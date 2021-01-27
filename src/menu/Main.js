@@ -147,7 +147,7 @@ export default class MainMenu {
     } else {
       active.clearTint();
       activeTxt.setStyle({ color: '#ffffff' });
-      this.theme = null;
+      this.theme = undefined;
     }
   }
 
@@ -189,7 +189,7 @@ export default class MainMenu {
       });
     });
     this.okBtn.on('pointerup', () => {
-      if (this.theme !== null) {
+      if (this.theme !== undefined) {
         this.menu.scene.start('LoadScene', this.theme);
       }
     });
