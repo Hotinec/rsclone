@@ -11,6 +11,7 @@ import theme from '../assets/audio/theme.mp3';
 import intro from '../assets/audio/intro.mp3';
 import title from '../assets/menu/empty.png';
 import btn from '../assets/menu/btn.png';
+import keyBtn from '../assets/menu/keyBtn.png';
 import mute from '../assets/menu/mute.png';
 import unmute from '../assets/menu/unmute.png';
 import fullOn from '../assets/menu/fullon.png';
@@ -18,8 +19,9 @@ import fullOff from '../assets/menu/fulloff.png';
 import close from '../assets/menu/close.png';
 import MainMenu from '../menu/Main';
 import OptionsMenu from '../menu/Options';
-import Score from '../menu/BestScore';
+import ScoreMenu from '../menu/BestScore';
 import BaseScene from './BaseScene';
+import AboutMenu from '../menu/About';
 
 export class MenuScene extends BaseScene {
   constructor() {
@@ -41,6 +43,7 @@ export class MenuScene extends BaseScene {
     this.load.image('full-on', fullOn);
     this.load.image('full-off', fullOff);
     this.load.image('close', close);
+    this.load.image('key-btn', keyBtn);
   }
 
   create() {
@@ -51,7 +54,8 @@ export class MenuScene extends BaseScene {
     this.createBG();
     this.main = new MainMenu(this);
     this.options = new OptionsMenu(this);
-    this.score = new Score(this);
+    this.score = new ScoreMenu(this);
+    this.about = new AboutMenu(this);
 
     this.main.init();
     this.setHoverImg();

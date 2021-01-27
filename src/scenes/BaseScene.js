@@ -1,10 +1,6 @@
 import Phaser from 'phaser';
 
 export default class BaseScene extends Phaser.Scene {
-//   constructor(key) {
-//     super(key);
-//   }
-
   createBtn(x, y, text, button = 'btn') {
     const btn = this.add.image(x, y, button).setDepth(1);
     btn.textContent = this.make.text({

@@ -45,6 +45,11 @@ export default class MainMenu {
       this.menu.options.init();
     });
 
+    this.aboutBtn.on('pointerdown', () => {
+      this.removeMainMenu();
+      this.menu.about.init();
+    });
+
     this.bestSoresBtn.on('pointerdown', () => {
       this.removeMainMenu();
       this.menu.score.init();
