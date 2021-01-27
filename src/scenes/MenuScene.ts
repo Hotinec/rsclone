@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable import/extensions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
 /* eslint-disable no-useless-constructor */
-import Phaser from 'phaser';
-
 import background from '../assets/menu/bg.jpg';
 import logo from '../assets/menu/logo.png';
 import scull from '../assets/menu/scull.png';
@@ -35,7 +35,7 @@ export class MenuScene extends BaseScene {
     this.soundOn = false;
   }
 
-  preload() {
+  preload(): void {
     this.load.audio('theme', theme);
     this.load.audio('intro', intro);
     // @ts-ignore
@@ -52,7 +52,7 @@ export class MenuScene extends BaseScene {
     this.load.image('close', close);
   }
 
-  create() {
+  create(): void {
     this.setMusic();
     if (this.soundOn) this.audio.play();
     // @ts-ignore

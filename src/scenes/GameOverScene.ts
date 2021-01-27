@@ -2,16 +2,9 @@
 /* eslint-disable import/extensions */
 // @ts-ignore
 import InputText from 'phaser3-rex-plugins/plugins/inputtext';
-import Phaser, { Physics } from 'phaser';
-
+import Phaser from 'phaser';
 import BaseScene from './BaseScene';
-
-interface IResult {
-  name: string;
-  time: Phaser.Time.Clock;
-  score: number;
-  date: string;
-}
+import { IResult } from './IResult';
 
 export class GameOverScene extends BaseScene {
   results: [] | [IResult] | string | null;
@@ -57,7 +50,7 @@ export class GameOverScene extends BaseScene {
     this.setTextContent();
   }
 
-  static getResults(): string | null | [] {
+  static getResults(): [] {
     const resultsArr = localStorage.getItem('results');
 
     if (resultsArr) return JSON.parse(resultsArr);
