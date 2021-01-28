@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export default class AboutPage {
   constructor(scene) {
     this.menu = scene;
@@ -235,9 +234,9 @@ export default class AboutPage {
   }
 
   createText() {
-    const text = 'Fight your way through and collect weapons and health. \n Stay alive as long as possible and go for the height score.';
-    const x = this.background.x + this.background.x * 0.2;
-    const y = this.background.y + this.background.y * 0.2;
+    const text = 'Stay alive as long as possible and go for the height score. \n Fight your way through and collect weapons and health.';
+    const { x } = this.background;
+    const { y } = this.background;
 
     this.headerText = this.menu.make.text({
       x,
@@ -247,7 +246,14 @@ export default class AboutPage {
         font: this.headerFont,
         fill: '#ffffff',
         align: 'center',
-        wordWrap: { width: this.backgroundWidth * 0.95 },
+        wordWrap: { width: this.backgroundWidth *= 0.95 },
+        lineSpacing: 15,
+        padding: {
+          left: 30,
+          right: 30,
+          top: 30,
+          bottom: 0,
+        },
       },
     }).setDepth(2);
   }
