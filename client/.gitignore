@@ -12,6 +12,3 @@ node_modules/
 # Build
 dist/
 /npm-debug.log
-
-# Environment
-.env
