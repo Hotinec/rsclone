@@ -9,6 +9,7 @@
     "preinstall": "npx npm-force-resolutions",
     "lint": "eslint --fix --ext .js,.ts ."
   },
+  "proxy": "http://localhost:5000",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hotinec/rsclone.git"
@@ -16,6 +17,7 @@
   "homepage": "https://github.com/Hotinec/rsclone#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",

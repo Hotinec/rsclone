@@ -5,6 +5,7 @@ import InputText from 'phaser3-rex-plugins/plugins/inputtext';
 import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 import { IResult } from './IResult';
+import { addResult } from '../services/httpService';
 
 export class GameOverScene extends BaseScene {
   results: [] | [IResult] | string | null;
@@ -108,21 +109,21 @@ export class GameOverScene extends BaseScene {
 
   initInputEvents(): void {
     this.keyObj = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    this.keyObj.on('down', () => {
-      this.setResult();
-      this.saveResult();
-      this.inputText.text = '';
-      this.gameOverMusic.stop();
-      this.scene.start('MenuScene');
-    });
+    this.keyObj.on('down', () => this.initInputEventHandler());
+    this.saveBtn.on('pointerdown', () => this.initInputEventHandler());
+  }
 
-    this.saveBtn.on('pointerdown', () => {
-      this.setResult();
-      this.saveResult();
-      this.inputText.text = '';
-      this.gameOverMusic.stop();
-      this.scene.start('MenuScene');
-    });
+  initInputEventHandler(): void {
+    this.setResult();
+    // this.saveResult();
+    addResult(JSON.stringify({
+      name: this.inputText.text,
+      time: this.time.toString(),
+      score: this.score,
+    }));
+    this.inputText.text = '';
+    this.gameOverMusic.stop();
+    this.scene.start('MenuScene');
   }
 
   setResult(): void {

@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable import/extensions */
 import GridTable from 'phaser3-rex-plugins/plugins/gridtable';
-// import { GridTable } from 'phaser3-rex-plugins/templates/ui/ui-components';
-// import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle';
-import { GameOverScene, MenuScene } from '../scenes';
+import { MenuScene } from '../scenes';
 import { IResult } from '../scenes/IResult';
+import { getAllResults } from '../services/httpService';
 
 export default class Score {
   menu: MenuScene;
@@ -17,10 +16,10 @@ export default class Score {
 
   constructor(scene: MenuScene) {
     this.menu = scene;
-    this.results = GameOverScene.getResults();
   }
 
-  init(): void {
+  async init(): Promise<void> {
+    this.results = await getAllResults();
     this.sortResults();
     this.createTitle();
     this.createTable();
@@ -106,6 +105,14 @@ export default class Score {
     const font = '16px monospace';
     const fill = '#ffffff';
 
+    const getDate = (): string => {
+      const newDate = new Date(date);
+      const day = newDate.getDate();
+      const month = newDate.getMonth();
+      const year = newDate.getFullYear();
+      return `${day}/${month + 1}/${year}`;
+    };
+
     // @ts-ignore
     const txtIdx = this.menu.add.text(20, 20, `${idx + 1}.`, { font, fill });
     // @ts-ignore
@@ -113,7 +120,7 @@ export default class Score {
     // @ts-ignore
     const txtTime = this.menu.add.text(1.7 * part, 20, `${time}`, { font, fill });
     // @ts-ignore
-    const txtDate = this.menu.add.text(2.9 * part, 20, `${date || ''}`, { font, fill });
+    const txtDate = this.menu.add.text(2.9 * part, 20, `${getDate() || ''}`, { font, fill });
     // @ts-ignore
     const txtScore = this.menu.add.text(4.3 * part, 20, `${score}`, { font, fill });
     // txtScore.setOrigin(0.1, 0.5);
