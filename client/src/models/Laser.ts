@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import Phaser from 'phaser';
 import laser from '../assets/weapon/laser.png';
-import { WEAPON } from '../constants';
+import { WEAPON, PLAYER_STATE } from '../constants';
 import { Hero } from './Hero';
 import { IPointer } from './IPointer';
 
@@ -107,20 +107,26 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
   }
 
   reload(weapon: string): void {
+    // @ts-ignore
+    const { player } = this.scene;
+    player.state = PLAYER_STATE.RELOAD;
     if (weapon === WEAPON.HANDGUN) {
       setTimeout(() => {
         this.magazine.handgun = 10;
         this.magazine.handgunAll -= 10;
+        player.state = PLAYER_STATE.IDLE;
       }, 1000);
     } else if (weapon === WEAPON.RIFLE) {
       setTimeout(() => {
         this.magazine.rifle = 30;
         this.magazine.rifleAll -= 30;
+        player.state = PLAYER_STATE.IDLE;
       }, 1000);
     } else if (weapon === WEAPON.SHOTGUN) {
       setTimeout(() => {
         this.magazine.shotgun = 6;
         this.magazine.shotgunAll -= 6;
+        player.state = PLAYER_STATE.IDLE;
       }, 1000);
     }
 
