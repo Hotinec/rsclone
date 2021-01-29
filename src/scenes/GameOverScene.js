@@ -19,7 +19,8 @@ export class GameOverScene extends BaseScene {
     this.setHoverImg();
     this.getInput();
     this.getDate();
-    this.initInputEvents();
+    this.initKeyEvents();
+    this.initClickEvents();
     this.switchOffHover();
     this.setTextContent();
   }
@@ -48,7 +49,7 @@ export class GameOverScene extends BaseScene {
 
   getInput() {
     const {
-      nameTitle, save,
+      nameTitle, save, mainMenu,
     } = this.menu.currentLang.vacabluary;
 
     const config = {
@@ -78,11 +79,25 @@ export class GameOverScene extends BaseScene {
     const x = (width + this.inputText.displayWidth) / 2 + 5;
     this.saveBtn = this.createBtn(x, y + 3, save);
     this.saveBtn.displayWidth = 150;
+
+    const btnY = y + this.inputText.height + 25;
+    this.mainMenuBtn = this.createBtn(width / 2, btnY, mainMenu);
   }
 
-  initInputEvents() {
+  initKeyEvents() {
     this.keyObj = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     this.keyObj.on('down', () => {
+      if (this.inputText.text === '') return;
+      this.setResult();
+      this.saveResult();
+      this.inputText.text = '';
+      this.gameOverMusic.stop();
+      this.scene.start('MenuScene');
+    });
+  }
+
+  initClickEvents() {
+    this.saveBtn.on('pointerdown', () => {
       this.setResult();
       this.saveResult();
       this.inputText.text = '';
@@ -90,10 +105,7 @@ export class GameOverScene extends BaseScene {
       this.scene.start('MenuScene');
     });
 
-    this.saveBtn.on('pointerdown', () => {
-      this.setResult();
-      this.saveResult();
-      this.inputText.text = '';
+    this.mainMenuBtn.on('pointerdown', () => {
       this.gameOverMusic.stop();
       this.scene.start('MenuScene');
     });

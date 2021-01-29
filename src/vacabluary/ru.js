@@ -3,7 +3,7 @@ const russian = {
   vacabluary: {
     newGame: 'Новая игра',
     options: 'Опции',
-    bestSore: 'Лучшие результаты',
+    bestSore: 'Лучшие Результаты',
     about: 'Об Игре',
     loadingState: 'ЗАГРУЗКА',
     finishState: 'ЗAКОНЧИТЬ',
@@ -15,7 +15,7 @@ const russian = {
     scoreTitle: 'Очки',
     healthTitle: 'Здоровье',
     volume: 'Громкость',
-    fullScreen: 'Полный экран',
+    fullScreen: 'Полный Экран',
     language: 'Язык',
     back: 'Назад',
     // about
@@ -38,6 +38,7 @@ const russian = {
     gameOverState: 'Игра Закончена',
     save: 'СОХРАНИТЬ',
     gameOverText: 'Введите Ваше имя, чтобы сохранить результат',
+    mainMenu: 'Главное меню',
   },
 };
 

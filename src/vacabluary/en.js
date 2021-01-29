@@ -38,6 +38,7 @@ const english = {
     gameOverState: 'GAME OVER',
     save: 'SAVE',
     gameOverText: 'Enter your name to save a result',
+    mainMenu: 'Main Menu',
   },
 };
 
