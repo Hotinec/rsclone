@@ -238,7 +238,6 @@ export class Physics {
     this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
       // @ts-ignore
       this.scene.laserGroup.magazine[`${weapon}All`] += weaponProperties[weapon].magazine;
-      if (this.scene.laserGroup.magazine[weapon] === 0) this.scene.reload();
       ammo.destroy();
     });
   }

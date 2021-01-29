@@ -173,7 +173,8 @@ export class GameScene extends Phaser.Scene {
 
     this.input.on('pointerup', (pointer: IPointer) => {
       this._shootLaser(pointer);
-      if (this.player.anim === WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
+      if (this.player.anim === WEAPON.RIFLE
+        && this.player.state !== PLAYER_STATE.RELOAD) this.player.state = PLAYER_STATE.IDLE;
     });
 
     this.input.on('pointerdown', (pointer: IPointer) => {
@@ -181,7 +182,7 @@ export class GameScene extends Phaser.Scene {
       if (this.player.anim === WEAPON.KNIFE && this.player.state !== PLAYER_STATE.ATTACK) {
         setTimeout(() => this.soundKnifeAttack.play(), 500);
       }
-      this.player.state = PLAYER_STATE.ATTACK;
+      if (this.player.state !== PLAYER_STATE.RELOAD) this.player.state = PLAYER_STATE.ATTACK;
       this.pointMouse = pointer;
     });
   }
@@ -272,7 +273,7 @@ export class GameScene extends Phaser.Scene {
     const { anim } = this.player;
     const { textureFrame } = this.player.anims.currentFrame;
     const {
-      shotgun, rifle, handgun, shotgunAll, rifleAll,
+      shotgun, rifle, handgun, shotgunAll, rifleAll, handgunAll,
     } = this.laserGroup.magazine;
 
     if (anim === WEAPON.KNIFE) {
@@ -291,13 +292,21 @@ export class GameScene extends Phaser.Scene {
         this.player.state = PLAYER_STATE.IDLE;
       }
     } else {
+      if (this.player.state !== PLAYER_STATE.RELOAD) {
+        const handgunIsEmpty = anim === WEAPON.HANDGUN && handgun === 0 && handgunAll > 0;
+        const shotgunIsEmpty = anim === WEAPON.SHOTGUN && shotgun === 0 && shotgunAll > 0;
+        const rifleIsEmpty = anim === WEAPON.RIFLE && rifle === 0 && rifleAll > 0;
+        if (handgunIsEmpty) this.reload();
+        if (shotgunIsEmpty) this.reload();
+        if (rifleIsEmpty) this.reload();
+      }
+
       const shotgunFire = anim === WEAPON.SHOTGUN && shotgun !== 0 && shotgunAll > -1;
       const rifleFire = anim === WEAPON.RIFLE && rifle !== 0 && rifleAll > -1;
-      const handgunFire = anim === WEAPON.HANDGUN && handgun !== 0;
+      const handgunFire = anim === WEAPON.HANDGUN && handgun !== 0 && handgunAll > -1;
       if (shotgunFire) {
         this._shotgunFire(pointer);
         this.fire(anim, pointer);
-      // eslint-disable-next-line no-mixed-operators
       }
       if (handgunFire) {
         this.fire(anim, pointer);
@@ -307,7 +316,8 @@ export class GameScene extends Phaser.Scene {
       }
 
       this.fireDelta = 0;
-      if (anim !== WEAPON.RIFLE) this.player.state = PLAYER_STATE.IDLE;
+      if (anim !== WEAPON.RIFLE
+        && this.player.state !== PLAYER_STATE.RELOAD) this.player.state = PLAYER_STATE.IDLE;
     }
   }
 
