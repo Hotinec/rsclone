@@ -15,3 +15,8 @@ export const WEAPON = Object.freeze({
   SHOTGUN: 'shotgun',
   RIFLE: 'rifle',
 });
+
+export const THEME = Object.freeze({
+  LIGHT: 'light',
+  BLACK: 'black',
+});

@@ -2,6 +2,7 @@
 /* eslint-disable import/extensions */
 import Phaser from 'phaser';
 import { MenuScene } from '../scenes/MenuScene';
+import { THEME } from '../constants';
 
 interface IThemeOptions {
   themeName: string;
@@ -214,13 +215,13 @@ export default class MainMenu {
         this.theme1.setTint('#919191');
       });
       this.theme1.on('pointerout', () => {
-        if (this.theme !== 'black') {
+        if (this.theme !== THEME.BLACK) {
           if (this.theme1) this.theme1.clearTint();
         }
       });
       this.theme1.on('pointerdown', () => {
         this.changeTheme({
-          themeName: 'black',
+          themeName: THEME.BLACK,
           active: this.theme1,
           inactive: this.theme2,
           activeTxt: this.theme1Text,
@@ -234,13 +235,13 @@ export default class MainMenu {
       this.theme2.setTint('#919191');
     });
     this.theme2.on('pointerout', () => {
-      if (this.theme !== 'light') {
+      if (this.theme !== THEME.LIGHT) {
         this.theme2.clearTint();
       }
     });
     this.theme2.on('pointerdown', () => {
       this.changeTheme({
-        themeName: 'light',
+        themeName: THEME.LIGHT,
         active: this.theme2,
         // @ts-ignore
         inactive: this.theme1,
