@@ -243,28 +243,31 @@ export default class AboutPage {
   }
 
   createText() {
-    const { aboutText } = this.menu.currentLang.vacabluary;
+    const { aboutText1, aboutText2 } = this.menu.currentLang.vacabluary;
     const { x } = this.background;
     const { y } = this.background;
-
-    this.headerText = this.menu.make.text({
-      x,
-      y,
-      text: aboutText,
-      style: {
-        font: this.headerFont,
-        fill: '#ffffff',
-        align: 'center',
-        wordWrap: { width: this.backgroundWidth *= 0.95 },
-        lineSpacing: 15,
-        padding: {
-          left: 30,
-          right: 30,
-          top: 30,
-          bottom: 0,
-        },
+    const style = {
+      font: this.headerFont,
+      fill: '#ffffff',
+      align: 'center',
+      fixedWidth: this.backgroundWidth,
+      wordWrap: { width: this.backgroundWidth *= 0.95 },
+      padding: {
+        left: 30,
+        right: 30,
+        top: 30,
+        bottom: 0,
       },
-    }).setDepth(2);
+    };
+
+    this.headerText1 = this.menu.make.text({
+      x, y, text: aboutText1, style,
+    })
+      .setDepth(2);
+    this.headerText2 = this.menu.make.text({
+      x, y: y + this.headerText1.height, text: aboutText2, style,
+    })
+      .setDepth(2);
   }
 
   destroyKeys() {
@@ -279,7 +282,8 @@ export default class AboutPage {
   removeAbout() {
     this.title.destroy();
     this.title.textContent.destroy();
-    this.headerText.destroy();
+    this.headerText1.destroy();
+    this.headerText2.destroy();
     this.runTitle.destroy();
     this.weaponTitle.destroy();
     this.backBtn.destroy();

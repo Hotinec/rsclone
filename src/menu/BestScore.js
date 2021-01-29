@@ -106,13 +106,13 @@ export default class Score {
     const font = '25px monospace';
     const fill = '#ffffff';
     const {
-      name, time, date, score,
+      nameTitle, timeTitle, dateTitle, scoreTitle,
     } = this.menu.currentLang.vacabluary;
 
-    const txtName = this.menu.add.text(part / 2, 10, name, { font, fill });
-    const txtTime = this.menu.add.text(part * 1.75, 10, time, { font, fill });
-    const txtDate = this.menu.add.text(part * 3, 10, date, { font, fill });
-    const txtScore = this.menu.add.text(part * 4, 10, score, { font, fill });
+    const txtName = this.menu.add.text(part / 2, 10, nameTitle, { font, fill });
+    const txtTime = this.menu.add.text(part * 1.75, 10, timeTitle, { font, fill });
+    const txtDate = this.menu.add.text(part * 3, 10, dateTitle, { font, fill });
+    const txtScore = this.menu.add.text(part * 4, 10, scoreTitle, { font, fill });
 
     const container = this.menu.add.container(0, 0,
       [...arr, txtName, txtTime, txtScore, txtDate]);

@@ -19,7 +19,7 @@ export default class MainMenu {
     } = this.menu.currentLang.vacabluary;
 
     const x = width / 2;
-    const y = height / 2;
+    const y = height * 0.35;
 
     this.playBtn = this.menu.createBtn(x, y + 50, newGame);
     this.optionsBtn = this.menu.createBtn(x, y + 170, options);
@@ -113,6 +113,7 @@ export default class MainMenu {
     this.menu.initHover(this.close, true);
 
     const { chooseTheme, darkTheme, lightTheme } = this.menu.currentLang.vacabluary;
+
     this.dialogTitle = this.menu.add.text(x + 200, y + 80,
       chooseTheme,
       { font: '26px monospace' })

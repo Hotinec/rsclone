@@ -47,10 +47,14 @@ export class GameOverScene extends BaseScene {
   }
 
   getInput() {
+    const {
+      nameTitle, save,
+    } = this.menu.currentLang.vacabluary;
+
     const config = {
       maxLength: 15,
       minLength: 1,
-      placeholder: 'Name...',
+      placeholder: `${nameTitle}...`,
       paddingLeft: '10px',
       paddingRight: 0,
       paddingTop: '2px',
@@ -72,7 +76,7 @@ export class GameOverScene extends BaseScene {
     this.inputText.setOrigin(0.8, 0.5);
 
     const x = (width + this.inputText.displayWidth) / 2 + 5;
-    this.saveBtn = this.createBtn(x, y + 3, 'SAVE');
+    this.saveBtn = this.createBtn(x, y + 3, save);
     this.saveBtn.displayWidth = 150;
   }
 
@@ -116,28 +120,31 @@ export class GameOverScene extends BaseScene {
 
   setTextContent() {
     const { width, height } = this.game.config;
+    const {
+      gameOverText, gameOverState, scoreTitle, timeTitle,
+    } = this.menu.currentLang.vacabluary;
     const x = width / 2;
     const y = height * 0.4;
 
-    const title = this.add.text(x, height * 0.3, 'GAME OVER', { font: '46px monospace' });
+    const title = this.add.text(x, height * 0.3, gameOverState, { font: '46px monospace' });
     title.setOrigin(0.5, 0.5);
 
     this.scoreText = this.make.text({
       x: x - 154,
       y,
-      text: `Score: ${this.score}`,
+      text: `${scoreTitle}: ${this.score}`,
       style: { font: '32px monospace' },
     });
     this.timeText = this.make.text({
       x: x - 154,
       y: y + 50,
-      text: `Time: ${this.time}`,
+      text: `${timeTitle}: ${this.time}`,
       style: { font: '32px monospace' },
     });
     this.savingText = this.make.text({
       x,
       y: y + 150,
-      text: 'Enter your name to save a result',
+      text: gameOverText,
       style: { font: '22px monospace' },
     });
     this.savingText.setOrigin(0.5, 0.5);
@@ -150,10 +157,10 @@ export class GameOverScene extends BaseScene {
   }
 
   setMusic() {
-    const menu = this.scene.get('MenuScene');
+    this.menu = this.scene.get('MenuScene');
 
     this.gameOverMusic = this.sound.add('gameOver-music');
     this.gameOverMusic.setLoop(true);
-    if (menu.soundOn) this.gameOverMusic.play();
+    if (this.menu.soundOn) this.gameOverMusic.play();
   }
 }

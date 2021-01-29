@@ -24,12 +24,12 @@ export class LoadScene extends Phaser.Scene {
 
   showLoading() {
     const { width, height } = this.cameras.main;
-    const { loading } = this.menu.currentLang.vacabluary;
+    const { loadingState } = this.menu.currentLang.vacabluary;
 
     const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 30,
-      text: loading,
+      text: loadingState,
       style: {
         font: '25px monospace',
         fill: '#fff',

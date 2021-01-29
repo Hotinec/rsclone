@@ -8,6 +8,7 @@ export class PauseScene extends Phaser.Scene {
   create() {
     this.gameScene = this.scene.get('GameScene');
     this.statusScene = this.scene.get('StatusScene');
+    this.menuScene = this.scene.get('MenuScene');
     this.scene.moveAbove('PauseScene', this.statusScene);
     this.scene.bringToTop();
 
@@ -25,11 +26,21 @@ export class PauseScene extends Phaser.Scene {
     const { text: timeText } = this.statusScene.timeText;
     const infoFont = { font: '22px monospace' };
 
-    const title = this.add.text(positionX, positionY, 'PAUSE', { font: '50px monospace' });
-    const time = this.add.text(positionX, title.y + title.displayHeight + 20, `Time: ${timeText}`, infoFont);
-    const health = this.add.text(positionX, time.y + 25, `Health: ${hp}`, infoFont);
-    const points = this.add.text(positionX, health.y + 25, `Score: ${score}`, infoFont);
+    const {
+      timeTitle, scoreTitle, healthTitle, pauseState, finishState, resumeState,
+    } = this.menuScene.currentLang.vacabluary;
+
+    const title = this.add.text(positionX, positionY, pauseState, { font: '50px monospace' });
+    const time = this.add.text(positionX, title.y + title.displayHeight + 20, `${timeTitle}: ${timeText}`, infoFont);
+    const health = this.add.text(positionX, time.y + 25, `${healthTitle}: ${hp}`, infoFont);
+    const points = this.add.text(positionX, health.y + 25, `${scoreTitle}: ${score}`, infoFont);
     const resumeBtn = this.add.image(positionX + 80, points.y + 100, 'btn').setInteractive()
+    // const title = this.add.text(positionX, positionY, 'PAUSE', { font: '50px monospace' });
+    // eslint-disable-next-line max-len
+    // const time = this.add.text(positionX, title.y + title.displayHeight + 20, `Time: ${timeText}`, infoFont);
+    // const health = this.add.text(positionX, time.y + 25, `Health: ${hp}`, infoFont);
+    // const points = this.add.text(positionX, health.y + 25, `Score: ${score}`, infoFont);
+    // const resumeBtn = this.add.image(positionX + 80, points.y + 100, 'btn').setInteractive()
       .on('pointerover', () => {
         resumeBtn.tintFill = false;
         resumeBtn.setTint('0xbababa');
@@ -44,7 +55,7 @@ export class PauseScene extends Phaser.Scene {
         this.statusScene.scene.bringToTop();
       });
 
-    const resumeTxt = this.add.text(positionX + 80, points.y + 100, 'RESUME', {
+    const resumeTxt = this.add.text(positionX + 80, points.y + 100, resumeState, {
       font: '30px monospace',
       color: '#212121',
     });
@@ -65,7 +76,7 @@ export class PauseScene extends Phaser.Scene {
         this.scene.start('GameOverScene');
       });
 
-    const finishTxt = this.add.text(positionX + 80, resumeBtn.y + 80, 'FINISH', {
+    const finishTxt = this.add.text(positionX + 80, resumeBtn.y + 80, finishState, {
       font: '30px monospace',
       color: '#212121',
     });
