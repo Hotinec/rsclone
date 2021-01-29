@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
 import GridTable from 'phaser3-rex-plugins/plugins/gridtable';
 import { MenuScene } from '../scenes';
 import { IResult } from '../scenes/IResult';

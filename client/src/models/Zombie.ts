@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
 import Phaser from 'phaser';
 import townMaleAtlas from '../assets/zombie/zombie_atlas.json';
 import townMale from '../assets/zombie/zombie.png';

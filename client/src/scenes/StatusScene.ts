@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-shadow */
 import Phaser from 'phaser';
 import heart from '../assets/status/heart.png';
 import leftCap from '../assets/status/barHorizontal_red_left.png';
@@ -104,6 +100,7 @@ export class StatusScene extends Phaser.Scene {
     const y = 31;
     const x = 50;
 
+    // eslint-disable-next-line no-shadow
     const heart = this.add.image(26, 30, 'heart');
     heart.displayHeight = 20;
     heart.displayWidth = 20;
@@ -238,6 +235,7 @@ export class StatusScene extends Phaser.Scene {
     );
   }
 
+  // eslint-disable-next-line class-methods-use-this
   addZero(number: number): string {
     return (`0${number}`).slice(-2);
   }

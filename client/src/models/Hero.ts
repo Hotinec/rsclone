@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
 import Phaser from 'phaser';
 import knifeImg from '../assets/player/body/knife/knife.png';
 import knifeAtlas from '../assets/player/body/knife/knife_atlas.json';

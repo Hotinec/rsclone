@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
 /* eslint-disable default-case */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
 import { ZOMBIE_TYPE, WEAPON } from './constants';
@@ -73,6 +70,7 @@ export class Physics {
         x = false;
 
         delay(700).then(() => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           x = true;
         });
       }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
 // @ts-ignore
 import InputText from 'phaser3-rex-plugins/plugins/inputtext';
 import Phaser from 'phaser';

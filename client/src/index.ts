@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import Phaser from 'phaser';
 
 import {
   GameScene, LoadScene, MenuScene, StatusScene, PauseScene, GameOverScene,
 // eslint-disable-next-line import/extensions
-} from './scenes/index';
+} from './scenes';
 
 const config = {
   type: Phaser.AUTO,

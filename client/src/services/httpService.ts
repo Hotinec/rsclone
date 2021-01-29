@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import { IResult } from '../scenes/IResult';
 
 const ADD_RESULT_URL = 'http://localhost:5000/api/score/add';

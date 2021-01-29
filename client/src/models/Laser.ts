@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
-/* eslint-disable no-shadow */
 /* eslint-disable max-classes-per-file */
 import Phaser from 'phaser';
 import laser from '../assets/weapon/laser.png';
@@ -102,6 +99,7 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
   }
 
   fireLaser(player: Hero, mouse: IPointer): void {
+    // eslint-disable-next-line no-shadow
     const laser = this.getFirstDead(true, player.x, player.y, 'laser');
     if (laser) {
       laser.fire(player, mouse);

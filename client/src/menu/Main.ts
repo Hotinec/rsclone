@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable import/extensions */
 import Phaser from 'phaser';
 import { MenuScene } from '../scenes/MenuScene';
 import { THEME } from '../constants';

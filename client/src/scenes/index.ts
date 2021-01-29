@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import { GameScene } from './GameScene';
 import { MenuScene } from './MenuScene';
 import { LoadScene } from './LoadScene';

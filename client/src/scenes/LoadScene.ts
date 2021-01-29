@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable class-methods-use-this */
 import Phaser from 'phaser';
 
 import gameMusic from '../assets/audio/game.mp3';
