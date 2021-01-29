@@ -14,14 +14,17 @@ export default class MainMenu {
 
     const { width, height } = this.menu.game.config;
     const { audio } = this.menu;
+    const {
+      newGame, options, bestSore, about,
+    } = this.menu.currentLang.vacabluary;
 
     const x = width / 2;
     const y = height / 2;
 
-    this.playBtn = this.menu.createBtn(x, y + 50, 'New Game');
-    this.optionsBtn = this.menu.createBtn(x, y + 170, 'Options');
-    this.aboutBtn = this.menu.createBtn(x, y + 110, 'About');
-    this.bestSoresBtn = this.menu.createBtn(x, y + 230, 'Best Scores');
+    this.playBtn = this.menu.createBtn(x, y + 50, newGame);
+    this.optionsBtn = this.menu.createBtn(x, y + 170, options);
+    this.aboutBtn = this.menu.createBtn(x, y + 110, about);
+    this.bestSoresBtn = this.menu.createBtn(x, y + 230, bestSore);
     this.soundBtn = this.menu.createSwitchBtn(
       {
         x,
@@ -109,8 +112,9 @@ export default class MainMenu {
 
     this.menu.initHover(this.close, true);
 
+    const { chooseTheme, darkTheme, lightTheme } = this.menu.currentLang.vacabluary;
     this.dialogTitle = this.menu.add.text(x + 200, y + 80,
-      'Choose the game theme',
+      chooseTheme,
       { font: '26px monospace' })
       .setOrigin(0.5, 0.5)
       .setDepth(9);
@@ -118,13 +122,13 @@ export default class MainMenu {
     const font = { font: '22px monospace' };
     this.theme1 = this.menu.add.renderTexture(x + 40, y + 150, 320, 50);
     this.theme1.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme1Text = this.menu.add.text(x + 200, y + 165, 'Dark theme', font)
+    this.theme1Text = this.menu.add.text(x + 200, y + 165, darkTheme, font)
       .setOrigin(0.5, 0)
       .setDepth(10);
 
     this.theme2 = this.menu.add.renderTexture(x + 40, y + 220, 320, 50);
     this.theme2.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme2Text = this.menu.add.text(x + 200, y + 232, 'Light theme', font)
+    this.theme2Text = this.menu.add.text(x + 200, y + 232, lightTheme, font)
       .setOrigin(0.5, 0)
       .setDepth(10);
 

@@ -28,11 +28,13 @@ export default class AboutPage {
   createTitle() {
     this.title = this.menu.add.image(this.x / 2,
       this.y * 0.1, 'title');
+
+    const { about } = this.menu.currentLang.vacabluary;
     this.title.textContent = this.menu.make.text(
       {
         x: this.x / 2,
         y: this.y * 0.1 + 7,
-        text: 'About',
+        text: about,
         style: {
           font: '40px monospace',
           fill: '#212121',
@@ -115,14 +117,17 @@ export default class AboutPage {
   }
 
   createKeySet() {
-    this.downKey = this.createKey(0, 0, 'S', 'DOWN');
-    this.leftKey = this.createKey(0, 0, 'A', 'LEFT');
-    this.rightKey = this.createKey(0, 0, 'D', 'RIGHT');
-    this.upKey = this.createKey(0, 0, 'W', 'UP');
-    this.knifeKey = this.createKey(0, 0, '1', 'KNIFE');
-    this.pistolKey = this.createKey(0, 0, '2', 'PISTOL');
-    this.shotgunKey = this.createKey(0, 0, '3', 'SHORTGUN');
-    this.rifleKey = this.createKey(0, 0, '4', 'RIFLE');
+    const {
+      up, down, left, right, RIFLE, KNIFE, PISTOL, SHORTGUN,
+    } = this.menu.currentLang.vacabluary;
+    this.downKey = this.createKey(0, 0, 'S', down);
+    this.leftKey = this.createKey(0, 0, 'A', left);
+    this.rightKey = this.createKey(0, 0, 'D', right);
+    this.upKey = this.createKey(0, 0, 'W', up);
+    this.knifeKey = this.createKey(0, 0, '1', KNIFE);
+    this.pistolKey = this.createKey(0, 0, '2', PISTOL);
+    this.shotgunKey = this.createKey(0, 0, '3', SHORTGUN);
+    this.rifleKey = this.createKey(0, 0, '4', RIFLE);
 
     this.keyWidth = this.downKey.width;
   }
@@ -130,10 +135,12 @@ export default class AboutPage {
   createRunSection() {
     const x = this.background.x * 1.2;
     const y = this.background.y + this.backgroundHeight * 0.3;
+
+    const { run } = this.menu.currentLang.vacabluary;
     this.runTitle = this.menu.make.text({
       x,
       y,
-      text: 'RUN',
+      text: run,
       style: {
         font: this.headerFont,
         fill: '#ffffff',
@@ -161,11 +168,12 @@ export default class AboutPage {
       x = this.background.x * 1.2;
       y = higherKey + 50;
     }
+    const { weapon } = this.menu.currentLang.vacabluary;
 
     this.weaponTitle = this.menu.make.text({
       x,
       y,
-      text: 'WEAPON',
+      text: weapon,
       style: {
         font: this.headerFont,
         fill: '#ffffff',
@@ -230,18 +238,19 @@ export default class AboutPage {
   createBackBtn() {
     const x = this.x / 2;
     const y = this.y * 0.2 + this.backgroundHeight - 60;
-    this.backBtn = this.menu.createBtn(x, y, 'Back');
+    const { back } = this.menu.currentLang.vacabluary;
+    this.backBtn = this.menu.createBtn(x, y, back);
   }
 
   createText() {
-    const text = 'Stay alive as long as possible and go for the height score. \n Fight your way through and collect weapons and health.';
+    const { aboutText } = this.menu.currentLang.vacabluary;
     const { x } = this.background;
     const { y } = this.background;
 
     this.headerText = this.menu.make.text({
       x,
       y,
-      text,
+      text: aboutText,
       style: {
         font: this.headerFont,
         fill: '#ffffff',

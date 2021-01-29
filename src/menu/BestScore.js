@@ -1,6 +1,4 @@
 import GridTable from 'phaser3-rex-plugins/plugins/gridtable';
-// import { GridTable } from 'phaser3-rex-plugins/templates/ui/ui-components';
-// import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle';
 import { GameOverScene } from '../scenes/GameOverScene';
 
 export default class Score {
@@ -23,13 +21,15 @@ export default class Score {
   createTitle() {
     const { width, height } = this.menu.game.renderer;
 
+    const { bestSore } = this.menu.currentLang.vacabluary;
+
     this.title = this.menu.add.image(width / 2,
       height * 0.14, 'title');
     this.title.textContent = this.menu.make.text(
       {
         x: width / 2,
         y: height * 0.14,
-        text: 'Best Score',
+        text: bestSore,
         style: {
           font: '40px monospace',
           fill: '#212121',
@@ -93,7 +93,6 @@ export default class Score {
     const txtTime = this.menu.add.text(1.7 * part, 20, `${time}`, { font, fill });
     const txtDate = this.menu.add.text(2.9 * part, 20, `${date || ''}`, { font, fill });
     const txtScore = this.menu.add.text(4.3 * part, 20, `${score}`, { font, fill });
-    // txtScore.setOrigin(0.1, 0.5);
 
     const container = this.menu.add.container(0, 0,
       [...arr, txtIdx, txtName, txtTime, txtScore, txtDate]);
@@ -106,11 +105,14 @@ export default class Score {
 
     const font = '25px monospace';
     const fill = '#ffffff';
+    const {
+      name, time, date, score,
+    } = this.menu.currentLang.vacabluary;
 
-    const txtName = this.menu.add.text(part / 2, 10, 'Name', { font, fill });
-    const txtTime = this.menu.add.text(part * 1.75, 10, 'Time', { font, fill });
-    const txtDate = this.menu.add.text(part * 3, 10, 'Date', { font, fill });
-    const txtScore = this.menu.add.text(part * 4, 10, 'Score', { font, fill });
+    const txtName = this.menu.add.text(part / 2, 10, name, { font, fill });
+    const txtTime = this.menu.add.text(part * 1.75, 10, time, { font, fill });
+    const txtDate = this.menu.add.text(part * 3, 10, date, { font, fill });
+    const txtScore = this.menu.add.text(part * 4, 10, score, { font, fill });
 
     const container = this.menu.add.container(0, 0,
       [...arr, txtName, txtTime, txtScore, txtDate]);
@@ -119,8 +121,9 @@ export default class Score {
 
   createBackBtn() {
     const { width, height } = this.menu.game.renderer;
+    const { back } = this.menu.currentLang.vacabluary;
 
-    this.backBtn = this.menu.createBtn(width / 2, height * 0.82, 'Back');
+    this.backBtn = this.menu.createBtn(width / 2, height * 0.82, back);
 
     this.backBtn.on('pointerdown', () => {
       this.removeBestScore();

@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
 /* eslint-disable no-useless-constructor */
@@ -9,7 +10,7 @@ import scull from '../assets/menu/scull.png';
 import emptyScull from '../assets/menu/scull-empty.png';
 import theme from '../assets/audio/theme.mp3';
 import intro from '../assets/audio/intro.mp3';
-import title from '../assets/menu/empty.png';
+import titleImg from '../assets/menu/empty.png';
 import btn from '../assets/menu/btn.png';
 import keyBtn from '../assets/menu/keyBtn.png';
 import mute from '../assets/menu/mute.png';
@@ -22,11 +23,17 @@ import OptionsMenu from '../menu/Options';
 import ScoreMenu from '../menu/BestScore';
 import BaseScene from './BaseScene';
 import AboutMenu from '../menu/About';
+import enLang from '../assets/menu/en.png';
+import ruLang from '../assets/menu/ru.png';
+
+import languages from '../vacabluary';
 
 export class MenuScene extends BaseScene {
   constructor() {
     super({ key: 'MenuScene' });
     this.soundOn = false;
+    this.languages = languages;
+    this.currentLang = languages.en;
   }
 
   preload() {
@@ -35,7 +42,7 @@ export class MenuScene extends BaseScene {
     this.load.image('menu_bg', background, 0, 0);
     this.load.image('logo', logo);
     this.load.image('scull', scull);
-    this.load.image('title', title);
+    this.load.image('title', titleImg);
     this.load.image('btn', btn);
     this.load.image('empty-scull', emptyScull);
     this.load.image('mute', mute);
@@ -44,6 +51,8 @@ export class MenuScene extends BaseScene {
     this.load.image('full-off', fullOff);
     this.load.image('close', close);
     this.load.image('key-btn', keyBtn);
+    this.load.image('en-on', enLang);
+    this.load.image('ru-on', ruLang);
   }
 
   create() {
@@ -59,5 +68,31 @@ export class MenuScene extends BaseScene {
 
     this.main.init();
     this.setHoverImg();
+  }
+
+  updateText() {
+    const {
+      volumeTitle, fullScreen, language, title, backBtn,
+    } = this.options;
+    const arr = [backBtn, volumeTitle, fullScreen, language, title];
+    const { vacabluary } = this.prevLang;
+
+    arr.forEach((el) => {
+      let element = el;
+
+      if (element instanceof Phaser.GameObjects.Image) {
+        element = element.textContent;
+      }
+
+      const keys = Object.keys(vacabluary);
+      keys.forEach((key) => {
+        const text = vacabluary[key];
+        if (text === element.text) {
+          const { vacabluary: newVacabulary } = this.currentLang;
+          const newText = newVacabulary[key];
+          element.setText(newText);
+        }
+      });
+    });
   }
 }

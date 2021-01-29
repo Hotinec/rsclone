@@ -24,11 +24,12 @@ export class LoadScene extends Phaser.Scene {
 
   showLoading() {
     const { width, height } = this.cameras.main;
+    const { loading } = this.menu.currentLang.vacabluary;
 
     const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 30,
-      text: 'Loading',
+      text: loading,
       style: {
         font: '25px monospace',
         fill: '#fff',
@@ -50,10 +51,10 @@ export class LoadScene extends Phaser.Scene {
   }
 
   setMusic() {
-    const menu = this.scene.get('MenuScene');
+    this.menu = this.scene.get('MenuScene');
 
     this.loadingMusic = this.sound.add('intro');
-    if (menu.soundOn) this.loadingMusic.play();
+    if (this.menu.soundOn) this.loadingMusic.play();
   }
 
   create() {

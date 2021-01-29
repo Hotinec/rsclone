@@ -14,6 +14,7 @@ export default class OptionsMenu {
     this.createBackground();
     this.createVolumeSet();
     this.createFSOpt();
+    this.createLangOpt();
     this.createBackBtn();
     this.initClicks();
   }
@@ -21,11 +22,12 @@ export default class OptionsMenu {
   createTitle() {
     this.title = this.menu.add.image(this.x / 2,
       this.y * 0.1, 'title');
+    const { options } = this.menu.currentLang.vacabluary;
     this.title.textContent = this.menu.make.text(
       {
         x: this.x / 2,
         y: this.y * 0.1 + 7,
-        text: 'Options',
+        text: options,
         style: {
           font: '40px monospace',
           fill: '#212121',
@@ -53,12 +55,15 @@ export default class OptionsMenu {
 
   createFSOpt() {
     const y = this.y * 0.45;
-    const titleX = this.x / 2 - 140;
+    const titleX = this.x / 2 - 145;
 
     const { isFullscreen } = this.menu.scale;
-    this.fullScreen = this.menu.add.text(titleX, y, 'Fullscreen', { font: '26px monospace' });
+    const { fullScreen } = this.menu.currentLang.vacabluary;
 
-    const btnX = titleX + this.fullScreen.displayWidth + 100;
+    this.fullScreen = this.menu.add.text(titleX, y, fullScreen, { font: '26px monospace' });
+
+    const btnX = titleX + 270;
+    // const btnX = titleX + this.fullScreen.displayWidth + 100;
     this.fullScreenBtn = this.menu.createSwitchBtn({
       x: btnX,
       y: y + 10,
@@ -70,16 +75,41 @@ export default class OptionsMenu {
     });
   }
 
+  createLangOpt() {
+    const y = this.y * 0.55;
+    const titleX = this.x / 2 - 145;
+
+    const { language } = this.menu.currentLang.vacabluary;
+    const { lang } = this.menu.currentLang;
+
+    const isEnglish = lang === 'en';
+    this.language = this.menu.add.text(titleX, y, language, { font: '26px monospace' });
+
+    const btnX = titleX + 270;
+    // const btnX = titleX + this.language.displayWidth + 125;
+    this.englBtn = this.menu.createSwitchBtn({
+      x: btnX,
+      y: y + 10,
+      onTexture: 'en-on',
+      offTexture: 'ru-on',
+      width: 45,
+      height: 45,
+      option: isEnglish,
+    });
+  }
+
   createVolumeSet() {
-    const titleX = this.x / 2 - 140;
+    const titleX = this.x / 2 - 145;
     const y = this.y * 0.35;
+
+    const { volume } = this.menu.currentLang.vacabluary;
 
     this.volumeTitle = this.menu.add.text(
       titleX,
-      y, 'Volume', { font: '26px monospace' },
+      y, volume, { font: '26px monospace' },
     );
-
-    const boxX = this.x / 2 - 140 + this.volumeTitle.displayWidth;
+    const boxX = this.x / 2 - 145 + 130;
+    // const boxX = this.x / 2 - 140 + this.volumeTitle.displayWidth;
     this.volumeBox = this.menu.add.image(
       boxX,
       y,
@@ -98,7 +128,9 @@ export default class OptionsMenu {
   }
 
   createVolumeRange(y, i, btn, arr) {
-    const width = this.volumeBox.x + this.volumeBox.width / 2;
+    const width = this.volumeBox.x;
+    // const width = this.volumeBox.x + this.volumeBox.width * 1.2;
+    // const width = this.volumeBox.x + this.volumeBox.width / 2;
     const img = this.menu.add.image(100, 100, btn).setDepth(3);
     const x = width + img.width * 0.2 * i + img.width * 0.2;
     img.setScale(0.25);
@@ -112,7 +144,9 @@ export default class OptionsMenu {
   createBackBtn() {
     const x = this.x / 2;
     const y = this.y * 0.2 + this.backgroundHeight - 60;
-    this.backBtn = this.menu.createBtn(x, y, 'Back');
+
+    const { back } = this.menu.currentLang.vacabluary;
+    this.backBtn = this.menu.createBtn(x, y, back);
   }
 
   initClicks() {
@@ -125,6 +159,17 @@ export default class OptionsMenu {
       this.menu.scale.stopFullscreen();
       this.fullScreenBtn.on.setVisible(true);
       this.fullScreenBtn.off.setVisible(false);
+    });
+
+    this.englBtn.on.on('pointerdown', () => {
+      this.englBtn.on.setVisible(false);
+      this.englBtn.off.setVisible(true);
+      this.setLanguage();
+    });
+    this.englBtn.off.on('pointerdown', () => {
+      this.englBtn.on.setVisible(true);
+      this.englBtn.off.setVisible(false);
+      this.setLanguage();
     });
 
     this.backBtn.on('pointerdown', () => {
@@ -164,6 +209,20 @@ export default class OptionsMenu {
     }
   }
 
+  setLanguage() {
+    const { languages } = this.menu;
+    const isEngl = this.menu.currentLang.lang === 'en';
+    if (isEngl) {
+      this.menu.prevLang = languages.en;
+      this.menu.currentLang = languages.ru;
+      this.menu.updateText();
+    } else {
+      this.menu.prevLang = languages.ru;
+      this.menu.currentLang = languages.en;
+      this.menu.updateText();
+    }
+  }
+
   removeOptionsMenu() {
     this.title.destroy();
     this.title.textContent.destroy();
@@ -172,6 +231,9 @@ export default class OptionsMenu {
     this.backBtn.textContent.destroy();
     this.volumeBox.destroy();
     this.fullScreen.destroy();
+    this.language.destroy();
+    this.englBtn.on.destroy();
+    this.englBtn.off.destroy();
     this.fullScreenBtn.on.destroy();
     this.fullScreenBtn.off.destroy();
     this.volumeTitle.destroy();
