@@ -6,6 +6,7 @@ import Phaser from 'phaser';
 
 import background from '../assets/menu/bg.jpg';
 import logo from '../assets/menu/logo.png';
+import logoRss from '../assets/menu/rss-logo.svg';
 import scull from '../assets/menu/scull.png';
 import emptyScull from '../assets/menu/scull-empty.png';
 import theme from '../assets/audio/theme.mp3';
@@ -25,6 +26,8 @@ import BaseScene from './BaseScene';
 import AboutMenu from '../menu/About';
 import enLang from '../assets/menu/en.png';
 import ruLang from '../assets/menu/ru.png';
+import nextImg from '../assets/menu/next.png';
+import prevImg from '../assets/menu/prev.png';
 
 import languages from '../vacabluary';
 
@@ -52,7 +55,10 @@ export class MenuScene extends BaseScene {
     this.load.image('close', close);
     this.load.image('key-btn', keyBtn);
     this.load.image('en-on', enLang);
+    this.load.image('next-btn', nextImg);
+    this.load.image('prev-btn', prevImg);
     this.load.image('ru-on', ruLang);
+    this.load.image('rss-logo', logoRss);
   }
 
   create() {

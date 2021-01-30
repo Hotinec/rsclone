@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 export default class AboutPage {
   constructor(scene) {
     this.menu = scene;
@@ -14,10 +13,8 @@ export default class AboutPage {
     this.createBackBtn();
     this.createText();
     this.createKeySet();
-    this.createRunContainer();
-    this.createWeaponContainer();
-    this.createLinkContainer();
-    this.createContentContainer();
+    this.createRunSection();
+    this.createWeaponSection();
     this.initClicks();
   }
 
@@ -25,14 +22,6 @@ export default class AboutPage {
     this.backBtn.on('pointerdown', () => {
       this.removeAbout();
       this.menu.main.init();
-    });
-
-    this.nextBtn.on('pointerdown', () => {
-      this.turnNext();
-    });
-
-    this.prevBtn.on('pointerdown', () => {
-      this.turnPrev();
     });
   }
 
@@ -55,73 +44,6 @@ export default class AboutPage {
     this.title.textContent.setOrigin(0.5, 0.1).setDepth(2);
   }
 
-  createLinkContainer() {
-    // const logoLink = this.menu.add.image();
-    this.linkContainer = this.menu.add.container(0, 0).setVisible(false);
-  }
-
-  turnNext() {
-    const children = this.container.list;
-    const current = this.container.getByName('current slide');
-    const idx = children.indexOf(current);
-    if (children[idx + 1]) {
-      children[idx + 1].name = 'current slide';
-      children[idx + 1].setVisible(true);
-    } else {
-      children[0].name = 'current slide';
-      children[0].setVisible(true);
-    }
-    current.name = '';
-    current.setVisible(false);
-  }
-
-  turnPrev() {
-    const children = this.container.list;
-    const current = this.container.getByName('current slide');
-    const idx = children.indexOf(current);
-    if (children[idx - 1]) {
-      children[idx - 1].name = 'current slide';
-      children[idx - 1].setVisible(true);
-    } else {
-      children[children.length - 1].name = 'current slide';
-      children[children.length - 1].setVisible(true);
-    }
-    current.name = '';
-    current.setVisible(false);
-  }
-
-  createContentContainer() {
-    // const { height, y } = this.headerText2;
-    // const Y = y + height + 50;
-    // const X = this.backgroundWidth / 2 + this.background.x;
-    this.container = this.menu.add.container(0, 0);
-    // this.container = this.menu.add.container(X, Y);
-    this.container.add(this.runSection);
-    this.container.add(this.weaponSection);
-    this.container.add(this.linkContainer);
-    const containerWidth = this.rifleKey.x - this.weaponTitle.x;
-    this.container.width = containerWidth;
-    // this.container.x = X - containerWidth / 2;
-
-    const { first } = this.container;
-    first.setVisible(true);
-    first.name = 'current slide';
-    this.createSliderBtns();
-  }
-
-  createSliderBtns() {
-    const prevX = this.x / 2 - this.backBtn.width / 2;
-    const nextX = this.x / 2 + this.backBtn.width / 2;
-    const y = this.backBtn.y - this.backgroundHeight * 0.15;
-
-    this.nextBtn = this.menu.createBtn(nextX, y, '', 'next-btn');
-    this.prevBtn = this.menu.createBtn(prevX, y, '', 'prev-btn');
-    this.nextBtn.displayWidth = 54;
-    this.prevBtn.displayWidth = 54;
-
-    this.switchOffHover();
-  }
-
   createBackground() {
     let x;
     if (this.x < 500) {
@@ -134,8 +56,7 @@ export default class AboutPage {
       this.backgroundWidth = this.x - this.x / 3;
       x = this.x / 6;
     }
-    // this.backgroundHeight = this.y - this.y * 0.4;
-    this.backgroundHeight = this.y - this.y * 0.3;
+    this.backgroundHeight = this.y - this.y * 0.4;
 
     this.background = this.menu.add.renderTexture(x,
       this.y * 0.2, this.backgroundWidth, this.backgroundHeight);
@@ -177,7 +98,7 @@ export default class AboutPage {
     key.on('pointerover', () => {
       const btn = key;
       btn.tintFill = false;
-      btn.setTint(0Xbababa);
+      btn.setTint('0xbababa');
       btn.setScale(1.1);
       btn.description.setScale(1.15);
       // btn.description.clearTint();
@@ -211,15 +132,14 @@ export default class AboutPage {
     this.keyWidth = this.downKey.width;
   }
 
-  createRunContainer() {
-    const { height, y } = this.headerText2;
-    const runY = y + height + 50;
-    const runX = this.backgroundWidth / 2 + this.background.x;
+  createRunSection() {
+    const x = this.background.x * 1.2;
+    const y = this.background.y + this.backgroundHeight * 0.3;
 
     const { run } = this.menu.currentLang.vacabluary;
     this.runTitle = this.menu.make.text({
-      x: 0,
-      y: 0,
+      x,
+      y,
       text: run,
       style: {
         font: this.headerFont,
@@ -229,41 +149,61 @@ export default class AboutPage {
 
     for (let i = 0; i < this.keys.length / 2; i++) {
       const text = this.keys[i].description;
-      text.x = this.runTitle.x;
-      text.y = this.runTitle.y + this.runTitle.height * (i + 1) + 10;
+      text.x = x;
+      text.y = y + this.runTitle.height * (i + 1) + 10;
       text.setDepth(4);
     }
 
-    this.runBtns = this.keys.slice(0, this.keys.length / 2);
-    const texts = [];
-    this.runBtns.forEach((el) => {
-      texts.push(el.description);
-      texts.push(el.textContent);
-    });
-
     this.setRunKeysPosition();
+  }
 
-    const children = [this.runTitle, ...this.runBtns, ...texts];
-    this.runSection = this.menu.add.container(0, runY, children);
-    const containerWidth = this.rightKey.x - this.runTitle.x;
-    this.runSection.width = containerWidth;
-    this.runSection.x = runX - containerWidth / 2;
-    this.runSection.setVisible(false);
+  createWeaponSection() {
+    let x;
+    let y;
+    if (this.x > this.y) {
+      x = this.background.x + this.backgroundWidth / 2;
+      y = this.background.y + this.backgroundHeight * 0.3;
+    } else {
+      const higherKey = this.keys[0].y;
+      x = this.background.x * 1.2;
+      y = higherKey + 50;
+    }
+    const { weapon } = this.menu.currentLang.vacabluary;
+
+    this.weaponTitle = this.menu.make.text({
+      x,
+      y,
+      text: weapon,
+      style: {
+        font: this.headerFont,
+        fill: '#ffffff',
+      },
+    }).setDepth(4);
+
+    const n = this.keys.length;
+
+    for (let i = n / 2; i < n; i++) {
+      const text = this.keys[i].description;
+      text.x = x;
+      text.y = y + this.runTitle.height * (i + 1 - n / 2) + 10;
+      text.setDepth(4);
+    }
+
+    this.setWeaponKeysPosition();
   }
 
   setRunKeysPosition() {
-    const { description } = this.runBtns[this.runBtns.length - 1];
+    const { description } = this.keys[this.keys.length / 2 - 1];
     const {
       width, x, y,
     } = description;
-    // const distance = this.x > this.y ? this.background.x + this.backgroundWidth * 0.25
-    //   : x + width + 120;
-    const distance = width + x + 120;
+    const distance = this.x > this.y ? this.background.x + this.backgroundWidth * 0.25
+      : x + width + 120;
     this.leftKey.x = distance;
     this.leftKey.y = y;
 
-    for (let i = 0; i < this.runBtns.length; i++) {
-      const key = this.runBtns[i];
+    for (let i = 0; i < this.keys.length / 2; i++) {
+      const key = this.keys[i];
       const { text } = key.textContent;
       if (text === 'W') {
         key.x = distance + this.keyWidth;
@@ -277,53 +217,13 @@ export default class AboutPage {
     }
   }
 
-  createWeaponContainer() {
-    const { height, y } = this.headerText2;
-    const weaponY = y + height + 50;
-    const weaponX = this.backgroundWidth / 2 + this.background.x;
-
-    const { weapon } = this.menu.currentLang.vacabluary;
-    this.weaponTitle = this.menu.make.text({
-      x: 0,
-      y: 0,
-      text: weapon,
-      style: {
-        font: this.headerFont,
-        fill: '#ffffff',
-      },
-    }).setDepth(4);
-
-    this.weaponBtns = this.keys.slice(this.keys.length / 2, this.keys.length);
-    for (let i = 0; i < this.weaponBtns.length; i++) {
-      const text = this.weaponBtns[i].description;
-      text.x = this.weaponTitle.x;
-      text.y = this.weaponTitle.y + this.weaponTitle.height * (i + 1) + 10;
-      text.setDepth(4);
-    }
-
-    const texts = [];
-    this.weaponBtns.forEach((el) => {
-      texts.push(el.description);
-      texts.push(el.textContent);
-    });
-
-    this.setWeaponKeysPosition();
-
-    const children = [this.weaponTitle, ...this.weaponBtns, ...texts];
-    this.weaponSection = this.menu.add.container(0, weaponY, children).setVisible(false);
-    const containerWidth = this.rifleKey.x - this.weaponTitle.x;
-    this.weaponSection.width = containerWidth;
-    this.weaponSection.x = weaponX - containerWidth / 2;
-  }
-
   setWeaponKeysPosition() {
     const { description } = this.keys[this.keys.length - 1];
     const {
       width, x, y,
     } = description;
-    // const distance = this.x > this.y ? this.background.x + this.backgroundWidth * 0.7
-    //   : x + width + 120;
-    const distance = width + x + 120;
+    const distance = this.x > this.y ? this.background.x + this.backgroundWidth * 0.7
+      : x + width + 120;
     const n = this.keys.length;
 
     for (let i = n / 2; i < n; i++) {
@@ -380,29 +280,16 @@ export default class AboutPage {
   }
 
   removeAbout() {
-    this.keys = [];
-    this.runBtns = [];
-    this.weaponBtns = [];
     this.title.destroy();
     this.title.textContent.destroy();
     this.headerText1.destroy();
     this.headerText2.destroy();
-    this.container.destroy();
-    this.nextBtn.destroy();
-    this.prevBtn.destroy();
+    this.runTitle.destroy();
+    this.weaponTitle.destroy();
     this.backBtn.destroy();
     this.backBtn.textContent.destroy();
     this.background.destroy();
+    this.destroyKeys();
     this.menu.hoverImg.setVisible(false);
-  }
-
-  switchOffHover() {
-    this.nextBtn.on('pointerover', () => {
-      this.menu.hoverImg.setVisible(false);
-    });
-
-    this.prevBtn.on('pointerover', () => {
-      this.menu.hoverImg.setVisible(false);
-    });
   }
 }

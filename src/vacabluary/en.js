@@ -1,9 +1,10 @@
 const english = {
   lang: 'en',
   vacabluary: {
+    // main
     newGame: 'New Game',
     options: 'Options',
-    bestSore: 'Best Score',
+    bestSore: 'Results',
     about: 'About',
     loadingState: 'LOADING',
     finishState: 'FINISH',

@@ -1,10 +1,12 @@
 const russian = {
   lang: 'ru',
   vacabluary: {
+    // main
     newGame: 'Новая игра',
     options: 'Опции',
-    bestSore: 'Лучшие Результаты',
+    bestSore: 'Результаты',
     about: 'Об Игре',
+    // pause and loading
     loadingState: 'ЗАГРУЗКА',
     finishState: 'ЗAКОНЧИТЬ',
     pauseState: 'ПАУЗА',
@@ -14,6 +16,7 @@ const russian = {
     dateTitle: 'Дата',
     scoreTitle: 'Очки',
     healthTitle: 'Здоровье',
+    // options
     volume: 'Громкость',
     fullScreen: 'Полный Экран',
     language: 'Язык',
