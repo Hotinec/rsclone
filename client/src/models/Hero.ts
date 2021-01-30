@@ -107,8 +107,7 @@ export class Hero extends Phaser.Physics.Arcade.Sprite {
       if (textureFrame === `survivor-reload_${this.anim}_10`) {
         this.isReload = false;
       }
-      // @ts-ignore
-    } else if (Math.abs(x) > 0.1 || Math.abs(y) > 0.1) {
+    } else if (Math.abs(x) > 0.1 || Math.abs(Number(y)) > 0.1) {
       this.anims.play(`${this.anim}_move`, true);
     } else {
       this.anims.play(`${this.anim}_idle`, true);

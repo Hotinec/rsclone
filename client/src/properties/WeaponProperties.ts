@@ -3,6 +3,7 @@ interface IWeaponProperties {
     body: string,
     frame: string,
     magazine?: number,
+    endFrame?: string[]
   };
 }
 
@@ -10,6 +11,7 @@ export const weaponProperties: IWeaponProperties = {
   knife: {
     body: 'knife',
     frame: 'survivor-idle_knife_0',
+    endFrame: ['survivor-meleeattack_knife_12', 'survivor-meleeattack_knife_13', 'survivor-meleeattack_knife_14'],
   },
   handgun: {
     body: 'handgun-body',

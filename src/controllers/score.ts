@@ -19,10 +19,6 @@ class ScoreController {
   async addScore (req:Request, res:Response):Promise<void> {
     try {
       const { name, score, time }:{name:string, score:number, time:string} = req.body;
-      // if (score < 0 || !name || !time) {
-      //   res.send('All values are required').status(400);
-      //   return;
-      // }
       const newScoreItem:IScore|any = await scoreModel.create({
         name, score, time, date: Date.now()
       });

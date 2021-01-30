@@ -69,8 +69,7 @@ export default class BaseScene extends Phaser.Scene {
     btn.on('pointerover', () => {
       const currentBtn = btn;
       currentBtn.tintFill = false;
-      // @ts-ignore
-      currentBtn.setTint('0xbababa');
+      currentBtn.setTint(0xbababa);
       if (!isSwitch) {
         this.hoverImg.setVisible(true);
         this.hoverImg.setDepth(15);

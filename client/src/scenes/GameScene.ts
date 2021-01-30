@@ -18,6 +18,8 @@ import { Physics } from '../Physics';
 import { IPointer } from '../models/IPointer';
 import { DarkMode } from '../DarkMode';
 
+import { weaponProperties } from '../properties';
+
 export class GameScene extends Phaser.Scene {
   weapon: Weapon | null;
 
@@ -266,15 +268,17 @@ export class GameScene extends Phaser.Scene {
     } = this.laserGroup.magazine;
 
     if (anim === WEAPON.KNIFE) {
-      if (!this.knifeBounds.body) {
-        // @ts-ignore
-        this.knifeBounds = this.physics.add.image(-100, -100);
+      const frameNum = +String(textureFrame).slice(-2) || +String(textureFrame).slice(-1);
+      if (frameNum > 5) {
+        if (!this.knifeBounds.body) {
+          // @ts-ignore
+          this.knifeBounds = this.physics.add.image(-100, -100);
+        }
+        this.physicsEvent.killZombieWithKnife();
       }
-      this.physicsEvent.killZombieWithKnife();
 
-      const endKnifeAnim = textureFrame === 'survivor-meleeattack_knife_12'
-|| textureFrame === 'survivor-meleeattack_knife_13'
-|| textureFrame === 'survivor-meleeattack_knife_14';
+      const { endFrame } = weaponProperties.knife;
+      const endKnifeAnim = endFrame?.some((frame) => frame === textureFrame);
 
       if (endKnifeAnim) {
         this.knifeBounds.destroy();
@@ -296,7 +300,6 @@ export class GameScene extends Phaser.Scene {
       if (shotgunFire) {
         this._shotgunFire(pointer);
         this.fire(anim, pointer);
-      // eslint-disable-next-line no-mixed-operators
       }
       if (handgunFire) {
         this.fire(anim, pointer);
