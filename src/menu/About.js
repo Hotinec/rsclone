@@ -1,4 +1,6 @@
 /* eslint-disable no-debugger */
+import { GITHUB_LINKS } from '../constants';
+
 export default class AboutPage {
   constructor(scene) {
     this.menu = scene;
@@ -56,8 +58,78 @@ export default class AboutPage {
   }
 
   createLinkContainer() {
-    // const logoLink = this.menu.add.image();
-    this.linkContainer = this.menu.add.container(0, 0).setVisible(false);
+    const { height, y } = this.headerText2;
+    const headerY = y + height + 30;
+    const x = this.backgroundWidth * 0.5 + this.background.x;
+
+    this.createdBy = this.menu.make.text({
+      x,
+      y: headerY,
+      text: 'Created by',
+      style: {
+        font: this.headerFont,
+        fill: '#ffffff',
+      },
+    }).setDepth(4);
+    this.createdBy.x = x - this.createdBy.width / 2;
+    const style = {
+      font: this.textFont,
+      fill: '#ffffff',
+      padding: {
+        left: this.backgroundWidth * 0.2,
+      },
+    };
+
+    const linksY = this.createdBy.y + this.createdBy.height + 20;
+
+    const link1 = this.menu.make.text({
+      x: this.background.x, y: linksY, text: GITHUB_LINKS.ARTEM, style,
+    });
+    link1.on('pointerdown', AboutPage.openLink, 'https://github.com/Hotinec');
+    const link2 = this.menu.make.text({
+      x: this.background.x, y: linksY, text: GITHUB_LINKS.POLINA, style,
+    });
+    const link3 = this.menu.make.text({
+      x: this.background.x, y: linksY, text: GITHUB_LINKS.ARSENIY, style,
+    });
+    const link4 = this.menu.make.text({
+      x: this.background.x, y: linksY, text: GITHUB_LINKS.NASTYA, style,
+    });
+    this.githubLinks = [link1, link2, link3, link4];
+
+    this.githubLinks.forEach((el, idx) => {
+      const link = el;
+      link.y += (link.height + 10) * idx;
+    });
+    this.initHoverLinksEvents();
+
+    const logoLink = this.menu.add.image(0, 0, 'rss-logo');
+    logoLink.displayWidth = 150;
+    logoLink.displayHight = 50;
+    logoLink.y = link2.y;
+    logoLink.x = link4.x + link4.width;
+    logoLink.setInteractive();
+    logoLink.on('pointerdown', AboutPage.openLink, GITHUB_LINKS.RSS);
+    const children = [logoLink, this.createdBy, ...this.githubLinks];
+
+    this.linkContainer = this.menu.add.container(0, 0, children).setVisible(false);
+  }
+
+  initHoverLinksEvents() {
+    this.githubLinks.forEach((el) => {
+      this.menu.initHover(el, false, true);
+    });
+  }
+
+  static openLink(link) {
+    const url = link;
+    const action = window.open(url, '_blank');
+
+    if (action && action.focus) {
+      action.focus();
+    } else if (!action) {
+      window.location.href = url;
+    }
   }
 
   turnNext() {

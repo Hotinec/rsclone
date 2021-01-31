@@ -6,6 +6,7 @@ import Phaser from 'phaser';
 
 import background from '../assets/menu/bg.jpg';
 import logo from '../assets/menu/logo.png';
+import logoGithub from '../assets/menu/github-logo.svg';
 import logoRss from '../assets/menu/rss-logo.svg';
 import scull from '../assets/menu/scull.png';
 import emptyScull from '../assets/menu/scull-empty.png';
@@ -59,6 +60,7 @@ export class MenuScene extends BaseScene {
     this.load.image('prev-btn', prevImg);
     this.load.image('ru-on', ruLang);
     this.load.image('rss-logo', logoRss);
+    this.load.image('github-logo', logoGithub);
   }
 
   create() {

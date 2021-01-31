@@ -41,19 +41,35 @@ export default class BaseScene extends Phaser.Scene {
     return { on, off };
   }
 
-  initHover(btn, isSwitch) {
+  initHover(btn, isSwitch, isLink = false) {
     btn.setInteractive();
 
     btn.on('pointerover', () => {
       const currentBtn = btn;
       currentBtn.tintFill = false;
       currentBtn.setTint('0xbababa');
+      // if (!isSwitch) {
+      //   this.hoverImg.setVisible(true);
+      //   this.hoverImg.setDepth(15);
+      //   this.hoverImg.x = btn.x - this.hoverImg.width;
+      //   this.hoverImg.y = btn.y;
+      // }
+
       if (!isSwitch) {
-        this.hoverImg.setVisible(true);
-        this.hoverImg.setDepth(15);
-        this.hoverImg.x = btn.x - this.hoverImg.width;
-        this.hoverImg.y = btn.y;
+        const hoverImg = isLink ? this.linkHover : this.hoverImg;
+        hoverImg.setVisible(true);
+        hoverImg.setDepth(15);
+        hoverImg.x = btn.x - this.hoverImg.width;
+        hoverImg.y = btn.y;
       }
+
+      // if (img) {
+      //   const hoverImg = img;
+      //   hoverImg.setVisible(true);
+      //   hoverImg.setDepth(15);
+      //   hoverImg.x = btn.x - hoverImg.width;
+      //   hoverImg.y = btn.y;
+      // }
     });
 
     btn.on('pointerout', () => {
@@ -62,6 +78,10 @@ export default class BaseScene extends Phaser.Scene {
       if (!isSwitch) {
         this.hoverImg.setVisible(false);
       }
+
+      // if (img) {
+      //   img.setVisible(false);
+      // }
     });
   }
 
@@ -86,5 +106,8 @@ export default class BaseScene extends Phaser.Scene {
     this.hoverImg = this.add.image(100, 100, 'scull');
     this.hoverImg.setVisible(false);
     this.hoverImg.setScale(0.4);
+
+    this.linkHover = this.add.image(100, 100, 'github-logo');
+    this.linkHover.setVisible(false);
   }
 }
