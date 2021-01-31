@@ -172,11 +172,11 @@ export default class MainMenu {
 
     this.dialogTitle = this.menu.add.text(x + 200, y + 80,
       chooseTheme,
-      { font: '26px monospace' })
+      { font: '26px monospace, sans-serif' })
       .setOrigin(0.5, 0.5)
       .setDepth(9);
 
-    const font = { font: '22px monospace' };
+    const font = { font: '22px monospace, sans-serif' };
     this.theme1 = this.menu.add.renderTexture(x + 40, y + 150, 320, 50);
     this.theme1.fill(0xffffff, 0.15).setDepth(9).setInteractive();
     this.theme1Text = this.menu.add.text(x + 200, y + 165, darkTheme, font)

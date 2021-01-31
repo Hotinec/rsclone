@@ -37,14 +37,14 @@ export class PauseScene extends Phaser.Scene {
     const { score } = this.gameScene;
     // @ts-ignore
     const { text: timeText } = this.statusScene.timeText;
-    const infoFont = { font: '22px monospace' };
+    const infoFont = { font: '22px monospace, sans-serif' };
 
     const {
       timeTitle, scoreTitle, healthTitle, pauseState, finishState, resumeState,
       // @ts-ignore
     } = this.menuScene.currentLang.vacabluary;
 
-    const title = this.add.text(positionX, positionY, pauseState, { font: '50px monospace' });
+    const title = this.add.text(positionX, positionY, pauseState, { font: '50px monospace, sans-serif' });
     const time = this.add.text(positionX, title.y + title.displayHeight + 20, `${timeTitle}: ${timeText}`, infoFont);
     const health = this.add.text(positionX, time.y + 25, `${healthTitle}: ${hp}`, infoFont);
     const points = this.add.text(positionX, health.y + 25, `${scoreTitle}: ${score}`, infoFont);
@@ -65,7 +65,7 @@ export class PauseScene extends Phaser.Scene {
       });
 
     const resumeTxt = this.add.text(positionX + 80, points.y + 100, resumeState, {
-      font: '30px monospace',
+      font: '30px monospace, sans-serif',
       color: '#212121',
     });
     resumeTxt.setOrigin(0.5, 0.5);
@@ -88,7 +88,7 @@ export class PauseScene extends Phaser.Scene {
       });
 
     const finishTxt = this.add.text(positionX + 80, resumeBtn.y + 80, finishState, {
-      font: '30px monospace',
+      font: '30px monospace, sans-serif',
       color: '#212121',
     });
     finishTxt.setOrigin(0.5, 0.5);

@@ -68,7 +68,7 @@ export default class OptionsMenu {
         y: this.y * 0.1 + 7,
         text: 'Options',
         style: {
-          font: '40px monospace',
+          font: '40px monospace, sans-serif',
           // @ts-ignore
           fill: '#212121',
         },
@@ -96,13 +96,13 @@ export default class OptionsMenu {
 
   createFSOpt(): void {
     const y = this.y * 0.45;
-    const titleX = this.x / 2 - 140;
+    const titleX = this.x / 2 - 145;
     // @ts-ignore
     const { fullScreen } = this.menu.currentLang.vacabluary;
     const { isFullscreen } = this.menu.scale;
-    this.fullScreen = this.menu.add.text(titleX, y, fullScreen, { font: '26px monospace' });
+    this.fullScreen = this.menu.add.text(titleX, y, fullScreen, { font: '26px monospace, sans-serif' });
 
-    const btnX = titleX + this.fullScreen.displayWidth + 100;
+    const btnX = titleX + 270;
     this.fullScreenBtn = this.menu.createSwitchBtn({
       x: btnX,
       y: y + 10,
@@ -123,7 +123,7 @@ export default class OptionsMenu {
     const { lang } = this.menu.currentLang;
 
     const isEnglish = lang === 'en';
-    this.language = this.menu.add.text(titleX, y, language, { font: '26px monospace' });
+    this.language = this.menu.add.text(titleX, y, language, { font: '26px monospace, sans-serif' });
 
     const btnX = titleX + 270;
     // const btnX = titleX + this.language.displayWidth + 125;
@@ -146,7 +146,7 @@ export default class OptionsMenu {
 
     this.volumeTitle = this.menu.add.text(
       titleX,
-      y, volume, { font: '26px monospace' },
+      y, volume, { font: '26px monospace, sans-serif' },
     );
     const boxX = this.x / 2 - 145 + 130;
     // @ts-ignore

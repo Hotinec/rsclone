@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { GITHUB_LINKS } from '../constants';
 import { MenuScene } from '../scenes';
 
@@ -118,7 +119,7 @@ export default class AboutPage {
           y: this.y * 0.1 + 7,
           text: about,
           style: {
-            font: '40px monospace',
+            font: '40px monospace, sans-serif',
             color: '#212121',
           },
         },
@@ -153,7 +154,6 @@ export default class AboutPage {
       const link1 :Phaser.GameObjects.Text = this.menu.make.text({
         x: this.background.x, y: linksY, text: GITHUB_LINKS.ARTEM, style,
       });
-      link1.on('pointerdown', AboutPage.openLink, 'https://github.com/Hotinec');
       const link2 :Phaser.GameObjects.Text = this.menu.make.text({
         x: this.background.x, y: linksY, text: GITHUB_LINKS.POLINA, style,
       });
@@ -168,8 +168,9 @@ export default class AboutPage {
       this.githubLinks.forEach((el, idx) => {
         const link = el;
         link.y += (link.height + 10) * idx;
+        link.setInteractive();
+        AboutPage.initHoverLinksEvents(link);
       });
-      this.initHoverLinksEvents();
 
       const logoLink = this.menu.add.image(0, 0, 'rss-logo');
       logoLink.displayWidth = 150;
@@ -183,30 +184,31 @@ export default class AboutPage {
       this.linkContainer = this.menu.add.container(0, 0, children).setVisible(false);
     }
 
-    initHoverLinksEvents(): void {
-      this.githubLinks.forEach((el) => {
-        el.on('pointerdown', () => {
-          const link = el;
-          link.tintFill = false;
-          link.setTint(0xbababa);
-        });
+    static initHoverLinksEvents(el: Phaser.GameObjects.Text): void {
+      el.on('pointerover', () => {
+        const link = el;
+        link.tintFill = false;
+        link.setTint(0xbababa);
+      });
 
-        el.on('pointerout', () => {
-          const link = el;
-          link.clearTint();
-        });
+      el.on('pointerdown', AboutPage.openLink, el.text);
+
+      el.on('pointerout', () => {
+        const link = el;
+        link.clearTint();
       });
     }
 
-    static openLink(link: string): void {
-      const url = link;
-      const action = window.open(url, '_blank');
+    static openLink(): void {
+      // @ts-ignore
+      const action = window.open(this, '_blank');
 
       if (action && action.focus) {
         action.focus();
-      } else if (!action) {
-        window.location.href = url;
       }
+      // else if (!action) {
+      //   window.location.href = this;
+      // }
     }
 
     turnNext(): void {
@@ -281,7 +283,7 @@ export default class AboutPage {
 
     createBackground(): void {
       let x;
-      if (this.x < 500) {
+      if (this.x < 820) {
         this.backgroundWidth = this.x;
         x = 0;
       } else if (this.x < 1200 && this.x > this.y) {
@@ -301,11 +303,11 @@ export default class AboutPage {
 
     createFontSize(): void {
       if (this.x > 1200 || this.y > this.x) {
-        this.headerFont = '28px monospace';
-        this.textFont = '22px monospace';
+        this.headerFont = '24px monospace, sans-serif';
+        this.textFont = '20px monospace, sans-serif';
       } else {
-        this.headerFont = '22px monospace';
-        this.textFont = '18px monospace';
+        this.headerFont = '20px monospace, sans-serif';
+        this.textFont = '18px monospace, sans-serif';
       }
     }
 

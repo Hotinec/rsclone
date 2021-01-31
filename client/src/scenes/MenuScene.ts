@@ -23,7 +23,7 @@ import prevImg from '../assets/menu/prev.png';
 // import logoRss from '../assets/menu/rss-logo.svg';
 import keyBtn from '../assets/menu/keyBtn.png';
 import BaseScene from './BaseScene';
-import languages from '../vacabluary';
+import languages from '../vocabluary';
 
 export class MenuScene extends BaseScene {
   soundOn: boolean;

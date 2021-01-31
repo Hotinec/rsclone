@@ -92,7 +92,7 @@ export class GameOverScene extends BaseScene {
       paddingTop: '2px',
       paddingBottom: '2px',
       fontSize: '22px',
-      fontFamily: 'monospace',
+      fontFamily: 'monospace, sans-serif',
       color: '#000000',
       border: '3px solid',
       backgroundColor: '#e6e6e6',
@@ -175,26 +175,26 @@ export class GameOverScene extends BaseScene {
     // @ts-ignore
     const y = height * 0.4;
     // @ts-ignore
-    const title = this.add.text(x, height * 0.3, gameOverState, { font: '46px monospace' });
+    const title = this.add.text(x, height * 0.3, gameOverState, { font: '46px monospace, sans-serif' });
     title.setOrigin(0.5, 0.5);
 
     this.scoreText = this.make.text({
       x: x - 154,
       y,
       text: `${scoreTitle}: ${this.score}`,
-      style: { font: '32px monospace' },
+      style: { font: '32px monospace, sans-serif' },
     });
     this.timeText = this.make.text({
       x: x - 154,
       y: y + 50,
       text: `${timeTitle}: ${this.time}`,
-      style: { font: '32px monospace' },
+      style: { font: '32px monospace, sans-serif' },
     });
     this.savingText = this.make.text({
       x,
       y: y + 150,
       text: gameOverText,
-      style: { font: '22px monospace' },
+      style: { font: '22px monospace, sans-serif' },
     });
     this.savingText.setOrigin(0.5, 0.5);
   }

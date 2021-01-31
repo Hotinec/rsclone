@@ -42,7 +42,7 @@ export default class Score {
         y: height * 0.14,
         text: bestScore,
         style: {
-          font: '40px monospace',
+          font: '40px monospace, sans-serif',
           color: '#212121',
         },
       },
@@ -101,7 +101,7 @@ export default class Score {
 
     const shortName = name.length < 12 ? name : name.slice(0, 12);
 
-    const font = '16px monospace';
+    const font = '16px monospace, sans-serif';
 
     const getDate = (): string => {
       const newDate = new Date(date);
@@ -127,7 +127,7 @@ export default class Score {
     const width = 500;
     const part = width / 5;
 
-    const font = '25px monospace';
+    const font = '25px monospace, sans-serif';
     const color = '#ffffff';
     const {
       nameTitle, timeTitle, dateTitle, scoreTitle,

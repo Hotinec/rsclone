@@ -39,7 +39,7 @@ export class LoadScene extends Phaser.Scene {
       y: height / 2 - 30,
       text: loadingState,
       style: {
-        font: '25px monospace',
+        font: '25px monospace, sans-serif',
         color: '#fff',
       },
     });
