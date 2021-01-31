@@ -30,6 +30,8 @@ export default class Score {
 
   createTitle(): void {
     const { width, height } = this.menu.game.renderer;
+    // @ts-ignore
+    const { bestScore } = this.menu.currentLang.vacabluary;
 
     this.title = this.menu.add.image(width / 2,
       height * 0.14, 'title');
@@ -38,11 +40,10 @@ export default class Score {
       {
         x: width / 2,
         y: height * 0.14,
-        text: 'Best Score',
+        text: bestScore,
         style: {
           font: '40px monospace',
-          // @ts-ignore
-          fill: '#212121',
+          color: '#212121',
         },
       },
     );
@@ -101,7 +102,6 @@ export default class Score {
     const shortName = name.length < 12 ? name : name.slice(0, 12);
 
     const font = '16px monospace';
-    const fill = '#ffffff';
 
     const getDate = (): string => {
       const newDate = new Date(date);
@@ -111,16 +111,11 @@ export default class Score {
       return `${day}/${month + 1}/${year}`;
     };
 
-    // @ts-ignore
-    const txtIdx = this.menu.add.text(20, 20, `${idx + 1}.`, { font, fill });
-    // @ts-ignore
-    const txtName = this.menu.add.text(35, 20, `${shortName}`, { font, fill });
-    // @ts-ignore
-    const txtTime = this.menu.add.text(1.7 * part, 20, `${time}`, { font, fill });
-    // @ts-ignore
-    const txtDate = this.menu.add.text(2.9 * part, 20, `${getDate() || ''}`, { font, fill });
-    // @ts-ignore
-    const txtScore = this.menu.add.text(4.3 * part, 20, `${score}`, { font, fill });
+    const txtIdx = this.menu.add.text(20, 20, `${idx + 1}.`, { font });
+    const txtName = this.menu.add.text(35, 20, `${shortName}`, { font });
+    const txtTime = this.menu.add.text(1.7 * part, 20, `${time}`, { font });
+    const txtDate = this.menu.add.text(2.9 * part, 20, `${getDate() || ''}`, { font });
+    const txtScore = this.menu.add.text(4.3 * part, 20, `${score}`, { font });
     // txtScore.setOrigin(0.1, 0.5);
 
     const container = this.menu.add.container(0, 0,
@@ -133,16 +128,16 @@ export default class Score {
     const part = width / 5;
 
     const font = '25px monospace';
-    const fill = '#ffffff';
+    const color = '#ffffff';
+    const {
+      nameTitle, timeTitle, dateTitle, scoreTitle,
+      // @ts-ignore
+    } = this.menu.currentLang.vacabluary;
 
-    // @ts-ignore
-    const txtName = this.menu.add.text(part / 2, 10, 'Name', { font, fill });
-    // @ts-ignore
-    const txtTime = this.menu.add.text(part * 1.75, 10, 'Time', { font, fill });
-    // @ts-ignore
-    const txtDate = this.menu.add.text(part * 3, 10, 'Date', { font, fill });
-    // @ts-ignore
-    const txtScore = this.menu.add.text(part * 4, 10, 'Score', { font, fill });
+    const txtName = this.menu.add.text(part / 2, 10, nameTitle, { font, color });
+    const txtTime = this.menu.add.text(part * 1.75, 10, timeTitle, { font, color });
+    const txtDate = this.menu.add.text(part * 3, 10, dateTitle, { font, color });
+    const txtScore = this.menu.add.text(part * 4, 10, scoreTitle, { font, color });
 
     const container = this.menu.add.container(0, 0,
       [...arr, txtName, txtTime, txtScore, txtDate]);

@@ -30,6 +30,12 @@ export default class OptionsMenu {
 
   fullScreenBtn: { on: Phaser.GameObjects.Image; off: Phaser.GameObjects.Image; };
 
+  language: Phaser.GameObjects.Text;
+
+  lang: unknown;
+
+  englBtn: { on: Phaser.GameObjects.Image; off: Phaser.GameObjects.Image; }
+
   backBtn: Phaser.GameObjects.Image;
 
   constructor(scene: MenuScene) {
@@ -46,6 +52,7 @@ export default class OptionsMenu {
     this.createTitle();
     this.createBackground();
     this.createVolumeSet();
+    this.createLangOpt();
     this.createFSOpt();
     this.createBackBtn();
     this.initClicks();
@@ -90,9 +97,10 @@ export default class OptionsMenu {
   createFSOpt(): void {
     const y = this.y * 0.45;
     const titleX = this.x / 2 - 140;
-
+    // @ts-ignore
+    const { fullScreen } = this.menu.currentLang.vacabluary;
     const { isFullscreen } = this.menu.scale;
-    this.fullScreen = this.menu.add.text(titleX, y, 'Fullscreen', { font: '26px monospace' });
+    this.fullScreen = this.menu.add.text(titleX, y, fullScreen, { font: '26px monospace' });
 
     const btnX = titleX + this.fullScreen.displayWidth + 100;
     this.fullScreenBtn = this.menu.createSwitchBtn({
@@ -106,16 +114,41 @@ export default class OptionsMenu {
     });
   }
 
+  createLangOpt() :void {
+    const y = this.y * 0.55;
+    const titleX = this.x / 2 - 145;
+    // @ts-ignore
+    const { language } = this.menu.currentLang.vacabluary;
+    // @ts-ignore
+    const { lang } = this.menu.currentLang;
+
+    const isEnglish = lang === 'en';
+    this.language = this.menu.add.text(titleX, y, language, { font: '26px monospace' });
+
+    const btnX = titleX + 270;
+    // const btnX = titleX + this.language.displayWidth + 125;
+    this.englBtn = this.menu.createSwitchBtn({
+      x: btnX,
+      y: y + 10,
+      onTexture: 'en-on',
+      offTexture: 'ru-on',
+      width: 45,
+      height: 45,
+      option: isEnglish,
+    });
+  }
+
   createVolumeSet(): void {
-    const titleX = this.x / 2 - 140;
+    const titleX = this.x / 2 - 145;
     const y = this.y * 0.35;
+    // @ts-ignore
+    const { volume } = this.menu.currentLang.vacabluary;
 
     this.volumeTitle = this.menu.add.text(
       titleX,
-      y, 'Volume', { font: '26px monospace' },
+      y, volume, { font: '26px monospace' },
     );
-
-    const boxX = this.x / 2 - 140 + this.volumeTitle.displayWidth;
+    const boxX = this.x / 2 - 145 + 130;
     // @ts-ignore
     this.volumeBox = this.menu.add.image(boxX, y);
     this.volumeBox.displayWidth = 50;
@@ -132,7 +165,7 @@ export default class OptionsMenu {
   }
 
   createVolumeRange(y: number, i: number, btn: string, arr: Phaser.GameObjects.Image[]): void {
-    const width = this.volumeBox.x + this.volumeBox.width / 2;
+    const width = this.volumeBox.x;
     const img: Phaser.GameObjects.Image = this.menu.add.image(100, 100, btn).setDepth(3);
     const x = width + img.width * 0.2 * i + img.width * 0.2;
     img.setScale(0.25);
@@ -147,7 +180,9 @@ export default class OptionsMenu {
   createBackBtn(): void {
     const x = this.x / 2;
     const y = this.y * 0.2 + this.backgroundHeight - 60;
-    this.backBtn = this.menu.createBtn(x, y, 'Back');
+    // @ts-ignore
+    const { back } = this.menu.currentLang.vacabluary;
+    this.backBtn = this.menu.createBtn(x, y, back);
   }
 
   initClicks(): void {
@@ -160,6 +195,17 @@ export default class OptionsMenu {
       this.menu.scale.stopFullscreen();
       this.fullScreenBtn.on.setVisible(true);
       this.fullScreenBtn.off.setVisible(false);
+    });
+
+    this.englBtn.on.on('pointerdown', () => {
+      this.englBtn.on.setVisible(false);
+      this.englBtn.off.setVisible(true);
+      this.setLanguage();
+    });
+    this.englBtn.off.on('pointerdown', () => {
+      this.englBtn.on.setVisible(true);
+      this.englBtn.off.setVisible(false);
+      this.setLanguage();
     });
 
     this.backBtn.on('pointerdown', () => {
@@ -206,6 +252,21 @@ export default class OptionsMenu {
     }
   }
 
+  setLanguage() : void {
+    const { languages } = this.menu;
+    // @ts-ignore
+    const isEngl = this.menu.currentLang.lang === 'en';
+    if (isEngl) {
+      this.menu.prevLang = languages.en;
+      this.menu.currentLang = languages.ru;
+      this.menu.updateText();
+    } else {
+      this.menu.prevLang = languages.ru;
+      this.menu.currentLang = languages.en;
+      this.menu.updateText();
+    }
+  }
+
   removeOptionsMenu(): void {
     this.title.destroy();
     // @ts-ignore
@@ -220,6 +281,9 @@ export default class OptionsMenu {
     this.fullScreenBtn.off.destroy();
     this.volumeTitle.destroy();
     this.menu.hoverImg.setVisible(false);
+    this.language.destroy();
+    this.englBtn.on.destroy();
+    this.englBtn.off.destroy();
     // @ts-ignore
     this.volumeIndicatorsOn.forEach((el) => el.destroy());
     // @ts-ignore

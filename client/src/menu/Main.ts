@@ -58,18 +58,22 @@ export default class MainMenu {
   createMainMenu(): void {
     this.createLogo();
 
+    const {
+      newGame, options, bestScore, about,
+      // @ts-ignore
+    } = this.menu.currentLang.vacabluary;
     const { width, height } = this.menu.game.config;
     const { audio } = this.menu;
 
     // @ts-ignore
-    const x = width / 2;
+    const x: number = width / 2;
     // @ts-ignore
-    const y = height / 2;
+    const y: number = height * 0.35;
 
-    this.playBtn = this.menu.createBtn(x, y + 50, 'New Game');
-    this.optionsBtn = this.menu.createBtn(x, y + 170, 'Options');
-    this.aboutBtn = this.menu.createBtn(x, y + 110, 'About');
-    this.bestSoresBtn = this.menu.createBtn(x, y + 230, 'Best Scores');
+    this.playBtn = this.menu.createBtn(x, y + 50, newGame);
+    this.optionsBtn = this.menu.createBtn(x, y + 170, options);
+    this.aboutBtn = this.menu.createBtn(x, y + 110, about);
+    this.bestSoresBtn = this.menu.createBtn(x, y + 230, bestScore);
     this.soundBtn = this.menu.createSwitchBtn(
       {
         x,
@@ -91,6 +95,11 @@ export default class MainMenu {
     this.optionsBtn.on('pointerdown', () => {
       this.removeMainMenu();
       this.menu.options.init();
+    });
+
+    this.aboutBtn.on('pointerdown', () => {
+      this.removeMainMenu();
+      this.menu.about.init();
     });
 
     this.bestSoresBtn.on('pointerdown', () => {
@@ -142,6 +151,9 @@ export default class MainMenu {
 
     const { width, height } = this.menu.game.config;
     // @ts-ignore
+    const { chooseTheme, darkTheme, lightTheme } = this.menu.currentLang.vacabluary;
+
+    // @ts-ignore
     this.dialogBackground = this.menu.add.renderTexture(0, 0, width, height);
     this.dialogBackground.fill(0x000000, 0.65).setDepth(7);
     // @ts-ignore
@@ -159,7 +171,7 @@ export default class MainMenu {
     this.menu.initHover(this.close, true);
 
     this.dialogTitle = this.menu.add.text(x + 200, y + 80,
-      'Choose the game theme',
+      chooseTheme,
       { font: '26px monospace' })
       .setOrigin(0.5, 0.5)
       .setDepth(9);
@@ -167,13 +179,13 @@ export default class MainMenu {
     const font = { font: '22px monospace' };
     this.theme1 = this.menu.add.renderTexture(x + 40, y + 150, 320, 50);
     this.theme1.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme1Text = this.menu.add.text(x + 200, y + 165, 'Dark theme', font)
+    this.theme1Text = this.menu.add.text(x + 200, y + 165, darkTheme, font)
       .setOrigin(0.5, 0)
       .setDepth(10);
 
     this.theme2 = this.menu.add.renderTexture(x + 40, y + 220, 320, 50);
     this.theme2.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme2Text = this.menu.add.text(x + 200, y + 232, 'Light theme', font)
+    this.theme2Text = this.menu.add.text(x + 200, y + 232, lightTheme, font)
       .setOrigin(0.5, 0)
       .setDepth(10);
 

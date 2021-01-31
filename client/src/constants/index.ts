@@ -21,3 +21,11 @@ export const THEME = Object.freeze({
   LIGHT: 'light',
   BLACK: 'black',
 });
+
+export const GITHUB_LINKS = Object.freeze({
+  ARTEM: 'https://github.com/Hotinec',
+  POLINA: 'https://github.com/Polina04',
+  ARSENIY: 'https://github.com/ArseniyXaoc',
+  NASTYA: 'https://github.com/AStashevskaya',
+  RSS: 'https://rs.school/',
+});

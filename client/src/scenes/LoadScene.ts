@@ -1,11 +1,15 @@
 import Phaser from 'phaser';
 
+// import { MenuScene } from './MenuScene';
+
 import gameMusic from '../assets/audio/game.mp3';
 import gameOverMusic from '../assets/audio/gameOver.mp3';
 import saveBtn from '../assets/menu/save-btn.png';
 
 export class LoadScene extends Phaser.Scene {
   theme: string | unknown;
+
+  menu: Phaser.Scene;
 
   loadingMusic: Phaser.Sound.BaseSound;
 
@@ -27,15 +31,16 @@ export class LoadScene extends Phaser.Scene {
 
   showLoading(): void {
     const { width, height } = this.cameras.main;
+    // @ts-ignore
+    const { loadingState } = this.menu.currentLang.vacabluary;
 
     const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 30,
-      text: 'Loading',
+      text: loadingState,
       style: {
         font: '25px monospace',
-        // @ts-ignore
-        fill: '#fff',
+        color: '#fff',
       },
     });
     loadingText.setOrigin(0.5, 0.5);
@@ -54,11 +59,12 @@ export class LoadScene extends Phaser.Scene {
   }
 
   setMusic(): void {
-    const menu = this.scene.get('MenuScene');
+    // @ts-ignore
+    this.menu = this.scene.get('MenuScene');
 
     this.loadingMusic = this.sound.add('intro');
     // @ts-ignore
-    if (menu.soundOn) this.loadingMusic.play();
+    if (this.menu.soundOn) this.loadingMusic.play();
   }
 
   create(): void {
