@@ -75,6 +75,8 @@ export class GameScene extends Phaser.Scene {
 
   init(mode: string): void {
     this.mode = mode;
+    this.score = 0;
+    // this.createHotKeys();
   }
 
   preload(): void {

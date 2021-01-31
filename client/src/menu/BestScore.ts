@@ -54,7 +54,7 @@ export default class Score {
     const { width, height } = this.menu.game.config;
 
     // @ts-ignore
-    this.table = new GridTable(this.menu, width / 2, height / 2, 500, 400, {
+    this.table = new GridTable(this.menu, width / 2, height / 2, 500, height / 2, {
       cellWidth: 500,
       cellHeight: 50,
       cellsCount: this.results.length,
