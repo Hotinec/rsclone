@@ -146,8 +146,10 @@ export default class Score {
 
   createBackBtn(): void {
     const { width, height } = this.menu.game.renderer;
+    // @ts-ignore
+    const { back } = this.menu.currentLang.vacabluary;
 
-    this.backBtn = this.menu.createBtn(width / 2, height * 0.82, 'Back');
+    this.backBtn = this.menu.createBtn(width / 2, height * 0.82, back);
 
     this.backBtn.on('pointerdown', () => {
       this.removeBestScore();
