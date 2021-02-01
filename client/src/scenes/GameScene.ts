@@ -11,6 +11,7 @@ import shootSound from '../assets/audio/pistol.wav';
 import knifeAttacke from '../assets/audio/knifeAttack.wav';
 import reload from '../assets/audio/reload.wav';
 import top from '../assets/audio/top.wav';
+import zombieCry from '../assets/audio/krik-zombie.mp3';
 import {
   Zombie, Hero, Weapon, Laser, LaserGroup, FireGroup, Fire, Ammo,
 } from '../models';
@@ -63,6 +64,8 @@ export class GameScene extends Phaser.Scene {
 
   gameMusic: Phaser.Sound.BaseSound;
 
+  zombieCry: Phaser.Sound.BaseSound;
+
   constructor() {
     super('GameScene');
 
@@ -101,6 +104,7 @@ export class GameScene extends Phaser.Scene {
     this.load.audio('khife_attack', knifeAttacke);
     this.load.audio('reload', reload);
     this.load.audio('top', top);
+    this.load.audio('cry', zombieCry);
   }
 
   create(): void {
@@ -133,6 +137,7 @@ export class GameScene extends Phaser.Scene {
     this.soundKnifeAttack = this.sound.add('khife_attack');
     this.reloadSound = this.sound.add('reload');
     this.topSound = this.sound.add('top');
+    this.zombieCry = this.sound.add('cry');
   }
 
   createMap(): {map: Phaser.Tilemaps.Tilemap; layer2: Phaser.Tilemaps.TilemapLayer} {
