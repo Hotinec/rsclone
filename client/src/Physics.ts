@@ -66,6 +66,10 @@ export class Physics {
       if (!zombie.isAttack) {
         zombie.isAttack = true;
         player.hp--;
+        player.setTint(0xff0505);
+        setTimeout(() => {
+          player.clearTint();
+        }, 150);
         zombie.body.stop();
         x = false;
 
