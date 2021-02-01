@@ -43,7 +43,7 @@ export default class MainMenu {
 
   okBtn: Phaser.GameObjects.Image;
 
-  theme: string | null;
+  theme: string | undefined;
 
   constructor(scene: MenuScene) {
     this.menu = scene;
@@ -125,8 +125,7 @@ export default class MainMenu {
     const maxWidth = 1400;
     const middleWidth = 1000;
     const { width, height } = this.menu.game.config;
-    // @ts-ignore
-    this.logo = this.menu.add.image(width / 2, height * 0.20, 'logo').setDepth(1);
+    this.logo = this.menu.add.image(Number(width) / 2, Number(height) * 0.20, 'logo').setDepth(1);
 
     if (width < maxWidth && width > middleWidth) {
       this.logo.scaleX = this.logo.scaleY * 0.8;
@@ -141,13 +140,11 @@ export default class MainMenu {
     this.removeMainMenu();
 
     const { width, height } = this.menu.game.config;
-    // @ts-ignore
-    this.dialogBackground = this.menu.add.renderTexture(0, 0, width, height);
+    this.dialogBackground = this.menu.add.renderTexture(0, 0, Number(width), Number(height));
     this.dialogBackground.fill(0x000000, 0.65).setDepth(7);
-    // @ts-ignore
-    const x = width / 2 - 200;
-    // @ts-ignore
-    const y = height / 2 - 200;
+
+    const x = Number(width) / 2 - 200;
+    const y = Number(height) / 2 - 200;
     this.box = this.menu.add.renderTexture(x, y, 400, 400);
     this.box.fill(0x000000, 0.5).setDepth(8);
 
@@ -200,7 +197,7 @@ export default class MainMenu {
     } else {
       if (active) active.clearTint();
       activeTxt.setStyle({ color: '#ffffff' });
-      this.theme = null;
+      this.theme = undefined;
     }
   }
 
@@ -248,7 +245,7 @@ export default class MainMenu {
       });
     });
     this.okBtn.on('pointerup', () => {
-      if (this.theme !== null) {
+      if (this.theme !== undefined) {
         // @ts-ignore
         this.menu.scene.start('LoadScene', this.theme);
       }

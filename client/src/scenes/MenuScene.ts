@@ -1,4 +1,4 @@
-import background from '../assets/menu/bg.jpg';
+import background from '../assets/video/background.mp4';
 import logo from '../assets/menu/logo.png';
 import scull from '../assets/menu/scull.png';
 import emptyScull from '../assets/menu/scull-empty.png';
@@ -33,8 +33,6 @@ export class MenuScene extends BaseScene {
   preload(): void {
     this.load.audio('theme', theme);
     this.load.audio('intro', intro);
-    // @ts-ignore
-    this.load.image('menu_bg', background, 0, 0);
     this.load.image('logo', logo);
     this.load.image('scull', scull);
     this.load.image('title', title);
@@ -45,6 +43,7 @@ export class MenuScene extends BaseScene {
     this.load.image('full-on', fullOn);
     this.load.image('full-off', fullOff);
     this.load.image('close', close);
+    this.load.video('background', background, 'loadeddata', false, true);
   }
 
   create(): void {

@@ -87,19 +87,14 @@ export default class BaseScene extends Phaser.Scene {
     });
   }
 
-  createBG(img = 'menu_bg'): void {
-    const bg: Phaser.GameObjects.Image = this.add.image(0, 0, img).setDepth(0);
+  createBG(): void {
     const { width, height } = this.game.config;
-    // @ts-ignore
-    bg.displayHeight = height;
-    bg.scaleX = bg.scaleY;
-
-    // @ts-ignore
-    bg.y = height / 2;
-    // @ts-ignore
-    bg.x = width / 2;
-
-    // bg.x = bg.displayWidth*.5
+    const video:Phaser.GameObjects.Video = this.add.video(-20, -20, 'background');
+    video.setOrigin(0, 0);
+    video.setDisplaySize(Number(width) + 40, Number(height) + 40);
+    video.scaleX = video.scaleY;
+    video.play(true);
+    video.setPaused(false);
   }
 
   setMusic(): void {
