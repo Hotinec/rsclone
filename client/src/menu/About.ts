@@ -149,7 +149,7 @@ export default class AboutPage {
       const style = {
         font: this.textFont,
         padding: {
-          left: this.backgroundWidth * 0.1,
+          left: this.x < 620 ? this.backgroundWidth * 0.05 : this.backgroundWidth * 0.1,
         },
       };
 

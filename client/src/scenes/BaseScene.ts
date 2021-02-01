@@ -24,8 +24,7 @@ export default class BaseScene extends Phaser.Scene {
       text,
       style: {
         font: '27px monospace, sans-serif',
-        // @ts-ignore
-        fill: '#212121',
+        color: '#212121',
       },
     });
     // @ts-ignore

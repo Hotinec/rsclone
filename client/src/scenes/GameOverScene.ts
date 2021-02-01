@@ -101,15 +101,20 @@ export class GameOverScene extends BaseScene {
     };
 
     const { width, height } = this.game.config;
-    // @ts-ignore
-    const y = height * 0.4 + 200;
-    // @ts-ignore
-    this.inputText = new InputText(this, width / 2, y, 270, 40, config);
+
+    const y = +height * 0.4 + 200;
+
+    this.inputText = new InputText(this, +width / 2, y, 270, 40, config);
     this.add.existing(this.inputText);
     this.inputText.setOrigin(0.8, 0.5);
 
     const x = (width + this.inputText.displayWidth) / 2 + 5;
     this.saveBtn = this.createBtn(x, y + 3, save);
+
+    if (save === 'СОХРАНИТЬ') {
+      // @ts-ignore
+      this.saveBtn.textContent.setFont('23px monospace, sans-serif');
+    }
     this.saveBtn.displayWidth = 150;
 
     const btnY = y + this.inputText.height + 25;
