@@ -103,6 +103,10 @@ export class GameOverScene extends BaseScene {
     const x = (width + this.inputText.displayWidth) / 2 + 5;
     this.saveBtn = this.createBtn(x, y + 3, 'SAVE');
     this.saveBtn.displayWidth = 150;
+
+    this.inputText.on('textchange', () => {
+      this.inputText.setStyle('border-color', '#9c9f9e');
+    });
   }
 
   initInputEvents(): void {
@@ -112,16 +116,19 @@ export class GameOverScene extends BaseScene {
   }
 
   initInputEventHandler(): void {
-    this.setResult();
-    // this.saveResult();
-    addResult(JSON.stringify({
-      name: this.inputText.text,
-      time: this.time.toString(),
-      score: this.score,
-    }));
-    this.inputText.text = '';
-    this.gameOverMusic.stop();
-    this.scene.start('MenuScene');
+    if (this.inputText.text.length === 0) {
+      this.inputText.setStyle('border-color', '#FF0000');
+    } else {
+      this.setResult();
+      addResult(JSON.stringify({
+        name: this.inputText.text,
+        time: this.time.toString(),
+        score: this.score,
+      }));
+      this.inputText.text = '';
+      this.gameOverMusic.stop();
+      this.scene.start('MenuScene');
+    }
   }
 
   setResult(): void {
