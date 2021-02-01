@@ -170,12 +170,11 @@ export class GameOverScene extends BaseScene {
       gameOverText, gameOverState, scoreTitle, timeTitle,
     // @ts-ignore
     } = this.menu.currentLang.vacabluary;
-    // @ts-ignore
-    const x = width / 2;
-    // @ts-ignore
-    const y = height * 0.4;
-    // @ts-ignore
-    const title = this.add.text(x, height * 0.3, gameOverState, { font: '46px monospace, sans-serif' });
+
+    const x = +width / 2;
+    const y = +height * 0.4;
+
+    const title = this.add.text(x, +height * 0.3, gameOverState, { font: '46px monospace, sans-serif' });
     title.setOrigin(0.5, 0.5);
 
     this.scoreText = this.make.text({

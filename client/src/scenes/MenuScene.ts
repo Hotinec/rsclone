@@ -19,8 +19,7 @@ import enLang from '../assets/menu/en.png';
 import ruLang from '../assets/menu/ru.png';
 import nextImg from '../assets/menu/next.png';
 import prevImg from '../assets/menu/prev.png';
-// import logoGithub from '../assets/menu/github-logo.svg';
-// import logoRss from '../assets/menu/rss-logo.svg';
+import logoRss from '../assets/menu/rss.png';
 import keyBtn from '../assets/menu/keyBtn.png';
 import BaseScene from './BaseScene';
 import languages from '../vocabluary';
@@ -68,8 +67,7 @@ export class MenuScene extends BaseScene {
     this.load.image('next-btn', nextImg);
     this.load.image('prev-btn', prevImg);
     this.load.image('ru-on', ruLang);
-    // this.load.image('rss-logo', logoRss);
-    // this.load.image('github-logo', logoGithub);
+    this.load.image('rss-logo', logoRss);
   }
 
   create(): void {

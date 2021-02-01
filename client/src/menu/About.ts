@@ -1,6 +1,7 @@
 /* eslint-disable no-debugger */
-import { GITHUB_LINKS } from '../constants';
+import { LINKS_URL } from '../constants';
 import { MenuScene } from '../scenes';
+import openLink from '../utils/openLink';
 
 export default class AboutPage {
     menu: MenuScene;
@@ -133,10 +134,13 @@ export default class AboutPage {
       const headerY = y + height + 30;
       const x = this.backgroundWidth * 0.5 + this.background.x;
 
+      // @ts-ignore
+      const { createdBy } = this.menu.currentLang.vacabluary;
+
       this.createdBy = this.menu.make.text({
         x,
         y: headerY,
-        text: 'Created by',
+        text: createdBy,
         style: {
           font: this.headerFont,
         },
@@ -145,23 +149,23 @@ export default class AboutPage {
       const style = {
         font: this.textFont,
         padding: {
-          left: this.backgroundWidth * 0.2,
+          left: this.backgroundWidth * 0.1,
         },
       };
 
       const linksY: number = this.createdBy.y + this.createdBy.height + 20;
 
       const link1 :Phaser.GameObjects.Text = this.menu.make.text({
-        x: this.background.x, y: linksY, text: GITHUB_LINKS.ARTEM, style,
+        x: this.background.x, y: linksY, text: LINKS_URL.ARTEM, style,
       });
       const link2 :Phaser.GameObjects.Text = this.menu.make.text({
-        x: this.background.x, y: linksY, text: GITHUB_LINKS.POLINA, style,
+        x: this.background.x, y: linksY, text: LINKS_URL.POLINA, style,
       });
       const link3 :Phaser.GameObjects.Text = this.menu.make.text({
-        x: this.background.x, y: linksY, text: GITHUB_LINKS.ARSENIY, style,
+        x: this.background.x, y: linksY, text: LINKS_URL.ARSENIY, style,
       });
       const link4 :Phaser.GameObjects.Text = this.menu.make.text({
-        x: this.background.x, y: linksY, text: GITHUB_LINKS.NASTYA, style,
+        x: this.background.x, y: linksY, text: LINKS_URL.NASTYA, style,
       });
       this.githubLinks = [link1, link2, link3, link4];
 
@@ -169,46 +173,34 @@ export default class AboutPage {
         const link = el;
         link.y += (link.height + 10) * idx;
         link.setInteractive();
-        AboutPage.initHoverLinksEvents(link);
+        AboutPage.initLinksEvents(link);
       });
 
       const logoLink = this.menu.add.image(0, 0, 'rss-logo');
       logoLink.displayWidth = 150;
-      logoLink.displayHeight = 50;
-      //   logoLink.y = link2.y;
-      // //   logoLink.x = link4.x + link4.width;
-      //   logoLink.setInteractive();
-      //   logoLink.on('pointerdown', AboutPage.openLink, GITHUB_LINKS.RSS);
+      logoLink.displayHeight = 60;
+      logoLink.x = this.background.x + this.backgroundWidth - logoLink.displayWidth;
+      logoLink.y = link2.y;
+      logoLink.setInteractive();
+      logoLink.on('pointerdown', openLink, LINKS_URL.RSS);
       const children = [logoLink, this.createdBy, ...this.githubLinks];
 
       this.linkContainer = this.menu.add.container(0, 0, children).setVisible(false);
     }
 
-    static initHoverLinksEvents(el: Phaser.GameObjects.Text): void {
+    static initLinksEvents(el: Phaser.GameObjects.Text): void {
       el.on('pointerover', () => {
         const link = el;
         link.tintFill = false;
         link.setTint(0xbababa);
       });
 
-      el.on('pointerdown', AboutPage.openLink, el.text);
+      el.on('pointerdown', openLink, el.text);
 
       el.on('pointerout', () => {
         const link = el;
         link.clearTint();
       });
-    }
-
-    static openLink(): void {
-      // @ts-ignore
-      const action = window.open(this, '_blank');
-
-      if (action && action.focus) {
-        action.focus();
-      }
-      // else if (!action) {
-      //   window.location.href = this;
-      // }
     }
 
     turnNext(): void {
@@ -249,17 +241,12 @@ export default class AboutPage {
     }
 
     createContentContainer(): void {
-    // const { height, y } = this.headerText2;
-    // const Y = y + height + 50;
-    // const X = this.backgroundWidth / 2 + this.background.x;
       this.container = this.menu.add.container(0, 0);
-      // this.container = this.menu.add.container(X, Y);
       this.container.add(this.runSection);
       this.container.add(this.weaponSection);
       this.container.add(this.linkContainer);
       const containerWidth = this.rifleKey.x - this.weaponTitle.x;
       this.container.width = containerWidth;
-      // this.container.x = X - containerWidth / 2;
 
       const { first } = this.container;
       // @ts-ignore
@@ -306,7 +293,7 @@ export default class AboutPage {
         this.headerFont = '24px monospace, sans-serif';
         this.textFont = '20px monospace, sans-serif';
       } else {
-        this.headerFont = '20px monospace, sans-serif';
+        this.headerFont = '22px monospace, sans-serif';
         this.textFont = '18px monospace, sans-serif';
       }
     }
@@ -332,7 +319,6 @@ export default class AboutPage {
           font: this.textFont,
         },
       });
-      // key.description.setTint('0xbababa');
       key.setInteractive();
 
       key.on('pointerover', () => {
@@ -342,7 +328,6 @@ export default class AboutPage {
         btn.setScale(1.1);
         // @ts-ignore
         btn.description.setScale(1.15);
-      // btn.description.clearTint();
       });
 
       key.on('pointerout', () => {
@@ -351,7 +336,6 @@ export default class AboutPage {
         btn.setScale(1);
         // @ts-ignore
         btn.description.setScale(1);
-      // btn.description.setTint('0xbababa');
       });
 
       this.keys.push(key);
@@ -425,8 +409,7 @@ export default class AboutPage {
       const {
         width, x, y,
       } = description;
-      // const distance = this.x > this.y ? this.background.x + this.backgroundWidth * 0.25
-      //   : x + width + 120;
+
       const distance = width + x + 120;
       this.leftKey.x = distance;
       this.leftKey.y = y;

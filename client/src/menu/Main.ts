@@ -65,10 +65,8 @@ export default class MainMenu {
     const { width, height } = this.menu.game.config;
     const { audio } = this.menu;
 
-    // @ts-ignore
-    const x: number = width / 2;
-    // @ts-ignore
-    const y: number = height * 0.35;
+    const x: number = +width / 2;
+    const y: number = +height * 0.35;
 
     this.playBtn = this.menu.createBtn(x, y + 50, newGame);
     this.optionsBtn = this.menu.createBtn(x, y + 170, options);
@@ -134,8 +132,7 @@ export default class MainMenu {
     const maxWidth = 1400;
     const middleWidth = 1000;
     const { width, height } = this.menu.game.config;
-    // @ts-ignore
-    this.logo = this.menu.add.image(width / 2, height * 0.20, 'logo').setDepth(1);
+    this.logo = this.menu.add.image(+width / 2, +height * 0.20, 'logo').setDepth(1);
 
     if (width < maxWidth && width > middleWidth) {
       this.logo.scaleX = this.logo.scaleY * 0.8;
@@ -222,7 +219,7 @@ export default class MainMenu {
         // @ts-ignore
         this.theme1.tintFill = false;
         // @ts-ignore
-        this.theme1.setTint('#919191');
+        this.theme1.setTint(0X919191);
       });
       this.theme1.on('pointerout', () => {
         if (this.theme !== THEME.BLACK) {
@@ -242,7 +239,7 @@ export default class MainMenu {
     this.theme2.on('pointerover', () => {
       this.theme2.tintFill = false;
       // @ts-ignore
-      this.theme2.setTint('#919191');
+      this.theme2.setTint(0X919191);
     });
     this.theme2.on('pointerout', () => {
       if (this.theme !== THEME.LIGHT) {

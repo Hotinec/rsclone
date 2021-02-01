@@ -35,6 +35,7 @@ const english = {
     aboutText1: 'Stay alive as long as possible and go for the height score.',
     aboutText2: 'Fight your way through and collect weapons and health.',
     chooseTheme: 'Choose the game theme',
+    createdBy: 'Created by',
     darkTheme: 'Dark',
     lightTheme: 'Light',
     // gameOver

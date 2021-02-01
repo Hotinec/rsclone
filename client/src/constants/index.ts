@@ -22,10 +22,10 @@ export const THEME = Object.freeze({
   BLACK: 'black',
 });
 
-export const GITHUB_LINKS = Object.freeze({
+export const LINKS_URL = Object.freeze({
   ARTEM: 'https://github.com/Hotinec',
   POLINA: 'https://github.com/Polina04',
   ARSENIY: 'https://github.com/ArseniyXaoc',
   NASTYA: 'https://github.com/AStashevskaya',
-  RSS: 'https://rs.school/',
+  RSS: 'https://rs.school/js/',
 });

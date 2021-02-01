@@ -8,8 +8,6 @@ export default class OptionsMenu {
 
   y: number;
 
-  btnsTexts: [];
-
   volumeIndicatorsOn: [];
 
   volumeIndicatorsOff: [];
@@ -42,7 +40,6 @@ export default class OptionsMenu {
     this.menu = scene;
     this.x = this.menu.game.renderer.width;
     this.y = this.menu.game.renderer.height;
-    this.btnsTexts = [];
     this.volumeIndicatorsOn = [];
     this.volumeIndicatorsOff = [];
   }
@@ -62,15 +59,17 @@ export default class OptionsMenu {
     this.title = this.menu.add.image(this.x / 2,
       this.y * 0.1, 'title');
     // @ts-ignore
+    const { options } = this.menu.currentLang.vacabluary;
+
+    // @ts-ignore
     this.title.textContent = this.menu.make.text(
       {
         x: this.x / 2,
         y: this.y * 0.1 + 7,
-        text: 'Options',
+        text: options,
         style: {
           font: '40px monospace, sans-serif',
-          // @ts-ignore
-          fill: '#212121',
+          color: '#212121',
         },
       },
     );
@@ -126,7 +125,7 @@ export default class OptionsMenu {
     this.language = this.menu.add.text(titleX, y, language, { font: '26px monospace, sans-serif' });
 
     const btnX = titleX + 270;
-    // const btnX = titleX + this.language.displayWidth + 125;
+
     this.englBtn = this.menu.createSwitchBtn({
       x: btnX,
       y: y + 10,
@@ -214,15 +213,15 @@ export default class OptionsMenu {
     });
 
     this.volumeIndicatorsOff.forEach((el, idx) => {
-      // @ts-ignore
-      el.on('pointerdown', () => {
+      const btn: Phaser.GameObjects.Image = el;
+      btn.on('pointerdown', () => {
         this.setVolumeUp(idx);
       });
     });
 
     this.volumeIndicatorsOn.forEach((el, idx) => {
-      // @ts-ignore
-      el.on('pointerdown', () => {
+      const btn: Phaser.GameObjects.Image = el;
+      btn.on('pointerdown', () => {
         this.setVolumeDown(idx);
       });
     });
@@ -236,8 +235,8 @@ export default class OptionsMenu {
     this.menu.sound.setVolume(n);
 
     for (let i = 0; i <= idx; i++) {
-      // @ts-ignore
-      this.volumeIndicatorsOn[i].setVisible(true);
+      const btn: Phaser.GameObjects.Image = this.volumeIndicatorsOn[i];
+      btn.setVisible(true);
     }
   }
 
@@ -247,8 +246,8 @@ export default class OptionsMenu {
     this.menu.sound.setVolume(n);
 
     for (let i = this.volumeIndicatorsOn.length - 1; idx <= i; i--) {
-      // @ts-ignore
-      this.volumeIndicatorsOn[i].setVisible(false);
+      const btn: Phaser.GameObjects.Image = this.volumeIndicatorsOn[i];
+      btn.setVisible(false);
     }
   }
 
@@ -265,6 +264,17 @@ export default class OptionsMenu {
       this.menu.currentLang = languages.en;
       this.menu.updateText();
     }
+  }
+
+  destroyVolumeSet(): void {
+    this.volumeIndicatorsOn.forEach((el) => {
+      const btn: Phaser.GameObjects.Image = el;
+      btn.destroy();
+    });
+    this.volumeIndicatorsOff.forEach((el) => {
+      const btn: Phaser.GameObjects.Image = el;
+      btn.destroy();
+    });
   }
 
   removeOptionsMenu(): void {
@@ -284,10 +294,7 @@ export default class OptionsMenu {
     this.language.destroy();
     this.englBtn.on.destroy();
     this.englBtn.off.destroy();
-    // @ts-ignore
-    this.volumeIndicatorsOn.forEach((el) => el.destroy());
-    // @ts-ignore
-    this.volumeIndicatorsOff.forEach((el) => el.destroy());
+    this.destroyVolumeSet();
     this.volumeIndicatorsOn = [];
     this.volumeIndicatorsOff = [];
   }

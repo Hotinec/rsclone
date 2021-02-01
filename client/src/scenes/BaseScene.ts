@@ -15,10 +15,6 @@ export default class BaseScene extends Phaser.Scene {
 
   audio: Phaser.Sound.BaseSound;
 
-  //   constructor(key) {
-  //     super(key);
-  //   }
-
   createBtn(x: number, y: number, text: string, button = 'btn'): Phaser.GameObjects.Image {
     const btn: Phaser.GameObjects.Image = this.add.image(x, y, button).setDepth(1);
     // @ts-ignore

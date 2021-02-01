@@ -4,7 +4,6 @@ import Phaser from 'phaser';
 
 import gameMusic from '../assets/audio/game.mp3';
 import gameOverMusic from '../assets/audio/gameOver.mp3';
-import saveBtn from '../assets/menu/save-btn.png';
 
 export class LoadScene extends Phaser.Scene {
   theme: string | unknown;
@@ -24,7 +23,6 @@ export class LoadScene extends Phaser.Scene {
   preload(): void {
     this.load.audio('game-music', gameMusic);
     this.load.audio('gameOver-music', gameOverMusic);
-    this.load.image('save-btn', saveBtn);
     this.setMusic();
     this.showLoading();
   }
