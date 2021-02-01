@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-  "target": "es6",
-  "sourceMap": true,
-  "allowJs": true,
-  "strictNullChecks": true,
-  "noImplicitAny": true,
-  "preserveConstEnums": true,
-  "esModuleInterop": true,
-  "outDir": "dist",
-  "moduleResolution": "node",
+      "target": "es6",
+      "module": "commonjs",
+      "sourceMap": true,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "strict": true,
+      "noImplicitAny": true,
+      "moduleResolution": "node",
+      "baseUrl": "./src",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "./src/typings.d.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,0 +1,104 @@
+{
+    "anims": [
+        {
+            "key": "run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 22,
+            "frames": [
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_0"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_1"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_2"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_3"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_4"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_5"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_6"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_7"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_8"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_9"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_10"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_11"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_12"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_13"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_14"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_15"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_16"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_17"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_18"
+                },
+                {
+                    "key": "feet",
+                    "frame": "survivor-run_19"
+                }
+            ]
+        },
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "feet",
+                    "frame": "survivor-idle_0"
+                }
+            ]
+        }
+    ]
+}
