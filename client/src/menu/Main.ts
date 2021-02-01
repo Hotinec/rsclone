@@ -43,7 +43,7 @@ export default class MainMenu {
 
   okBtn: Phaser.GameObjects.Image;
 
-  theme: string | undefined;
+  theme: string | null;
 
   constructor(scene: MenuScene) {
     this.menu = scene;
@@ -58,18 +58,20 @@ export default class MainMenu {
   createMainMenu(): void {
     this.createLogo();
 
+    const {
+      newGame, options, bestScore, about,
+      // @ts-ignore
+    } = this.menu.currentLang.vacabluary;
     const { width, height } = this.menu.game.config;
     const { audio } = this.menu;
 
-    // @ts-ignore
-    const x = width / 2;
-    // @ts-ignore
-    const y = height / 2;
+    const x: number = +width / 2;
+    const y: number = +height * 0.35;
 
-    this.playBtn = this.menu.createBtn(x, y + 50, 'New Game');
-    this.optionsBtn = this.menu.createBtn(x, y + 170, 'Options');
-    this.aboutBtn = this.menu.createBtn(x, y + 110, 'About');
-    this.bestSoresBtn = this.menu.createBtn(x, y + 230, 'Best Scores');
+    this.playBtn = this.menu.createBtn(x, y + 50, newGame);
+    this.optionsBtn = this.menu.createBtn(x, y + 170, options);
+    this.aboutBtn = this.menu.createBtn(x, y + 110, about);
+    this.bestSoresBtn = this.menu.createBtn(x, y + 230, bestScore);
     this.soundBtn = this.menu.createSwitchBtn(
       {
         x,
@@ -91,6 +93,11 @@ export default class MainMenu {
     this.optionsBtn.on('pointerdown', () => {
       this.removeMainMenu();
       this.menu.options.init();
+    });
+
+    this.aboutBtn.on('pointerdown', () => {
+      this.removeMainMenu();
+      this.menu.about.init();
     });
 
     this.bestSoresBtn.on('pointerdown', () => {
@@ -125,7 +132,7 @@ export default class MainMenu {
     const maxWidth = 1400;
     const middleWidth = 1000;
     const { width, height } = this.menu.game.config;
-    this.logo = this.menu.add.image(Number(width) / 2, Number(height) * 0.20, 'logo').setDepth(1);
+    this.logo = this.menu.add.image(+width / 2, +height * 0.20, 'logo').setDepth(1);
 
     if (width < maxWidth && width > middleWidth) {
       this.logo.scaleX = this.logo.scaleY * 0.8;
@@ -140,11 +147,16 @@ export default class MainMenu {
     this.removeMainMenu();
 
     const { width, height } = this.menu.game.config;
-    this.dialogBackground = this.menu.add.renderTexture(0, 0, Number(width), Number(height));
-    this.dialogBackground.fill(0x000000, 0.65).setDepth(7);
+    // @ts-ignore
+    const { chooseTheme, darkTheme, lightTheme } = this.menu.currentLang.vacabluary;
 
-    const x = Number(width) / 2 - 200;
-    const y = Number(height) / 2 - 200;
+    // @ts-ignore
+    this.dialogBackground = this.menu.add.renderTexture(0, 0, width, height);
+    this.dialogBackground.fill(0x000000, 0.65).setDepth(7);
+    // @ts-ignore
+    const x = width / 2 - 200;
+    // @ts-ignore
+    const y = height / 2 - 200;
     this.box = this.menu.add.renderTexture(x, y, 400, 400);
     this.box.fill(0x000000, 0.5).setDepth(8);
 
@@ -156,21 +168,21 @@ export default class MainMenu {
     this.menu.initHover(this.close, true);
 
     this.dialogTitle = this.menu.add.text(x + 200, y + 80,
-      'Choose the game theme',
-      { font: '26px monospace' })
+      chooseTheme,
+      { font: '26px monospace, sans-serif' })
       .setOrigin(0.5, 0.5)
       .setDepth(9);
 
-    const font = { font: '22px monospace' };
+    const font = { font: '22px monospace, sans-serif' };
     this.theme1 = this.menu.add.renderTexture(x + 40, y + 150, 320, 50);
     this.theme1.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme1Text = this.menu.add.text(x + 200, y + 165, 'Dark theme', font)
+    this.theme1Text = this.menu.add.text(x + 200, y + 165, darkTheme, font)
       .setOrigin(0.5, 0)
       .setDepth(10);
 
     this.theme2 = this.menu.add.renderTexture(x + 40, y + 220, 320, 50);
     this.theme2.fill(0xffffff, 0.15).setDepth(9).setInteractive();
-    this.theme2Text = this.menu.add.text(x + 200, y + 232, 'Light theme', font)
+    this.theme2Text = this.menu.add.text(x + 200, y + 232, lightTheme, font)
       .setOrigin(0.5, 0)
       .setDepth(10);
 
@@ -197,7 +209,7 @@ export default class MainMenu {
     } else {
       if (active) active.clearTint();
       activeTxt.setStyle({ color: '#ffffff' });
-      this.theme = undefined;
+      this.theme = null;
     }
   }
 
@@ -207,7 +219,7 @@ export default class MainMenu {
         // @ts-ignore
         this.theme1.tintFill = false;
         // @ts-ignore
-        this.theme1.setTint('#919191');
+        this.theme1.setTint(0X919191);
       });
       this.theme1.on('pointerout', () => {
         if (this.theme !== THEME.BLACK) {
@@ -227,7 +239,7 @@ export default class MainMenu {
     this.theme2.on('pointerover', () => {
       this.theme2.tintFill = false;
       // @ts-ignore
-      this.theme2.setTint('#919191');
+      this.theme2.setTint(0X919191);
     });
     this.theme2.on('pointerout', () => {
       if (this.theme !== THEME.LIGHT) {
@@ -245,7 +257,7 @@ export default class MainMenu {
       });
     });
     this.okBtn.on('pointerup', () => {
-      if (this.theme !== undefined) {
+      if (this.theme !== null) {
         // @ts-ignore
         this.menu.scene.start('LoadScene', this.theme);
       }
