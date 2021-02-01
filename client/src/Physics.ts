@@ -41,7 +41,6 @@ export class Physics {
     this.scene.physics.add.collider(bullets, zombies, (bullet: Laser, zombie: Zombie) => {
       zombie.hp--;
       bullet.destroy();
-      this.scene.zombieCry.play();
 
       this._showBlood(zombie);
 
@@ -104,7 +103,6 @@ export class Physics {
     this.scene.physics.add.overlap(knife, zombies, (kn, zombie: Zombie) => {
       zombies.killAndHide(zombie);
       zombie.hp = 0;
-      this.scene.zombieCry.play();
       this._showBlood(zombie);
     });
   }
@@ -206,6 +204,7 @@ export class Physics {
       this._showAmmo(zombie);
       this._showFirstAid(zombie);
       zombie.destroy();
+      this.scene.zombieCry.play();
       const bloodImg = this.scene.add.image(x, y, 'blood').setScale(0.2);
 
       if (this.scene.mode === 'black') {
