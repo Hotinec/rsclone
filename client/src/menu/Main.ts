@@ -129,17 +129,17 @@ export default class MainMenu {
   }
 
   createLogo(): void {
-    const maxWidth = 1400;
-    const middleWidth = 1000;
     const { width, height } = this.menu.game.config;
     this.logo = this.menu.add.image(+width / 2, +height * 0.20, 'logo').setDepth(1);
 
-    if (width < maxWidth && width > middleWidth) {
-      this.logo.scaleX = this.logo.scaleY * 0.8;
-    }
-
-    if (maxWidth < middleWidth) {
-      this.logo.scaleX = this.logo.scaleY * 0.7;
+    if (width < 650) {
+      this.logo.setScale(0.4);
+    } else if (width < 750) {
+      this.logo.setScale(0.5);
+    } else if (width < 950) {
+      this.logo.setScale(0.6);
+    } else if (width < 1200) {
+      this.logo.setScale(0.8);
     }
   }
 
