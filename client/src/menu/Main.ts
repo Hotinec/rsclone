@@ -256,7 +256,7 @@ export default class MainMenu {
     this.okBtn.on('pointerup', () => {
       if (this.theme !== undefined) {
         // @ts-ignore
-        this.menu.scene.start('LoadScene', { theme: this.theme });
+        this.menu.scene.start('LoadScene', this.theme);
       }
     });
     this.close.on('pointerup', () => {
