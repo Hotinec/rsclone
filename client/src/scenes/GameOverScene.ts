@@ -123,6 +123,7 @@ export class GameOverScene extends BaseScene {
   }
 
   initInputEvents(): void {
+    this.input.keyboard.removeAllKeys(true);
     this.keyObj = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     this.keyObj.on('down', () => this.initInputEventHandler());
     this.saveBtn.on('pointerdown', () => this.initInputEventHandler());
