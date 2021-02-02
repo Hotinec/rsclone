@@ -54,6 +54,7 @@ export default class OptionsMenu {
     this.createFSOpt();
     this.createBackBtn();
     this.initClicks();
+    this.menu.scale.fullscreenTarget = document.getElementById('game');
   }
 
   createTitle(): void {
