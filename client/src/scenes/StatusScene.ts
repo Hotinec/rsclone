@@ -74,14 +74,13 @@ export class StatusScene extends Phaser.Scene {
   create(): void {
     // @ts-ignore
     this.gameScene = this.scene.get('GameScene');
-    // position
-    // @ts-ignore
-    this.scene.moveAbove('StatusScene', this.gameScene);
+
+    this.scene.moveAbove('StatusScene', 'GameScene');
     this.scene.bringToTop();
-    // background
+
     const rt = this.add.renderTexture(0, 0, window.innerWidth * 2, 60);
     rt.fill(0x000000, 0.65);
-    // content
+
     this.createHealthBarView();
     this.createScoreView();
     this.createAmmoView();
@@ -100,10 +99,9 @@ export class StatusScene extends Phaser.Scene {
     const y = 31;
     const x = 50;
 
-    // eslint-disable-next-line no-shadow
-    const heart = this.add.image(26, 30, 'heart');
-    heart.displayHeight = 20;
-    heart.displayWidth = 20;
+    const heartImg = this.add.image(26, 30, 'heart');
+    heartImg.displayHeight = 20;
+    heartImg.displayWidth = 20;
 
     const leftShadowCap = this.add.image(x, y, 'left-cap-shadow')
       .setOrigin(0, 0.5);
@@ -166,8 +164,7 @@ export class StatusScene extends Phaser.Scene {
   createPauseBtn(): void {
     const { width, height } = this.gameScene.game.config;
     const pause = this.add.renderTexture(
-      // @ts-ignore
-      width - 96, height - 60, 110, 60,
+      Number(width) - 96, Number(height) - 60, 110, 60,
     );
     pause.fill(0x000000, 0.65);
     pause.setInteractive()
@@ -184,8 +181,7 @@ export class StatusScene extends Phaser.Scene {
         pause.fill(0x000000, 0.9);
       });
 
-    // @ts-ignore
-    const pauseImage = this.add.image(width - 48, height - 30, 'pause');
+    const pauseImage = this.add.image(Number(width) - 48, Number(height) - 30, 'pause');
     pauseImage.setScale(0.8);
   }
 

@@ -1,19 +1,12 @@
 import Phaser from 'phaser';
-import terrain from '../assets/map/terrain.png';
-import mapJSON from '../assets/map/map.json';
-import blood from '../assets/blood/blood.png';
-import firstAid from '../assets/first-aid-kit.png';
+
 import {
   PLAYER_STATE, ZOMBIE_TYPE, WEAPON, THEME,
 } from '../constants';
 import cursor from '../assets/cursor.cur';
-import shootSound from '../assets/audio/pistol.wav';
-import knifeAttacke from '../assets/audio/knifeAttack.wav';
-import reload from '../assets/audio/reload.wav';
-import top from '../assets/audio/top.wav';
-import zombieCry from '../assets/audio/krik-zombie.mp3';
+
 import {
-  Zombie, Hero, Weapon, Laser, LaserGroup, FireGroup, Fire, Ammo,
+  Zombie, Hero, Weapon, LaserGroup, FireGroup, Ammo,
 } from '../models';
 import { Physics } from '../Physics';
 import { IPointer } from '../models/IPointer';
@@ -79,32 +72,6 @@ export class GameScene extends Phaser.Scene {
   init(mode: string): void {
     this.mode = mode;
     this.score = 0;
-    // this.createHotKeys();
-  }
-
-  preload(): void {
-    this.load.image('blood', blood);
-    this.load.image('first_aid', firstAid);
-
-    // map
-    this.load.image('tilesets', terrain);
-    this.load.tilemapTiledJSON('map', mapJSON);
-    this.scene.launch('StatusScene');
-
-    // models
-    Zombie.preload(this);
-    Hero.preload(this);
-    Weapon.preload(this);
-    Laser.preload(this);
-    Fire.preload(this);
-    Ammo.preload(this);
-
-    // audio
-    this.load.audio('shoot', shootSound);
-    this.load.audio('khife_attack', knifeAttacke);
-    this.load.audio('reload', reload);
-    this.load.audio('top', top);
-    this.load.audio('cry', zombieCry);
   }
 
   create(): void {
@@ -185,8 +152,6 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  // eslint-disable-next-line no-undef
   newZombie(x = 100, y = 200, type = ZOMBIE_TYPE.TYPE_1): Zombie {
     this.zombie = new Zombie({
       scene: this,
@@ -240,12 +205,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   delBulletFromAmmo(gun: string, pointer: IPointer): void {
-    // @ts-ignore
     this.laserGroup.magazine[`${gun}`] -= 1;
 
-    // @ts-ignore
     if (this.laserGroup.magazine[`${gun}`] === 0
-    // @ts-ignore
     && this.laserGroup.magazine[`${gun}All`] > 0) {
       this.reload();
     }

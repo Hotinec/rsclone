@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 
 import {
   GameScene, LoadScene, MenuScene, StatusScene, PauseScene, GameOverScene,
-// eslint-disable-next-line import/extensions
 } from './scenes';
 
 const config = {

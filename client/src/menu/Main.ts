@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { IButton } from '../scenes/BaseScene';
 import { MenuScene } from '../scenes/MenuScene';
 import { THEME } from '../constants';
 
@@ -15,15 +16,15 @@ export default class MainMenu {
 
   theme1: Phaser.GameObjects.RenderTexture | null;
 
-  playBtn: Phaser.GameObjects.Image;
+  playBtn: IButton;
 
-  aboutBtn: Phaser.GameObjects.Image;
+  aboutBtn: IButton;
 
   soundBtn: { on: Phaser.GameObjects.Image; off: Phaser.GameObjects.Image; };
 
-  bestSoresBtn: Phaser.GameObjects.Image;
+  bestSoresBtn: IButton;
 
-  optionsBtn: Phaser.GameObjects.Image;
+  optionsBtn: IButton;
 
   logo: Phaser.GameObjects.Image;
 
@@ -41,7 +42,7 @@ export default class MainMenu {
 
   theme2Text: Phaser.GameObjects.Text;
 
-  okBtn: Phaser.GameObjects.Image;
+  okBtn: IButton;
 
   theme: string | undefined;
 
@@ -61,7 +62,7 @@ export default class MainMenu {
     const {
       newGame, options, bestScore, about,
       // @ts-ignore
-    } = this.menu.currentLang.vacabluary;
+    } = this.menu.currentLang.vocabulary;
     const { width, height } = this.menu.game.config;
     const { audio } = this.menu;
 
@@ -148,15 +149,13 @@ export default class MainMenu {
 
     const { width, height } = this.menu.game.config;
     // @ts-ignore
-    const { chooseTheme, darkTheme, lightTheme } = this.menu.currentLang.vacabluary;
+    const { chooseTheme, darkTheme, lightTheme } = this.menu.currentLang.vocabulary;
 
-    // @ts-ignore
-    this.dialogBackground = this.menu.add.renderTexture(0, 0, width, height);
+    this.dialogBackground = this.menu.add.renderTexture(0, 0, Number(width), Number(height));
     this.dialogBackground.fill(0x000000, 0.65).setDepth(7);
-    // @ts-ignore
-    const x = width / 2 - 200;
-    // @ts-ignore
-    const y = height / 2 - 200;
+
+    const x = Number(width) / 2 - 200;
+    const y = Number(height) / 2 - 200;
     this.box = this.menu.add.renderTexture(x, y, 400, 400);
     this.box.fill(0x000000, 0.5).setDepth(8);
 
@@ -187,7 +186,6 @@ export default class MainMenu {
       .setDepth(10);
 
     this.okBtn = this.menu.createBtn(x + 200, y + 340, 'OK').setDepth(10);
-    // @ts-ignore
     this.okBtn.textContent.setDepth(11);
     this.dialogEvents();
   }
@@ -238,7 +236,6 @@ export default class MainMenu {
     }
     this.theme2.on('pointerover', () => {
       this.theme2.tintFill = false;
-      // @ts-ignore
       this.theme2.setTint(0X919191);
     });
     this.theme2.on('pointerout', () => {
@@ -259,7 +256,7 @@ export default class MainMenu {
     this.okBtn.on('pointerup', () => {
       if (this.theme !== undefined) {
         // @ts-ignore
-        this.menu.scene.start('LoadScene', this.theme);
+        this.menu.scene.start('LoadScene', { theme: this.theme });
       }
     });
     this.close.on('pointerup', () => {
@@ -278,25 +275,20 @@ export default class MainMenu {
     this.theme1Text.destroy();
     this.theme2Text.destroy();
     this.okBtn.destroy();
-    // @ts-ignore
     this.okBtn.textContent.destroy();
   }
 
   removeMainMenu(): void {
     this.logo.destroy();
     this.playBtn.destroy();
-    // @ts-ignore
     this.playBtn.textContent.destroy();
     this.soundBtn.on.destroy();
     this.soundBtn.off.destroy();
     this.aboutBtn.destroy();
-    // @ts-ignore
     this.aboutBtn.textContent.destroy();
     this.bestSoresBtn.destroy();
-    // @ts-ignore
     this.bestSoresBtn.textContent.destroy();
     this.optionsBtn.destroy();
-    // @ts-ignore
     this.optionsBtn.textContent.destroy();
     this.menu.hoverImg.setVisible(false);
   }

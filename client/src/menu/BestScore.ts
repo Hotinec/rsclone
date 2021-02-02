@@ -1,5 +1,6 @@
 import GridTable from 'phaser3-rex-plugins/plugins/gridtable';
 import { MenuScene } from '../scenes';
+import { IButton } from '../scenes/BaseScene';
 import { IResult } from '../scenes/IResult';
 import { getAllResults } from '../services/httpService';
 
@@ -8,9 +9,11 @@ export default class Score {
 
   results: [IResult] | [];
 
-  title: Phaser.GameObjects.Image;
+  title: IButton;
 
-  backBtn: Phaser.GameObjects.Image;
+  backBtn: IButton;
+
+  table: Phaser.GameObjects.Image;
 
   constructor(scene: MenuScene) {
     this.menu = scene;
@@ -18,24 +21,18 @@ export default class Score {
 
   async init(): Promise<void> {
     this.results = await getAllResults();
-    this.sortResults();
     this.createTitle();
     this.createTable();
     this.createBackBtn();
   }
 
-  sortResults(): void {
-    this.results.sort((a: IResult, b: IResult) => b.score - a.score);
-  }
-
   createTitle(): void {
     const { width, height } = this.menu.game.renderer;
     // @ts-ignore
-    const { bestScore } = this.menu.currentLang.vacabluary;
+    const { bestScore } = this.menu.currentLang.vocabulary;
 
     this.title = this.menu.add.image(width / 2,
-      height * 0.14, 'title');
-    // @ts-ignore
+      height * 0.14, 'title') as IButton;
     this.title.textContent = this.menu.make.text(
       {
         x: width / 2,
@@ -47,23 +44,25 @@ export default class Score {
         },
       },
     );
-    // @ts-ignore
     this.title.textContent.setOrigin(0.5, 0).setDepth(2);
   }
 
   createTable(): void {
     const { width, height } = this.menu.game.config;
 
-    // @ts-ignore
-    this.table = new GridTable(this.menu, width / 2, height / 2, 500, height / 2, {
-      cellWidth: 500,
-      cellHeight: 50,
-      cellsCount: this.results.length,
-      columns: 1,
-      cellVisibleCallback: this.onCellVisible.bind(this),
-      clamplTableOXY: false,
-    });
-    // @ts-ignore
+    this.table = new GridTable(this.menu,
+      Number(width) / 2,
+      Number(height) / 2,
+      500,
+      Number(height) / 2,
+      {
+        cellWidth: 500,
+        cellHeight: 50,
+        cellsCount: this.results.length,
+        columns: 1,
+        cellVisibleCallback: this.onCellVisible.bind(this),
+        clamplTableOXY: false,
+      });
     this.table.setOrigin(0.5, 0.5);
   }
 
@@ -116,7 +115,6 @@ export default class Score {
     const txtTime = this.menu.add.text(1.7 * part, 20, `${time}`, { font });
     const txtDate = this.menu.add.text(2.9 * part, 20, `${getDate() || ''}`, { font });
     const txtScore = this.menu.add.text(4.3 * part, 20, `${score}`, { font });
-    // txtScore.setOrigin(0.1, 0.5);
 
     const container = this.menu.add.container(0, 0,
       [...arr, txtIdx, txtName, txtTime, txtScore, txtDate]);
@@ -132,7 +130,7 @@ export default class Score {
     const {
       nameTitle, timeTitle, dateTitle, scoreTitle,
       // @ts-ignore
-    } = this.menu.currentLang.vacabluary;
+    } = this.menu.currentLang.vocabulary;
 
     const txtName = this.menu.add.text(part / 2, 10, nameTitle, { font, color });
     const txtTime = this.menu.add.text(part * 1.75, 10, timeTitle, { font, color });
@@ -147,7 +145,7 @@ export default class Score {
   createBackBtn(): void {
     const { width, height } = this.menu.game.renderer;
     // @ts-ignore
-    const { back } = this.menu.currentLang.vacabluary;
+    const { back } = this.menu.currentLang.vocabulary;
 
     this.backBtn = this.menu.createBtn(width / 2, height * 0.82, back);
 
@@ -159,12 +157,9 @@ export default class Score {
 
   removeBestScore(): void {
     this.title.destroy();
-    // @ts-ignore
     this.title.textContent.destroy();
-    // @ts-ignore
     this.table.destroy();
     this.backBtn.destroy();
-    // @ts-ignore
     this.backBtn.textContent.destroy();
     this.menu.hoverImg.setVisible(false);
   }

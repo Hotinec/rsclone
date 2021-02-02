@@ -1,6 +1,8 @@
-const english = {
+import { ILanguage } from './ILanguage';
+
+const english:ILanguage = {
   lang: 'en',
-  vacabluary: {
+  vocabulary: {
     // main
     newGame: 'New Game',
     options: 'Options',

@@ -1,3 +1,4 @@
+import { IButton } from '../scenes/BaseScene';
 /* eslint-disable no-debugger */
 import { LINKS_URL } from '../constants';
 import { MenuScene } from '../scenes';
@@ -30,7 +31,7 @@ export default class AboutPage {
 
     container: Phaser.GameObjects.Container;
 
-    title: Phaser.GameObjects.Image;
+    title: IButton;
 
     backgroundWidth: number;
 
@@ -50,7 +51,7 @@ export default class AboutPage {
 
     headerFont: string;
 
-    backBtn: Phaser.GameObjects.Image;
+    backBtn: IButton;
 
     nextBtn: Phaser.GameObjects.Image;
 
@@ -110,10 +111,10 @@ export default class AboutPage {
 
     createTitle(): void {
       this.title = this.menu.add.image(this.x / 2,
-        this.y * 0.1, 'title');
+        this.y * 0.1, 'title') as IButton;
       // @ts-ignore
-      const { about } = this.menu.currentLang.vacabluary;
-      // @ts-ignore
+      const { about } = this.menu.currentLang.vocabulary;
+
       this.title.textContent = this.menu.make.text(
         {
           x: this.x / 2,
@@ -125,7 +126,7 @@ export default class AboutPage {
           },
         },
       );
-      // @ts-ignore
+
       this.title.textContent.setOrigin(0.5, 0.1).setDepth(2);
     }
 
@@ -135,7 +136,7 @@ export default class AboutPage {
       const x = this.backgroundWidth * 0.5 + this.background.x;
 
       // @ts-ignore
-      const { createdBy } = this.menu.currentLang.vacabluary;
+      const { createdBy } = this.menu.currentLang.vocabulary;
 
       this.createdBy = this.menu.make.text({
         x,
@@ -280,7 +281,6 @@ export default class AboutPage {
         this.backgroundWidth = this.x - this.x / 3;
         x = this.x / 6;
       }
-      // this.backgroundHeight = this.y - this.y * 0.4;
       this.backgroundHeight = this.y - this.y * 0.3;
 
       this.background = this.menu.add.renderTexture(x,
@@ -299,7 +299,7 @@ export default class AboutPage {
     }
 
     createKey(x: number, y: number, text: string, description: string): Phaser.GameObjects.Image {
-      const key: Phaser.GameObjects.Image = this.menu.add.image(x, y, 'key-btn').setDepth(3);
+      const key = this.menu.add.image(x, y, 'key-btn').setDepth(3) as IButton;
       // @ts-ignore
       key.textContent = this.menu.make.text({
         x,
@@ -347,7 +347,7 @@ export default class AboutPage {
       const {
         up, down, left, right, RIFLE, KNIFE, PISTOL, SHORTGUN,
         // @ts-ignore
-      } = this.menu.currentLang.vacabluary;
+      } = this.menu.currentLang.vocabulary;
 
       this.downKey = this.createKey(0, 0, 'S', down);
       this.leftKey = this.createKey(0, 0, 'A', left);
@@ -366,7 +366,7 @@ export default class AboutPage {
       const runY = y + height + 50;
       const runX = this.backgroundWidth / 2 + this.background.x;
       // @ts-ignore
-      const { run } = this.menu.currentLang.vacabluary;
+      const { run } = this.menu.currentLang.vocabulary;
       this.runTitle = this.menu.make.text({
         x: 0,
         y: 0,
@@ -437,7 +437,7 @@ export default class AboutPage {
       const weaponY = y + height + 50;
       const weaponX = this.backgroundWidth / 2 + this.background.x;
       // @ts-ignore
-      const { weapon } = this.menu.currentLang.vacabluary;
+      const { weapon } = this.menu.currentLang.vocabulary;
       this.weaponTitle = this.menu.make.text({
         x: 0,
         y: 0,
@@ -479,8 +479,6 @@ export default class AboutPage {
       const {
         width, x, y,
       } = description;
-      // const distance = this.x > this.y ? this.background.x + this.backgroundWidth * 0.7
-      //   : x + width + 120;
       const distance = width + x + 120;
       const n = this.keys.length;
 
@@ -499,13 +497,13 @@ export default class AboutPage {
       const x = this.x / 2;
       const y = this.y * 0.2 + this.backgroundHeight - 60;
       // @ts-ignore
-      const { back } = this.menu.currentLang.vacabluary;
+      const { back } = this.menu.currentLang.vocabulary;
       this.backBtn = this.menu.createBtn(x, y, back);
     }
 
     createText(): void {
       // @ts-ignore
-      const { aboutText1, aboutText2 } = this.menu.currentLang.vacabluary;
+      const { aboutText1, aboutText2 } = this.menu.currentLang.vocabulary;
       const { x } = this.background;
       const { y } = this.background;
       const style = {
@@ -548,7 +546,6 @@ export default class AboutPage {
       this.runBtns = [];
       this.weaponBtns = [];
       this.title.destroy();
-      // @ts-ignore
       this.title.textContent.destroy();
       this.headerText1.destroy();
       this.headerText2.destroy();
@@ -556,7 +553,7 @@ export default class AboutPage {
       this.nextBtn.destroy();
       this.prevBtn.destroy();
       this.backBtn.destroy();
-      // @ts-ignore
+
       this.backBtn.textContent.destroy();
       this.background.destroy();
       this.menu.hoverImg.setVisible(false);

@@ -42,8 +42,7 @@ export class GameOverScene extends BaseScene {
     this.getScore();
     this.setMusic();
     this.createBG();
-    // @ts-ignore
-    const background = this.add.renderTexture(0, 0, width, height);
+    const background = this.add.renderTexture(0, 0, Number(width), Number(height));
     background.fill(0x000000, 0.65);
     this.setHoverImg();
     this.getInput();
@@ -81,7 +80,7 @@ export class GameOverScene extends BaseScene {
     const {
       nameTitle, save, mainMenu,
     // @ts-ignore
-    } = this.menu.currentLang.vacabluary;
+    } = this.menu.currentLang.vocabulary;
 
     const config = {
       maxLength: 15,
@@ -181,7 +180,7 @@ export class GameOverScene extends BaseScene {
     const {
       gameOverText, gameOverState, scoreTitle, timeTitle,
     // @ts-ignore
-    } = this.menu.currentLang.vacabluary;
+    } = this.menu.currentLang.vocabulary;
 
     const x = +width / 2;
     const y = +height * 0.4;

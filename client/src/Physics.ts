@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 /* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
 import { ZOMBIE_TYPE, WEAPON } from './constants';
@@ -150,6 +149,8 @@ export class Physics {
       case 30:
         this._showWeapon(zombie, WEAPON.RIFLE);
         break;
+      default:
+        break;
     }
   }
 
@@ -159,17 +160,14 @@ export class Physics {
     const { x: playerX } = this.player;
     const mapWidth = this.map.widthInPixels;
     if (this.player.x < mapWidth / 2) {
-      // @ts-ignore
-      x = Phaser.Math.Between(playerX + width, mapWidth);
+      x = Phaser.Math.Between(playerX + Number(width), mapWidth);
     } else {
       x = Phaser.Math.Between(
-        // @ts-ignore
-        0, mapWidth - (playerX + width / 2),
+        0, mapWidth - (playerX + Number(width) / 2),
       );
     }
 
-    // @ts-ignore
-    let y = Phaser.Math.Between(0, height);
+    let y = Phaser.Math.Between(0, Number(height));
     const zombiesArray = zombies.getChildren();
     if (zombiesArray.length < 30) {
       for (let i = 0; i < 2; i++) {
@@ -240,7 +238,6 @@ export class Physics {
     this.scene.physics.add.collider(this.player, this.scene.ammo, (player, ammo) => {
       // @ts-ignore
       this.scene.laserGroup.magazine[`${weapon}All`] += weaponProperties[weapon].magazine;
-      // if (this.scene.laserGroup.magazine[weapon] === 0) this.scene.reload();
       ammo.destroy();
     });
   }

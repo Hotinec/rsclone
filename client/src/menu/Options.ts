@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { IButton } from '../scenes/BaseScene';
 import { MenuScene } from '../scenes';
 
 export default class OptionsMenu {
@@ -12,7 +13,7 @@ export default class OptionsMenu {
 
   volumeIndicatorsOff: [];
 
-  title: Phaser.GameObjects.Image;
+  title: IButton;
 
   backgroundWidth: number;
 
@@ -34,7 +35,7 @@ export default class OptionsMenu {
 
   englBtn: { on: Phaser.GameObjects.Image; off: Phaser.GameObjects.Image; }
 
-  backBtn: Phaser.GameObjects.Image;
+  backBtn: IButton;
 
   constructor(scene: MenuScene) {
     this.menu = scene;
@@ -57,11 +58,10 @@ export default class OptionsMenu {
 
   createTitle(): void {
     this.title = this.menu.add.image(this.x / 2,
-      this.y * 0.1, 'title');
+      this.y * 0.1, 'title') as IButton;
     // @ts-ignore
-    const { options } = this.menu.currentLang.vacabluary;
+    const { options } = this.menu.currentLang.vocabulary;
 
-    // @ts-ignore
     this.title.textContent = this.menu.make.text(
       {
         x: this.x / 2,
@@ -73,7 +73,6 @@ export default class OptionsMenu {
         },
       },
     );
-    // @ts-ignore
     this.title.textContent.setOrigin(0.5, 0.1).setDepth(2);
   }
 
@@ -97,7 +96,7 @@ export default class OptionsMenu {
     const y = this.y * 0.45;
     const titleX = this.x / 2 - 145;
     // @ts-ignore
-    const { fullScreen } = this.menu.currentLang.vacabluary;
+    const { fullScreen } = this.menu.currentLang.vocabulary;
     const { isFullscreen } = this.menu.scale;
     this.fullScreen = this.menu.add.text(titleX, y, fullScreen, { font: '26px monospace, sans-serif' });
 
@@ -117,7 +116,7 @@ export default class OptionsMenu {
     const y = this.y * 0.55;
     const titleX = this.x / 2 - 145;
     // @ts-ignore
-    const { language } = this.menu.currentLang.vacabluary;
+    const { language } = this.menu.currentLang.vocabulary;
     // @ts-ignore
     const { lang } = this.menu.currentLang;
 
@@ -141,7 +140,7 @@ export default class OptionsMenu {
     const titleX = this.x / 2 - 145;
     const y = this.y * 0.35;
     // @ts-ignore
-    const { volume } = this.menu.currentLang.vacabluary;
+    const { volume } = this.menu.currentLang.vocabulary;
 
     this.volumeTitle = this.menu.add.text(
       titleX,
@@ -180,7 +179,7 @@ export default class OptionsMenu {
     const x = this.x / 2;
     const y = this.y * 0.2 + this.backgroundHeight - 60;
     // @ts-ignore
-    const { back } = this.menu.currentLang.vacabluary;
+    const { back } = this.menu.currentLang.vocabulary;
     this.backBtn = this.menu.createBtn(x, y, back);
   }
 
@@ -279,11 +278,9 @@ export default class OptionsMenu {
 
   removeOptionsMenu(): void {
     this.title.destroy();
-    // @ts-ignore
     this.title.textContent.destroy();
     this.background.destroy();
     this.backBtn.destroy();
-    // @ts-ignore
     this.backBtn.textContent.destroy();
     this.volumeBox.destroy();
     this.fullScreen.destroy();

@@ -1,6 +1,8 @@
-const russian = {
+import { ILanguage } from './ILanguage';
+
+const russian:ILanguage = {
   lang: 'ru',
-  vacabluary: {
+  vocabulary: {
     // main
     newGame: 'Новая игра',
     options: 'Опции',
@@ -34,10 +36,10 @@ const russian = {
     run: 'БЕЖАТЬ',
     weapon: 'ОРУЖИЕ',
     aboutText1: 'Оставайтесь живым как можно дольше для достижения наилучшего результата.',
-    aboutText2: 'Срaжайтесь с врагами и собирайте оружие и здоровье.',
+    aboutText2: 'Срaжайтесь с врагами, собирайте оружие и здоровье.',
     createdBy: 'Разработчики',
     chooseTheme: 'Выберите тему игры',
-    darkTheme: 'Tемная',
+    darkTheme: 'Темная',
     lightTheme: 'Светлая',
     // gameOver
     gameOverState: 'Игра Oкончена',

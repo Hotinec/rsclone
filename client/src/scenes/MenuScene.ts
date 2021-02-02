@@ -92,7 +92,7 @@ export class MenuScene extends BaseScene {
     } = this.options;
     const arr = [backBtn, volumeTitle, fullScreen, language, title];
     // @ts-ignore
-    const { vacabluary } = this.prevLang;
+    const { vocabulary } = this.prevLang;
 
     arr.forEach((el) => {
       let element = el;
@@ -102,14 +102,14 @@ export class MenuScene extends BaseScene {
         element = element.textContent;
       }
 
-      const keys = Object.keys(vacabluary);
+      const keys = Object.keys(vocabulary);
       keys.forEach((key) => {
-        const text = vacabluary[key];
+        const text = vocabulary[key];
         // @ts-ignore
         if (text === element.text) {
           // @ts-ignore
-          const { vacabluary: newVacabulary } = this.currentLang;
-          const newText = newVacabulary[key];
+          const { vocabulary: newVocabulary } = this.currentLang;
+          const newText = newVocabulary[key];
           // @ts-ignore
           element.setText(newText);
         }

@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -33,12 +33,6 @@ export default class GameServer {
           '/',
           express.static(path.join(__dirname, '../', 'client', 'dist'))
         );
-
-        this.server.get('*', (req: Request, res: Response) => {
-          res.sendFile(
-            path.resolve(__dirname, '../', 'client', 'dist', 'index.html')
-          );
-        });
       }
     }
 

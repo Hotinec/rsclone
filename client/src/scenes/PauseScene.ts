@@ -15,22 +15,17 @@ export class PauseScene extends Phaser.Scene {
     this.gameScene = this.scene.get('GameScene');
     this.statusScene = this.scene.get('StatusScene');
     this.menuScene = this.scene.get('MenuScene');
-    // @ts-ignore
-    this.scene.moveAbove('PauseScene', this.statusScene);
+    this.scene.moveAbove('PauseScene', 'StatusScene');
     this.scene.bringToTop();
 
-    // content
     const { width, height } = this.gameScene.game.config;
     const contentHeight = 335;
 
-    // @ts-ignore
-    const background = this.add.renderTexture(0, 0, width, height);
+    const background = this.add.renderTexture(0, 0, Number(width), Number(height));
     background.fill(0x000000, 0.65);
 
-    // @ts-ignore
-    const positionX = this.game.config.width / 2 - 75;
-    // @ts-ignore
-    const positionY = (height - contentHeight) / 2;
+    const positionX = Number(this.game.config.width) / 2 - 75;
+    const positionY = (Number(height) - contentHeight) / 2;
     // @ts-ignore
     const { hp } = this.gameScene.player;
     // @ts-ignore
@@ -42,7 +37,7 @@ export class PauseScene extends Phaser.Scene {
     const {
       timeTitle, scoreTitle, healthTitle, pauseState, finishState, resumeState,
       // @ts-ignore
-    } = this.menuScene.currentLang.vacabluary;
+    } = this.menuScene.currentLang.vocabulary;
 
     const title = this.add.text(positionX, positionY, pauseState, { font: '50px monospace, sans-serif' });
     const time = this.add.text(positionX, title.y + title.displayHeight + 20, `${timeTitle}: ${timeText}`, infoFont);
@@ -51,8 +46,7 @@ export class PauseScene extends Phaser.Scene {
     const resumeBtn = this.add.image(positionX + 80, points.y + 100, 'btn').setInteractive()
       .on('pointerover', () => {
         resumeBtn.tintFill = false;
-        // @ts-ignore
-        resumeBtn.setTint('0xbababa');
+        resumeBtn.setTint(0xbababa);
       })
       .on('pointerout', () => {
         resumeBtn.clearTint();
@@ -72,8 +66,7 @@ export class PauseScene extends Phaser.Scene {
     const finishBtn = this.add.image(positionX + 80, resumeBtn.y + 80, 'btn').setInteractive()
       .on('pointerover', () => {
         finishBtn.tintFill = false;
-        // @ts-ignore
-        finishBtn.setTint('0xbababa');
+        finishBtn.setTint(0xbababa);
       })
       .on('pointerout', () => {
         finishBtn.clearTint();
