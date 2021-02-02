@@ -58,7 +58,7 @@ export default class Score {
       {
         cellWidth: 500,
         cellHeight: 50,
-        cellsCount: this.results.length,
+        cellsCount: this.results.length + 1,
         columns: 1,
         cellVisibleCallback: this.onCellVisible.bind(this),
         clamplTableOXY: false,
