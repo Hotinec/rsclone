@@ -179,6 +179,19 @@ export class Physics {
         x += 200;
       }
     }
+
+    this._checkBorders(zombies);
+  }
+
+  _checkBorders(zombies: Phaser.Physics.Arcade.Group): void {
+    const mapWidth = this.map.widthInPixels;
+    const mapHeight = this.map.heightInPixels;
+    zombies.getChildren().forEach((zombie: Zombie) => {
+      const { x, y } = zombie;
+      if (x < 0 || y < 0 || x > mapWidth || y > mapHeight) {
+        zombie.destroy();
+      }
+    });
   }
 
   _showWeapon(zombie: Zombie, weapon: string): void {
