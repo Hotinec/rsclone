@@ -51,7 +51,7 @@ export class MenuScene extends BaseScene {
   preload(): void {
     this.load.audio('theme', theme);
     this.load.audio('intro', intro);
-    this.load.video('background', background);
+    this.load.video('background', background, 'loadeddata', false, true);
     this.load.image('logo', logo);
     this.load.image('scull', scull);
     this.load.image('title', titleImg);
