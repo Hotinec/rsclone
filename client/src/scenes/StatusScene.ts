@@ -41,6 +41,8 @@ export class StatusScene extends Phaser.Scene {
 
   timeText: Phaser.GameObjects.Text;
 
+  keyEsc:Phaser.Input.Keyboard.Key;
+
   // eslint-disable-next-line @typescript-eslint/ban-types
   onClockEvent: Function | undefined;
 
@@ -86,6 +88,7 @@ export class StatusScene extends Phaser.Scene {
     this.createAmmoView();
     this.createTimeView();
     this.createPauseBtn();
+    this.createEscKey();
   }
 
   setMeterPercentage(hp = 10): void {
@@ -244,5 +247,14 @@ export class StatusScene extends Phaser.Scene {
       this.updateScore();
     }
     this.updateTime();
+  }
+
+  createEscKey(): void {
+    this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+    this.keyEsc.on('down', () => {
+      this.gameScene.scene.pause();
+      this.scene.pause();
+      this.scene.launch('PauseScene');
+    });
   }
 }
