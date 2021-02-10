@@ -16,7 +16,6 @@ export class DarkMode {
     layer2.setPipeline('Light2D');
     scene.lights.enable().setAmbientColor(0x111111);
     const spotlight = scene.lights.addLight(400, 300, 128).setIntensity(3);
-    scene.lights.addLight(400, 300, 128).setIntensity(3);
     scene.input.on('pointermove', (pointer: IPointer) => {
       spotlight.x = pointer.worldX;
       spotlight.y = pointer.worldY;
