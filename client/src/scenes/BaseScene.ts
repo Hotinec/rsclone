@@ -84,11 +84,19 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   createBG(): void {
-    const { width, height } = this.game.config;
+    const { width, height } = this.sys.game.config;
+    const widthNum = Number(width);
+    const heightNum = Number(height);
+    const distortedRatio = widthNum / heightNum > 1.8;
+
     const video:Phaser.GameObjects.Video = this.add.video(-20, -20, 'background');
     video.setOrigin(0, 0);
-    video.setDisplaySize(Number(width) + 40, Number(height) + 40);
-    video.scaleX = video.scaleY;
+    video.setDisplaySize(widthNum + 40, heightNum + 30);
+    if (distortedRatio) {
+      video.scaleY = video.scaleX;
+    } else {
+      video.scaleX = video.scaleY;
+    }
     video.play(true);
     video.setPaused(false);
   }
