@@ -1,0 +1,249 @@
+{
+    "anims": [
+        {
+            "key": "knife_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_0"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_1"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_2"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_3"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_4"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_5"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_6"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_7"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_8"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_9"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_10"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_11"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_12"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_13"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_14"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_15"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_16"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_17"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_18"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-idle_knife_19"
+                }
+            ]
+        },
+        {
+            "key": "knife_move",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 22,
+            "frames": [
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_0"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_1"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_2"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_3"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_4"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_5"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_6"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_7"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_8"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_9"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_10"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_11"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_12"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_13"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_14"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_15"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_16"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_17"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_18"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-move_knife_19"
+                }
+            ]
+        },
+        {
+            "key": "knife_attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 18,
+            "duration": 50,
+            "frames": [
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_0"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_1"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_2"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_3"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_4"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_5"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_6"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_7"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_8"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_9"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_10"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_11"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_12"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_13"
+                },
+                {
+                    "key": "knife",
+                    "frame": "survivor-meleeattack_knife_14"
+                }
+            ]
+        }
+    ]
+}

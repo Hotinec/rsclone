@@ -1,0 +1,364 @@
+{
+    "anims": [
+        {
+            "key": "zombie_2_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0000"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0001"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0002"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0003"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0004"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0005"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0006"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0007"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0008"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0009"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0010"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0011"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0012"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0013"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0014"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0015"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0016"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0017"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0018"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0019"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0020"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0021"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0022"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0023"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0024"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0025"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0026"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0027"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0028"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0029"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0030"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "idle0031"
+                }
+            ]
+        },
+        {
+            "key": "zombie_2_move",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 22,
+            "frames": [
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0000"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0001"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0002"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0003"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0004"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0005"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0006"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0007"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0008"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0009"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0010"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0011"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0012"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0013"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0014"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0015"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0016"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0017"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0018"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0019"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0020"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0021"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0022"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0023"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0024"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0025"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0026"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0027"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0028"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0029"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0030"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "walk0031"
+                }
+            ]
+        },
+        {
+            "key": "zombie_2_attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 18,
+            "frames": [
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0000"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0001"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0002"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0003"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0004"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0005"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0006"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0007"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0008"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0009"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0010"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0011"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0012"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0013"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0014"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0015"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0016"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0017"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0018"
+                },
+                {
+                    "key": "zombie_2",
+                    "frame": "attack03_0019"
+                }
+            ]
+        }
+    ]
+}
